@@ -24,7 +24,7 @@ const drawerWidth = 240;
 
 
 
-export default function Sidebar(props) {
+export default function Sidebar2(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);

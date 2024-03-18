@@ -1,14 +1,24 @@
-import { Box, Button, TextField } from '@mui/material'
-import React, { useState } from 'react'
-
+import { Box, Button, InputLabel, ListItem, ListItemIcon, TextField,Typography,styled } from '@mui/material'
+import React, {useState } from 'react'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Link } from 'react-router-dom';
+const CustomInput = styled(TextField)(({ theme }) => ({
+  border:"1px solid #232321", borderRadius:"10px",width:'100%',
+  [theme.breakpoints.down("xl")]: {},
+  [theme.breakpoints.down("lg")]: {},
+  [theme.breakpoints.down("md")]: {},
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("xs")]: {},
+}));
 
 
 function Addproduct() {
   const [productname, setProductname]=useState('');
+  const [errorProductname, setErrorProductname]=useState('');
   const [sku, setSku]=useState('')
   const [batchnumber, setBatchnumber]=useState('');
-  const [image, setImage]=useState('');
-  const [Countryorigin, setCountryorign]=useState('');
+  const [images, setImages]=useState([]);
+  const [countryorigin, setCountryorign]=useState('');
   const [inventory, setInventory]=useState('');
   const [description, setDescription]=useState('');
   const [tag,setTag]=useState('');
@@ -16,19 +26,23 @@ function Addproduct() {
   const [saleprice,setSaleprice]=useState('');
   const [brand,setBrand]=useState('');
   const [categories,setCategories]=useState('');
-  const [productnameError,setProductnameError]=useState('');
 
   const handleProductname=(e)=>{
-    setProductname(e.target.value)
-  }
+    const value=e.target.value;
+    const isValid = /^[a-zA-Z0-9\s]*$/.test(value);
+    if (isValid || value === ''){
+      setProductname(value);
+      setErrorProductname('');
+    }else{
+      setErrorProductname('please enter only alphanumeric character')
+    }
+  };
   const handleSku=(e)=>{
     setSku(e.target.value)
   }
   const handleBatchnumber=(e)=>{
     setBatchnumber(e.target.value)
-  }
-  const handleImage=(e)=>{
-    setImage(e.target.value)
+    console.log(e.target.value)
   }
   const handleCountryorigin=(e)=>{
     setCountryorign(e.target.value)
@@ -54,28 +68,84 @@ function Addproduct() {
   const handleCategories=(e)=>{
     setCategories(e.target.value)
   }
-  const handlesubmit=()=>{
+  const handleImages = (e) => {
+    const files = e.target.files;
+    const fileArray = Array.from(files).map((file) => ({
+      imageData: URL.createObjectURL(file),
+      imageId: 'type', // You can assign a specific image ID or use file name, etc.
+    }));
+    setImages((prevImages) => prevImages.concat(fileArray));
+  };
+  
+  
+  const handlesubmit=(e)=>{
+    e.preventDefault();
     let data={
-      productname, sku, batchnumber, image, Countryorigin, inventory, description, tag, price, brand, categories,saleprice
-    }
+      productname:productname.trim(),
+      batchnumber:batchnumber.trim(), 
+      sku:sku.trim(), 
+      countryorigin:countryorigin.trim(), 
+      inventory:inventory.trim(), 
+      description:description.trim(), 
+      tag:tag.trim(), 
+      price:price.trim(), 
+      brand:brand.trim(), 
+      categories:categories.trim(),
+      saleprice:saleprice.trim(),
+      images: images,
+      
+    };
+   
+  
     console.log(data)
   }
+
   return (
-    <Box display="flex" flexDirection="column">Addproduct
-    <TextField placeholder="Productname" value={productname} id="outlined-basic" label="Outlined" variant="outlined" onChange={handleProductname} error={!!productnameError}
-        helperText={productnameError} required />
-    <TextField placeholder="Sku" value={sku} id="filled-basic" label="Filled" variant="filled" onChange={handleSku} />
-    <TextField placeholder="Batchnumber" value={batchnumber} type="number" id="standard-basic" label="Standard" variant="standard" onChange={handleBatchnumber} />
-    <TextField placeholder="Image" value={image} type="file" id="standard-basic" label="Standard" variant="standard" onChange={handleImage} />
-    <TextField placeholder="Country origin" value={Countryorigin} id="standard-basic" label="Standard" variant="standard" onChange={handleCountryorigin} />
-    <TextField placeholder="Inventory" value={inventory} type="number" id="standard-basic" label="Standard" variant="standard"  onChange={handleInventory}/>
-    <TextField placeholder="Description" value={description} id="standard-basic" label="Standard" variant="standard" onChange={handleDescription} />
-    <TextField placeholder="Tag" value={tag} id="standard-basic" label="Standard" variant="standard" onChange={handleTag} />
-    <TextField placeholder="Price" value={price} type="number" id="standard-basic" label="Standard" variant="standard" onChange={handlePrice} />
-    <TextField placeholder="Saleprice" value={saleprice} type="number" id="standard-basic" label="Standard" variant="standard" onChange={handleSaleprice} />
-    <TextField placeholder="Brand name" value={brand} id="standard-basic" label="Standard" variant="standard" onChange={handleBrandname} />
-    <TextField placeholder="Categories"  value={categories} id="standard-basic" label="Standard" variant="standard" onChange={handleCategories} />
-    <Button variant="text" onClick={handlesubmit}>Submit</Button>
+    <Box sx={{display:'flex',flexDirection:'column', margin:'0px 10%'}}  >
+      <Box display="flex" gap="10px" justifyContent="space-between">
+        <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:'20px'}}>ADD NEW PRODUCT </Typography></Box>
+        <Box display="flex" gap="20px">
+          <Link to="/addproduct" style={{backgroundColor:"#0D2768" ,color:"#ffffff", borderRadius:"10px", textDecoration:"none" }}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#ffffff'}}/></ListItemIcon>SINGLE PRODUCT UPLOAD</ListItem></Link>
+          <Link to="/bulkproduct" style={{color:'#0C2262', border:'1px solid #0C2262',padding:'0px 10px', borderRadius:'10px', textDecoration:'none'}}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#0C2262'}} /></ListItemIcon >BULK UPLOAD</ListItem></Link>
+        </Box>
+      </Box>
+    <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Product Name</InputLabel>
+    <CustomInput placeholder="Productname" value={productname} id="outlined-basic"  variant="outlined" onChange={handleProductname} error={Boolean(errorProductname)} helperText={errorProductname} required />
+    <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Batch Number</InputLabel>
+    <CustomInput placeholder="Batchnumber" value={batchnumber}  id="standard-basic"  variant="outlined" onChange={handleBatchnumber} />
+    <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Country Origin</InputLabel>
+    <CustomInput placeholder="Country origin" value={countryorigin} id="standard-basic"  variant="outlined" onChange={handleCountryorigin} />
+    <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Description</InputLabel>
+    <CustomInput placeholder="Description" value={description} id="standard-basic"  variant="outlined" onChange={handleDescription} />
+    <Box display="flex" gap='10px'>
+      <Box width='100%'><InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Sku</InputLabel>
+    <CustomInput placeholder="Sku" value={sku} id="filled-basic" variant="outlined" onChange={handleSku} /></Box>
+      <Box width='100%'>
+      <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Inventory</InputLabel>
+    <CustomInput placeholder="Inventory" value={inventory} type="text" id="standard-basic"  variant="outlined"  onChange={handleInventory}/>
+      </Box>
+    </Box>
+    <Box display="flex" gap="10px">
+      <Box width='100%'>
+        <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Price</InputLabel>
+        <CustomInput placeholder="Price" value={price} type="text" id="standard-basic"  variant="outlined" onChange={handlePrice} /></Box>
+      <Box width='100%'>
+        <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Sale Price</InputLabel>
+        <CustomInput placeholder="Saleprice" value={saleprice} type="text" id="standard-basic"  variant="outlined" onChange={handleSaleprice} /></Box>
+    </Box>
+    <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Tag</InputLabel>
+    <CustomInput placeholder="Tag" value={tag} id="standard-basic"  variant="outlined" onChange={handleTag} />
+    <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Brand Name</InputLabel>
+    <CustomInput placeholder="Brand name" value={brand} id="standard-basic"  variant="outlined" onChange={handleBrandname} />
+    <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Categories</InputLabel>
+    <CustomInput placeholder="Categories"  value={categories} id="standard-basic"  variant="outlined" onChange={handleCategories} />
+    <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Image</InputLabel>
+    <CustomInput type="file" multiple id="standard-basic" variant="outlined" onChange={handleImages} /><br />
+    
+    <Button variant="text" onClick={handlesubmit} sx={{color:'#fff', backgroundColor:'#124BF2', '&:hover':{
+      color:'#fff', backgroundColor:'#124BF2',
+    }}}>Update</Button>
+    <br/><br/>
     </Box>
   )
 }

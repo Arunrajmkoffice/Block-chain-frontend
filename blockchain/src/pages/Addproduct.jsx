@@ -42,7 +42,6 @@ function Addproduct() {
   }
   const handleBatchnumber=(e)=>{
     setBatchnumber(e.target.value)
-    console.log(e.target.value)
   }
   const handleCountryorigin=(e)=>{
     setCountryorign(e.target.value)
@@ -78,27 +77,43 @@ function Addproduct() {
   };
   
   
-  const handlesubmit=(e)=>{
+  const handlesubmit = async (e) => {
     e.preventDefault();
-    let data={
-      productname:productname.trim(),
-      batchnumber:batchnumber.trim(), 
-      sku:sku.trim(), 
-      countryorigin:countryorigin.trim(), 
-      inventory:inventory.trim(), 
-      description:description.trim(), 
-      tag:tag.trim(), 
-      price:price.trim(), 
-      brand:brand.trim(), 
-      categories:categories.trim(),
-      saleprice:saleprice.trim(),
-      images: images,
-      
+    const token = localStorage.getItem('bcToken');
+    const productData = {
+      product: productname.trim(),
+      branchNumber: batchnumber.trim(),
+      sku: sku.trim(),
+      countryOfOrigin: countryorigin.trim(),
+      inventory: inventory.trim(),
+      description: description.trim(),
+      tag: tag.trim(),
+      price: price.trim(),
+      brand: brand.trim(),
+      category: categories.trim(),
+      salesPrice: saleprice.trim(),
+      image: images,
     };
-   
   
-    console.log(data)
-  }
+    try {
+      const response = await fetch('https://courageous-cow-life-jacket.cyclic.app/product', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(productData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to add product');
+      }
+      console.log('Product added successfully');
+    } catch (error) {
+      console.error('Error adding product:', error.message);
+    }
+  };
+  
 
   return (
     <Box sx={{display:'flex',flexDirection:'column', margin:'0px 10%'}}  >

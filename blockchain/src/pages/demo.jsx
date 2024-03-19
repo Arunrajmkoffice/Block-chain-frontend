@@ -1,37 +1,35 @@
-import React, { useEffect } from 'react'
+const handlesubmit = async (e) => {
+  e.preventDefault();
 
-function demo() {
-  const [productData, setProductData] = ([]);
-  let token = localStorage.getItem('bcToken')
-  useEffect(()=>{
-    const fetchData = async () =>{
-      try{
-        const response = await fetch ('f',{
-          headers:{
-            'Authorization':`Bearer ${token}`
-          }
-        });
-        const data=await response.json();
-        setProductData(data);
-      }
-      catch (error){
+  let data = {
+    productname: productname.trim(),
+    batchnumber: batchnumber.trim(),
+    sku: sku.trim(),
+    countryorigin: countryorigin.trim(),
+    inventory: inventory.trim(),
+    description: description.trim(),
+    tag: tag.trim(),
+    price: price.trim(),
+    brand: brand.trim(),
+    categories: categories.trim(),
+    saleprice: saleprice.trim(),
+    images: images,
+  };
 
-      }
-    };
-    fetchData();
-  },[])
-  return (
-    <div>
-      {
-        productData?.products?.map((product,index)=>(
-          <div key={index}>
-            <h2>{product.product}</h2>
-            <p>price</p>
-          </div>
-        ))
-      }
-    </div>
-  )
-}
+  try {
+    const response = await fetch('https://courageous-cow-life-jacket.cyclic.app/product', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
 
-export default demo
+    if (!response.ok) {
+      throw new Error('Failed to add product');
+    }
+    console.log('Product added successfully');
+  } catch (error) {
+    console.error('Error adding product:', error.message);
+  }
+};

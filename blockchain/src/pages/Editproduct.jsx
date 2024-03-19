@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 
 function Editproduct() {
@@ -25,25 +26,33 @@ function Editproduct() {
   }, []);
 
   return (
-    <div>
+    <Box sx={{margin:'10px',display:'flex', flexDirection:'column', gap:'10px',  textAlign:'left'}}>
       {productData?.products?.map((product, index) => (
-        <div key={index}>
-          <h2>{product.product}</h2>
-          <p>Price: ${product.price}</p>
-          <p>SKU: {product.sku}</p>
-          <p>Branch Number: {product.branchNumber}</p>
-          <p>Country of Origin: {product.countryOfOrigin}</p>
-          <p>Inventory: {product.inventory}</p>
-          <p>Description: {product.description}</p>
-          <p>Tag: {product.tag}</p>
-          <p>Brand: {product.brand}</p>
-          <p>Category: {product.category}</p>
-          <p>Sales Price: ${product.salesPrice}</p>
-          <img src={`https://courageous-cow-life-jacket.cyclic.app/${product.image[0].imageData}`} alt="Product" />
-
-        </div>
+        <Box key={index}>
+        <Box sx={{border: '1px solid #95AAAD36',}}>
+        <Box sx={{display:'flex', justifyContent:'space-between', width:'100%', textAlign:'left'}}>
+        <Box sx={{display:'flex', justifyContent:'space-between', gap:'10x', width:'20%', border:'1px solid #95AAAD36',textAlign:"left"}}>
+          <Box sx={{textAlign:"left"}}><img src={`https://courageous-cow-life-jacket.cyclic.app/${product.image[0].imageData}`} alt="Product" /></Box>
+          <Box sx={{textAlign:"left"}} ><Typography sx={{textAlign:"left"}}>{product.product}</Typography></Box>
+        </Box> 
+        <Box sx={{width:'20%', }}><Typography>SKU: {product.sku}</Typography>
+        <Typography>Category: {product.category}</Typography>
+        <Typography>Tag: {product.tag}</Typography>
+        </Box>
+        <Box sx={{}}>
+        <Typography>Price: ${product.price}</Typography>
+        <Typography>Sales Price: ${product.salesPrice}</Typography>
+        <Typography>Inventory: {product.inventory}</Typography>
+        </Box>
+        <Box width= '20%'> <Typography>Branch Number: {product.branchNumber}</Typography>
+          <Typography>Country of Origin: {product.countryOfOrigin}</Typography></Box>
+        <Box width= '20%'><Typography>Description: {product.description}</Typography>
+          <Typography>Brand: {product.brand}</Typography></Box>
+        </Box>
+        </Box>
+        </Box>
       ))}
-    </div>
+    </Box>
   );
 }
 

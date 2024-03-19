@@ -42,6 +42,8 @@ function Bulkproduct() {
         ))}
       </ul>
     </Box>
+    <Typography>Import products from a CSV file</Typography>
+    <Typography>This too allows you important (or merge) product data to </Typography>
   </Box>
   )
 }

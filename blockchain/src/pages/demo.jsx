@@ -1,37 +1,37 @@
-import React, { useState } from 'react';
-import CSVReader from 'react-csv-reader';
+import React, { useEffect } from 'react'
 
-const ProductImporter = () => {
-  const [importedProducts, setImportedProducts] = useState([]);
+function demo() {
+  const [productData, setProductData] = ([]);
+  let token = localStorage.getItem('bcToken')
+  useEffect(()=>{
+    const fetchData = async () =>{
+      try{
+        const response = await fetch ('f',{
+          headers:{
+            'Authorization':`Bearer ${token}`
+          }
+        });
+        const data=await response.json();
+        setProductData(data);
+      }
+      catch (error){
 
-  const handleCSVUpload = (data) => {
-    const headers = data[0];
-    const productData = data.slice(1);
-    const products = productData.map(row => {
-      let product = {};
-      headers.forEach((header, index) => {
-        product[header] = row[index];
-      });
-      return product;
-    });
-    setImportedProducts(products);
-  };
-
+      }
+    };
+    fetchData();
+  },[])
   return (
     <div>
-      <h1>Product Importer</h1>
-      <CSVReader
-        onFileLoaded={handleCSVUpload}
-        parserOptions={{ header: true }}
-      />
-      <h2>Imported Products</h2>
-      <ul>
-        {importedProducts.map((product, index) => (
-          <li key={index}>{JSON.stringify(product)}</li>
-        ))}
-      </ul>
+      {
+        productData?.products?.map((product,index)=>(
+          <div key={index}>
+            <h2>{product.product}</h2>
+            <p>price</p>
+          </div>
+        ))
+      }
     </div>
-  );
-};
+  )
+}
 
-export default ProductImporter;
+export default demo

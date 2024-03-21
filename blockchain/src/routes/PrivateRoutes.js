@@ -7,6 +7,7 @@ import Sidebar2 from '../pages/Sidebar2'
 import Bulkproduct from '../pages/Bulkproduct'
 import Editproduct from '../pages/Editproduct'
 import Demo from '../pages/demo'
+import Updateproductpage from '../pages/Updateproductpage'
 
 
 
@@ -20,6 +21,7 @@ function PrivateRoutes() {
       <Route path='/sidebar' element={<Sidebar2/>}/>
       <Route path='/bulkproduct' element={<Bulkproduct/>}/>
       <Route path='/edit' element={<Editproduct/>}/>
+      <Route path='edit/:id' element={<Updateproductpage/>}/>
       <Route path='/demo' element={<Demo/>}/>
     </Routes>
   )

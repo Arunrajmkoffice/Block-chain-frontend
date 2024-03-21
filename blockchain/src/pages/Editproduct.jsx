@@ -1,4 +1,4 @@
-import { AppBar, Box, Checkbox, FormControlLabel, ListItem, ListItemIcon, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Checkbox, FormControlLabel, IconButton, Link, ListItem, ListItemIcon, Toolbar, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -70,6 +70,26 @@ function Editproduct() {
     fetchData();
   }, []);
 
+  const handleDelete = async (productId) => {
+    try {
+      const response = await fetch(`https://wide-eyed-pear-meerkat.cyclic.app/product/${productId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response) {
+       
+        console.log('Product deleted successfully',response);
+      } else {
+        console.error('Failed to delete product');
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
+
   return (<>
      <Box sx={{margin:'0px',display:'flex', flexDirection:'column', gap:'20px',width:'100%'}}>
       <Box sx={{backgroundColor:'#124BF2',width:'100%'}}>
@@ -121,12 +141,18 @@ function Editproduct() {
         <Box sx={{width:'2%', borderRight:'1px solid #95AAAD36', padding:'10px 20px', backgroundColor:'#124BF2',WebkitBorderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', justifyContent:'space-between'}}>
           <ListItem>
             <ListItemIcon>
+              <Link href={`edit/${product._id}`}>
               <BorderColorIcon sx={{color:'#ffffff'}}/>
+              </Link>
             </ListItemIcon>
           </ListItem>
           <ListItem>
             <ListItemIcon>
+              <Box>
+                <IconButton onClick={() => handleDelete(product._id)}>
               <DeleteIcon sx={{color:'#ffffff'}}/>
+              </IconButton>
+              </Box>
             </ListItemIcon>
           </ListItem>
         </Box>

@@ -6,7 +6,7 @@ function MainRoute() {
   const token = localStorage.getItem('bcToken');
   return (
     <>
-      { token ? <PrivateRoutes/>:
+      { true ? <PrivateRoutes/>:
       <PublicRoutes/> 
       }    
     </>

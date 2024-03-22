@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { siginAuth } from '../redux/auth/action';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
 import b2 from '../images/b2.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Signin() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [email,setEmail]=useState("");
     const [password, setPassword]=useState("");
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const data = useSelector((store)=>store.auth.siginAuth);
+    console.log("datasigin",data);
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
@@ -47,6 +50,7 @@ const handleSubmit =()=>{
         email,
         password
      }
+   
      if (!emailError) {
         console.log('Submitting email:', email);
       }
@@ -56,6 +60,15 @@ const handleSubmit =()=>{
         dispatch(siginAuth(data))
     console.log(email, password )
 }
+
+
+useEffect(()=>{
+if(Object.keys(data).length>0){
+navigate('/')
+window.location.reload()
+}
+},[data])
+
 
   return (
     <Box sx={{backgroundColor:'#fff', width:'100%', height:'100%'}}>

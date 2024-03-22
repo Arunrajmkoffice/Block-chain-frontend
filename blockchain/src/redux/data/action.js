@@ -51,7 +51,7 @@ export const addproductData=(data)=>(dispatch)=>{
     dispatch(addproductDataRequest())
     return axios({
         method:"POST",
-        url:"https://wide-eyed-pear-meerkat.cyclic.app/product",
+        url:"http://3.6.93.117:9090/product",
         data
 
     })
@@ -67,7 +67,7 @@ export const getproductdata =(data,token)=>(dispatch)=>{
     dispatch(getproductdatarequest)
     return axios({
         method:"GET",
-        url:"https://courageous-cow-life-jacket.cyclic.app/product",
+        url:"http://3.6.93.117:9090/product",
        params:data,
         headers: {
             Authorization:`Bearer ${token}` 

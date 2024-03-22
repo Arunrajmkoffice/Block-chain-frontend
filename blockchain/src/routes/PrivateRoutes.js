@@ -8,6 +8,7 @@ import Bulkproduct from '../pages/Bulkproduct'
 import Editproduct from '../pages/Editproduct'
 import Demo from '../pages/demo'
 import Updateproductpage from '../pages/Updateproductpage'
+import Productpage from '../pages/Productpage'
 
 
 
@@ -15,14 +16,15 @@ import Updateproductpage from '../pages/Updateproductpage'
 function PrivateRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard/>}/>
+      <Route path="/sidebar" element={<Dashboard/>}/>
       <Route path="/addproduct" element={<ProductForm/>}/>
       <Route path='/productdata' element={<Productdata/>}/>
-      <Route path='/sidebar' element={<Sidebar2/>}/>
+      <Route path='/' element={<Sidebar2/>}/>
       <Route path='/bulkproduct' element={<Bulkproduct/>}/>
       <Route path='/edit' element={<Editproduct/>}/>
       <Route path='edit/:id' element={<Updateproductpage/>}/>
       <Route path='/demo' element={<Demo/>}/>
+      <Route path='productpage/:id' element={<Productpage/>}/>
     </Routes>
   )
 }

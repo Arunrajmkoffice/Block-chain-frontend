@@ -19,6 +19,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Addproduct from './Addproduct';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -49,30 +50,37 @@ export default function Sidebar2(props) {
       <Toolbar />
       <Divider />
       <List>
+      <Link href="/">
         <ListItem disablePadding>
             <ListItemIcon>
                 <HomeIcon/>
             </ListItemIcon>
+            
             <ListItemText primary="Dashboard"/>
         </ListItem>
+        </Link>
       </List>
       <Divider />
       <List>
+        <Link href="/edit">
         <ListItem disablePadding>
             <ListItemIcon>
                 <ArchiveIcon/>
             </ListItemIcon>
             <ListItemText primary="All Products"/>
         </ListItem>
+        </Link>
       </List>
       <Divider/>
       <List>
+        <Link href="/addproduct">
         <ListItem disablePadding>
             <ListItemIcon>
                 <CategoryIcon/>
             </ListItemIcon>
             <ListItemText primary="Add Product"/>
         </ListItem>
+        </Link>
       </List>
     </div>
   );

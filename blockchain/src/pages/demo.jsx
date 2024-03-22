@@ -1,39 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getproductdata } from '../redux/data/action'
-import { Input } from '@mui/material'
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 
-function Productdata() {
-  const dispatch = useDispatch()
-  let token = localStorage.getItem('bcToken')
-  const data = useSelector((store)=>store.data.getproduct)
-  const [search, setSearch] = useState()
-  console.log("data",data)
-useEffect(()=>{
-let data = {
-  search:search
-}
-    dispatch(getproductdata(data,token)) 
 
-},[search])
-   
-    
+
+export default function RowAndColumnSpacing() {
   return (
-    <>
-      <div>Productdata</div>
-      <Input onChange={(e)=>setSearch(e.target.value)} />
-      {data?.products?.map(product => (
-        <div key={product._id}>
-          <h3>{product.product}</h3>
-          <p>Brand: {product.brand}</p>
-          <p>Description: {product.description}</p>
-          <p>Price: {product.price}</p>
-        </div>
-      ))}
-    
-    </>
-    
-  )
+    <Box sx={{ width: '100%' }}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 3, sm: 3, md: 3 }}>
+        <Grid item xs={4}>
+          1
+        </Grid>
+        <Grid item xs={4}>
+          2
+        </Grid>
+        <Grid item xs={4}>
+         3
+        </Grid>
+      </Grid>
+    </Box>
+  );
 }
-
-export default Productdata

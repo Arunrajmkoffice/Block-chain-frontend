@@ -36,7 +36,7 @@ export const siginAuth = (data)=>(dispatch)=>{
 dispatch(siginAuthRequest())
     return axios({
         method:"POST",
-        url:"https://wide-eyed-pear-meerkat.cyclic.app/signin",
+        url:"http://3.6.93.117:9090/signin",
         data
     })
     .then((res)=>{

@@ -96,7 +96,7 @@ function Addproduct() {
     };
   
     try {
-      const response = await fetch('https://wide-eyed-pear-meerkat.cyclic.app/product', {
+      const response = await fetch('http://3.6.93.117:9090/product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

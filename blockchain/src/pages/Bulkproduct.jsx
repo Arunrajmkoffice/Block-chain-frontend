@@ -29,21 +29,20 @@ function Bulkproduct() {
         <Link to="/bulkproduct" style={{backgroundColor:"#0D2768" ,color:"#ffffff", borderRadius:"10px", textDecoration:"none" }} ><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#ffffff'}}  /></ListItemIcon >BULK UPLOAD</ListItem></Link>
       </Box>
     </Box>
-    <Box>
-    <h1>Product Importer</h1>
+    <Box sx={{boxShadow: '0px 0px 15.600000381469727px 0px #00000040', width:'80%', height:'300px'}}>
+    <h1>Import product from a CSS file</h1>
+    <Typography>Choice a CSV file from computer</Typography>
       <CSVReader
         onFileLoaded={handleCSVUpload}
         parserOptions={{ header: true }}
       />
-      <h2>Imported Products</h2>
       <ul>
         {importedProducts.map((product, index) => (
           <li key={index}>{JSON.stringify(product)}</li>
         ))}
       </ul>
     </Box>
-    <Typography>Import products from a CSV file</Typography>
-    <Typography>This too allows you important (or merge) product data to </Typography>
+    
   </Box>
   )
 }

@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 
@@ -27,31 +27,81 @@ function Productpage() {
 
   return (
 <>
+<Box sx={{margin:'10px'}}>
+<Box sx={{background:'#124BF2',padding:'30px 0px', borderTopRightRadius:'10px', borderTopLeftRadius:'30px'}}>
+<Typography sx={{color:'#ffffff'}}>USA Vendor</Typography>
+</Box>
   <Box sx={{ width: '100%' }}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 3, sm: 3, md: 3 }}>
-        <Grid sx={{border:'1px solid red'}} item xs={4}>
+        <Grid sx={{textAlign:'left'}} item xs={4}>
         <h3>{products?.product?.product}</h3>
         <Typography>product image</Typography>
         </Grid>
-        <Grid sx={{border:'1px solid red'}} item xs={4}>
-        <Typography sx={{ padding: '10px 0px' }}>Batch Number: {products?.product?.branchNumber}</Typography>
-        <Typography sx={{ padding: '10px 0px' }}>Brand Name: {products?.product?.brand}</Typography>
-        <Typography sx={{ padding: '10px 0px' }}>Categories: {products?.product?.category}</Typography>
-        <Typography sx={{ padding: '10px 0px' }}>Country origin: {products?.product?.countryOfOrigin}</Typography>
-        <Typography sx={{ padding: '10px 0px' }}>Description:{products?.product?.description}</Typography>
+        <Grid sx={{borderRight:'1px solid #1A316C94', textAlign:'left'}} item xs={4}>
+        <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell sx={{width:'28%', border:'none',color:'#1A316C94',fontWeight:'600' }}>Batch Number</TableCell>
+            <TableCell sx={{width:'2%', border:'none'}}>:</TableCell>
+            <TableCell sx={{width:'70%', border:'none'}}>{products?.product?.branchNumber}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell sx={{width:'28%', border:'none',color:'#1A316C94',fontWeight:'600'}}>Brand Name</TableCell>
+            <TableCell sx={{width:'2%', border:'none'}}>:</TableCell>
+            <TableCell sx={{width:'70%', border:'none'}}>{products?.product?.brand}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell sx={{width:'28%', border:'none',color:'#1A316C94',fontWeight:'600'}}>Categories</TableCell>
+            <TableCell sx={{width:'2%', border:'none'}}>:</TableCell>
+            <TableCell sx={{width:'70%', border:'none'}}>{products?.product?.category}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell sx={{width:'28%', border:'none',color:'#1A316C94',fontWeight:'600'}}>Country origin</TableCell>
+            <TableCell sx={{width:'2%', border:'none'}}>:</TableCell>
+            <TableCell sx={{width:'70%', border:'none'}}>{products?.product?.countryOfOrigin}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell sx={{width:'28%', border:'none',color:'#1A316C94',fontWeight:'600'}}>Description</TableCell>
+            <TableCell sx={{width:'2%', border:'none'}}>:</TableCell>
+            <TableCell sx={{width:'70%', border:'none'}}>{products?.product?.description}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
         </Grid>
-        <Grid sx={{border:'1px solid red'}} item xs={4}>
-        <Typography sx={{ padding: '0px 10px', textAlign: 'left' }}>
-          <Typography sx={{ padding: '10px 0px' }}>sku: {products?.product?.sku}</Typography>
-          <Typography sx={{ padding: '10px 0px' }}>Inventory: {products?.product?.inventory}</Typography>
-          <Typography sx={{ padding: '10px 0px' }}>Regular Price: {products?.product?.price}</Typography>
-          <Typography sx={{ padding: '10px 0px' }}>Sale Price: {products?.product?.salesPrice}</Typography>
-          <Typography sx={{ padding: '10px 0px' }}>Tag: {products?.product?.tag}</Typography>
-        </Typography>
+        <Grid sx={{textAlign:'left'}} item xs={4}>
+        <Table>
+        <TableBody sx={{border:'none'}}>
+          <TableRow>
+            <TableCell sx={{width:'28%', border:'none',color:'#1A316C94',fontWeight:'600'}}>sku</TableCell>
+            <TableCell sx={{width:'2%',border:'none'}}>:</TableCell>
+            <TableCell sx={{width:'70%' , border:'none'}}>{products?.product?.sku}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell sx={{width:'28%', border:'none',color:'#1A316C94',fontWeight:'600'}}>Inventory</TableCell>
+            <TableCell sx={{width:'2%', border:'none'}}>:</TableCell>
+            <TableCell sx={{width:'70%', border:'none'}}>{products?.product?.inventory}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell sx={{width:'28%', border:'none',color:'#1A316C94',fontWeight:'600'}}>Regular Price</TableCell>
+            <TableCell sx={{width:'2%' , border:'none'}}>:</TableCell>
+            <TableCell sx={{width:'70%', border:'none'}}>{products?.product?.price}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell sx={{width:'28%' , border:'none',color:'#1A316C94',fontWeight:'600'}}>Sale Price</TableCell>
+            <TableCell sx={{width:'2%', border:'none'}}>:</TableCell>
+            <TableCell sx={{width:'70%', border:'none'}}>{products?.product?.salesPrice}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell sx={{width:'28%', border:'none',color:'#1A316C94',fontWeight:'600'}}>Tag</TableCell>
+            <TableCell sx={{width:'2%', border:'none'}}>:</TableCell>
+            <TableCell sx={{width:'70%', border:'none'}}>{products?.product?.tag}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
         </Grid>
       </Grid>
     </Box>
-
+    </Box>
 </>
 
 

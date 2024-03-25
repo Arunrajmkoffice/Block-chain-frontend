@@ -50,7 +50,7 @@ export default function Sidebar2(props) {
       <Toolbar />
       <Divider />
       <List>
-      <Link href="/">
+      <Link to="/">
         <ListItem disablePadding>
             <ListItemIcon>
                 <HomeIcon/>
@@ -62,7 +62,7 @@ export default function Sidebar2(props) {
       </List>
       <Divider />
       <List>
-        <Link href="/edit">
+        <Link to="/edit">
         <ListItem disablePadding>
             <ListItemIcon>
                 <ArchiveIcon/>
@@ -73,7 +73,7 @@ export default function Sidebar2(props) {
       </List>
       <Divider/>
       <List>
-        <Link href="/addproduct">
+        <Link to="/addproduct">
         <ListItem disablePadding>
             <ListItemIcon>
                 <CategoryIcon/>

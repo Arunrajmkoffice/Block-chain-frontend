@@ -14,7 +14,6 @@ const CustomInput = styled(TextField)(({ theme }) => ({
 
 function Addproduct() {
   const [productname, setProductname]=useState('');
-  const [errorProductname, setErrorProductname]=useState('');
   const [sku, setSku]=useState('')
   const [batchnumber, setBatchnumber]=useState('');
   const [images, setImages]=useState([]);
@@ -28,14 +27,7 @@ function Addproduct() {
   const [categories,setCategories]=useState('');
 
   const handleProductname=(e)=>{
-    const value=e.target.value;
-    const isValid = /^[a-zA-Z0-9\s]*$/.test(value);
-    if (isValid || value === ''){
-      setProductname(value);
-      setErrorProductname('');
-    }else{
-      setErrorProductname('please enter only alphanumeric character')
-    }
+    setProductname=e.target.value;
   };
   const handleSku=(e)=>{
     setSku(e.target.value)
@@ -125,37 +117,37 @@ function Addproduct() {
         </Box>
       </Box>
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Product Name</InputLabel>
-    <CustomInput placeholder="Productname" value={productname} id="outlined-basic"  variant="outlined" onChange={handleProductname} error={Boolean(errorProductname)} helperText={errorProductname} required />
+    <CustomInput placeholder="Productname" value={productname} id="outlined-basic"  variant="outlined" onChange={handleProductname}  required />
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Batch Number</InputLabel>
-    <CustomInput placeholder="Batchnumber" value={batchnumber}  id="standard-basic"  variant="outlined" onChange={handleBatchnumber} />
+    <CustomInput placeholder="Batchnumber" value={batchnumber}  id="standard-basic"  variant="outlined" onChange={handleBatchnumber} required />
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Country Origin</InputLabel>
-    <CustomInput placeholder="Country origin" value={countryorigin} id="standard-basic"  variant="outlined" onChange={handleCountryorigin} />
+    <CustomInput placeholder="Country origin" value={countryorigin} id="standard-basic"  variant="outlined" onChange={handleCountryorigin} required />
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Description</InputLabel>
-    <CustomInput placeholder="Description" value={description} id="standard-basic"  variant="outlined" onChange={handleDescription} />
+    <CustomInput placeholder="Description" value={description} id="standard-basic"  variant="outlined" onChange={handleDescription}required  />
     <Box display="flex" gap='10px'>
       <Box width='100%'><InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Sku</InputLabel>
-    <CustomInput placeholder="Sku" value={sku} id="filled-basic" variant="outlined" onChange={handleSku} /></Box>
+    <CustomInput placeholder="Sku" value={sku} id="filled-basic" variant="outlined" onChange={handleSku} required  /></Box>
       <Box width='100%'>
       <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Inventory</InputLabel>
-    <CustomInput placeholder="Inventory" value={inventory} type="text" id="standard-basic"  variant="outlined"  onChange={handleInventory}/>
+    <CustomInput placeholder="Inventory" value={inventory} type="text" id="standard-basic"  variant="outlined"  onChange={handleInventory} required />
       </Box>
     </Box>
     <Box display="flex" gap="10px">
       <Box width='100%'>
         <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Price</InputLabel>
-        <CustomInput placeholder="Price" value={price} type="text" id="standard-basic"  variant="outlined" onChange={handlePrice} /></Box>
+        <CustomInput placeholder="Price" value={price} type="text" id="standard-basic"  variant="outlined" onChange={handlePrice} required  /></Box>
       <Box width='100%'>
         <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Sale Price</InputLabel>
-        <CustomInput placeholder="Saleprice" value={saleprice} type="text" id="standard-basic"  variant="outlined" onChange={handleSaleprice} /></Box>
+        <CustomInput placeholder="Saleprice" value={saleprice} type="text" id="standard-basic"  variant="outlined" onChange={handleSaleprice} required  /></Box>
     </Box>
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Tag</InputLabel>
-    <CustomInput placeholder="Tag" value={tag} id="standard-basic"  variant="outlined" onChange={handleTag} />
+    <CustomInput placeholder="Tag" value={tag} id="standard-basic"  variant="outlined" onChange={handleTag} required  />
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Brand Name</InputLabel>
-    <CustomInput placeholder="Brand name" value={brand} id="standard-basic"  variant="outlined" onChange={handleBrandname} />
+    <CustomInput placeholder="Brand name" value={brand} id="standard-basic"  variant="outlined" onChange={handleBrandname} required  />
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Categories</InputLabel>
-    <CustomInput placeholder="Categories"  value={categories} id="standard-basic"  variant="outlined" onChange={handleCategories} />
+    <CustomInput placeholder="Categories"  value={categories} id="standard-basic"  variant="outlined" onChange={handleCategories} required  />
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Image</InputLabel>
-    <CustomInput type="file" multiple id="standard-basic" variant="outlined" onChange={handleImages} /><br />
+    <CustomInput type="file" multiple id="standard-basic" variant="outlined" onChange={handleImages} required  /><br />
     
     <Button variant="text" onClick={handlesubmit} sx={{color:'#fff', backgroundColor:'#124BF2', '&:hover':{
       color:'#fff', backgroundColor:'#124BF2',

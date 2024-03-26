@@ -9,6 +9,7 @@ import Editproduct from '../pages/Editproduct'
 import Demo from '../pages/demo'
 import Updateproductpage from '../pages/Updateproductpage'
 import Productpage from '../pages/Productpage'
+import QRScanner from '../pages/QRScanner'
 
 
 
@@ -16,15 +17,16 @@ import Productpage from '../pages/Productpage'
 function PrivateRoutes() {
   return (
     <Routes>
-      <Route path="/sidebar" element={<Dashboard/>}/>
+      <Route path="/" element={<Dashboard/>}/>
       <Route path="/addproduct" element={<ProductForm/>}/>
       <Route path='/productdata' element={<Productdata/>}/>
-      <Route path='/' element={<Sidebar2/>}/>
+      <Route path='/sidebar' element={<Sidebar2/>}/>
       <Route path='/bulkproduct' element={<Bulkproduct/>}/>
       <Route path='/edit' element={<Editproduct/>}/>
       <Route path='edit/:id' element={<Updateproductpage/>}/>
       <Route path='/demo' element={<Demo/>}/>
       <Route path='productpage/:id' element={<Productpage/>}/>
+      <Route path ='/qrcode' element={<QRScanner/>}/>
     </Routes>
   )
 }

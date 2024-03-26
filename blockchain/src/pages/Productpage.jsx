@@ -1,6 +1,7 @@
 import { Box, Grid, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import QRCode from 'qrcode.react'; // Import QRCode library
 
 function Productpage() {
     const { id } = useParams();
@@ -24,7 +25,8 @@ function Productpage() {
         };
         fetchData();
     },[])
-
+  // Generate the QR code content
+  const qrCodeContent = window.location.href;
   return (
 <>
 <Box sx={{margin:'10px'}}>
@@ -35,6 +37,7 @@ function Productpage() {
       <Grid container rowSpacing={1} columnSpacing={{ xs: 3, sm: 3, md: 3 }}>
         <Grid sx={{textAlign:'left'}} item xs={4}>
         <h3>{products?.product?.product}</h3>
+        <QRCode value={qrCodeContent} />
         <Typography>product image</Typography>
         </Grid>
         <Grid sx={{borderRight:'1px solid #1A316C94', textAlign:'left'}} item xs={4}>

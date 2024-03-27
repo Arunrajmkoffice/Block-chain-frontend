@@ -40,7 +40,7 @@ const handlePassword=(e)=>{
     if (!value.trim()) {
         setPasswordError('Password is required');
       } else if (value.length < 6) {
-        setPasswordError('Password must be at least 8 characters long');
+        setPasswordError('Password must be at least 6 characters long');
       } else {
         setPasswordError('');
       }

@@ -36,7 +36,7 @@ export const siginAuth = (data)=>(dispatch)=>{
 dispatch(siginAuthRequest())
     return axios({
         method:"POST",
-        url:"http://3.6.93.117:9090/signin",
+        url:"http://3.6.93.117:9091/signin",
         data
     })
     .then((res)=>{

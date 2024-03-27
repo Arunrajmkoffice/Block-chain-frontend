@@ -54,7 +54,7 @@ function Editproduct() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://3.6.93.117:9090/product', {
+        const response = await fetch('http://3.6.93.117:9091/product', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -73,7 +73,7 @@ function Editproduct() {
 
   const handleDelete = async (productId) => {
     try {
-      const response = await fetch(`http://3.6.93.117:9090/product/${productId}`, {
+      const response = await fetch(`http://3.6.93.117:9091/product/${productId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -122,7 +122,7 @@ function Editproduct() {
         <Box  sx={{border: '1px solid #95AAAD36', display:'flex',width:'100%', justifyContent:'space-between'}}>
         <Box id="main-box-edit" sx={{display:'flex', justifyContent:'space-between', width:'100%', textAlign:'left'}}>
         <Box sx={{display:'flex', justifyContent:'space-between', gap:'10x', width:'20%', border:'1px solid #95AAAD36',textAlign:"left"}}>
-          <Box sx={{textAlign:"left",padding:'10px 20px', justifyContent:'space-between'}}><img src={`http://3.6.93.117:9090/${product.image[0].imageData}`} alt="Product" /></Box>
+          <Box sx={{textAlign:"left",padding:'10px 20px', justifyContent:'space-between'}}><img src={`http://3.6.93.117:9091/${product.image[0].imageData}`} alt="Product" /></Box>
           <Box sx={{textAlign:"left",padding:'10px 20px', justifyContent:'space-between'}} ><Typography sx={{textAlign:"left"}}>{product.product}</Typography></Box>
         </Box> 
         <Box sx={{width:'20%', borderRight:'1px solid #95AAAD36', padding:'10px 20px', justifyContent:'space-between'}}><Typography>SKU: {product.sku}</Typography>

@@ -34,7 +34,7 @@ function Updateproductpage() {
 useEffect(()=>{
     const fetchData = async ()=>{
         try{
-            const response =await fetch(`http://3.6.93.117:9090/product/${id}`,{
+            const response =await fetch(`http://3.6.93.117:9091/product/${id}`,{
                 headers:{
                     'Authorization':`Bearer ${token}`
                 }

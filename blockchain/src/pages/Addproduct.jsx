@@ -117,7 +117,7 @@ function Addproduct() {
     console.log("data",productData)
   
     try {
-      const response = await fetch('http://3.6.93.117:9090/product', {
+      const response = await fetch('http://3.6.93.117:9091/product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

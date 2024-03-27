@@ -23,9 +23,7 @@ function Productpage() {
       newPath.push('Medorna office', 'IGO office');
     } else if (destination === 'amazon') {
       newPath.push('Medorna office', 'Amazon office','Buyer');
-    } else if (destination === 'buyer') {
-      newPath.push('Medorna office', 'IGO office', 'Amazon office', 'Buyer');
-    }
+    } 
     
     setCurrentPath(newPath);
   };
@@ -40,7 +38,7 @@ function Productpage() {
                 });
                 const data =await response.json();
                 setProducts(data);
-                console.log('data', data)
+                console.log('datas', data)
             }catch (error){
                 console.error('error:',error)
             }
@@ -62,26 +60,18 @@ function Productpage() {
 <>
 <Box sx={{margin:'10px'}}>
   <Box sx={{backgroundColor:'#124BF2', padding:'10px 0px'}}>
-<Box style={{ display: 'flex', justifyContent: 'space-between', width: '800px', position: 'relative', marginLeft:'22%' }}>
-      <Box style={{ width: '100px', height: '100px', borderRadius: '50%', backgroundColor: 'gray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Button style={{ background: 'none', border: 'none', color: 'black', cursor: 'pointer' }} onClick={() => updateDestination('usa')}>USA</Button>
+  {products?.product?.tracking.map((track, index) => (
+  <Box sx={{ display: 'flex', alignItems: 'center'}}>
+        <Box sx={{ margin: '0 10px' }}>{track.productAt}</Box>
+        <Box
+          sx={{
+            flexGrow: '1',
+            borderTop: `1px solid ${track.complete ? 'red' : 'black'}` 
+          }}
+        >
+        </Box>
       </Box>
-      <Box style={{ width: '100px', height: '100px', borderRadius: '50%', backgroundColor: 'gray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Button style={{ background: 'none', border: 'none', color: 'black', cursor: 'pointer' }} onClick={() => updateDestination('medorna')}>Medorna</Button>
-      </Box>
-      <Box style={{ width: '100px', height: '100px', borderRadius: '50%', backgroundColor: 'gray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Button style={{ background: 'none', border: 'none', color: 'black', cursor: 'pointer' }} onClick={() => updateDestination('igo')}>IGO</Button>
-      </Box>
-      <Box style={{ width: '100px', height: '100px', borderRadius: '50%', backgroundColor: 'gray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Button style={{ background: 'none', border: 'none', color: 'black', cursor: 'pointer' }} onClick={() => updateDestination('amazon')}>Amazon</Button>
-      </Box>
-      <Box style={{ width: '100px', height: '100px', borderRadius: '50%', backgroundColor: 'gray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Button style={{ background: 'none', border: 'none', color: 'black', cursor: 'pointer' }} onClick={() => updateDestination('buyer')}>Buyer</Button>
-      </Box>
-      {currentPath.map((step, index) => (
-        <Box key={index} style={{ position: 'absolute', width: '50px', height: '2px', backgroundColor: 'red', top: '50px', left: `${115 + (index * 176)}px` }}></Box>
       ))}
-  </Box>
   </Box>
   <Box sx={{ width: '100%' }}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 3, sm: 3, md: 3 }}>
@@ -155,6 +145,13 @@ function Productpage() {
       </Grid>
     </Box>
     </Box>
+    {products?.product?.tracking.map((track, index) => (
+    <div key={index}>
+        <p>Complete: {String(track.complete)}</p>
+        <p>productat: {String(track.productAt)}</p>
+    </div>
+))}
+
 </>
 
 

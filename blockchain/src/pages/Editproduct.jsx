@@ -158,7 +158,7 @@ function Editproduct() {
         <Box sx={{display:'flex', justifyContent:'space-between', gap:'10x', width:'20%', border:'1px solid #95AAAD36',textAlign:"left"}}>
 
       {product?.image.map((image)=>(
-        <Box sx={{textAlign:"left",padding:'10px 20px', justifyContent:'space-between'}}><img src={image?.imageData} alt="Product" /></Box>
+        <Box sx={{textAlign:"left",padding:'10px 20px', justifyContent:'space-between'}}><img style={{width:'100px'}} src={image?.imageData} alt="Product" /></Box>
       ))}
 
 

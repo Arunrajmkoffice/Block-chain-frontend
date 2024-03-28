@@ -16,9 +16,7 @@ const CustomInput = styled(TextField)(({ theme }) => ({
 function Updateproductpage() {
   const { id } = useParams();
   let token = localStorage.getItem('bcToken')
-  const [products, setProducts] = useState('');
   const [productname, setProductname]=useState('');
- 
   const [sku, setSku]=useState('');
   const [batchnumber, setBatchnumber]=useState('');
   const [images, setImages]=useState([]);
@@ -101,16 +99,17 @@ const handleProductname=(e)=>{
     const files = e.target.files;
     const fileArray = Array.from(files).map((file) => ({
       imageData: URL.createObjectURL(file),
-      imageId: 'type', // You can assign a specific image ID or use file name, etc.
+      imageId: 'type', 
     }));
     setImages((prevImages) => prevImages.concat(fileArray));
   };
   
   
-  const handlesubmit = async (e) => {
+  const handlesubmit =  (e) => {
     e.preventDefault();
+    
     const token = localStorage.getItem('bcToken');
-    const productData = {
+    const data = {
       product: productname.trim(),
       branchNumber: batchnumber.trim(),
       sku: sku.trim(),
@@ -124,19 +123,43 @@ const handleProductname=(e)=>{
       salesPrice: saleprice.trim(),
       image: images,
     };
+    // try {
+    //   const response = await fetch(`http://3.6.93.117:9091/product/${id}`,productData {
+    //     method: 'PATCH',
+    //     headers: {
+    //       'Authorization': `Bearer ${token}`
+    //     }
+    //   });
 
-    
-  };
+    //   if (response) {
+       
+    //     console.log('Product deleted successfully',response);
+    //   } else {
+    //     console.error('Failed to delete product');
+    //   }
+    // } catch (error) {
+    //   console.error('Error deleting product:', error);
+    // }
 
+
+    axios({
+      method:'PATCH',
+      url:`http://3.6.93.117:9091/product/edit/${id}`,
+      data,
+      headers: {
+              'Authorization': `Bearer ${token}`
+             }
+    })
+    .then((res)=>{
+       console.log("res",res.data)
+    })
+    .catch((error)=>{
+
+    })
+   
+  }
   return (
   <>
-    <Box>
-      <h1>Products</h1>
-  
-        <div key={products._id}>
-          <h3>{products?.product?.brand}</h3>
-        </div>
-    </Box>
     <Box sx={{display:'flex',flexDirection:'column', margin:'0px 10%'}}  >
       <Box display="flex" gap="10px" justifyContent="space-between">
         <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:'20px'}}>EDIT PRODUCT </Typography></Box>
@@ -183,6 +206,7 @@ const handleProductname=(e)=>{
     }}}>Update</Button>
     <br/><br/>
     </Box>
+    
     </>
   );
 }

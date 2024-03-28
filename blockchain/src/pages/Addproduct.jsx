@@ -32,7 +32,6 @@ function Addproduct() {
   const [inventoryError, setInventoryError] = useState(false);
   const [priceError, setPriceError] = useState(false);
   const [brandError, setBrandError] = useState(false);
-  const [CategoriesError, setCategoriesError] = useState(false);
 
   const handleProductname=(e)=>{
     setProductname(e.target.value);
@@ -73,27 +72,11 @@ function Addproduct() {
   }
   const handleCategories=(e)=>{
     setCategories(e.target.value);
-    setCategoriesError('false');
+ 
   }
-  const handleImages = (e) => {
-    const files = e.target.files;
-    const imagesArray = [];
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        imagesArray.push({
-          id: Date.now() + i, // Generate a unique id for each image
-          //imagedata: reader.result // The base64 representation of the image
-          //imagedata: reader.result // The base64 representation of the image
-          imagedata:"azazazaz"
-          
-        });
-        setImages([...imagesArray]);
-      };
-    }
-    
+  const handleImages = (event) => {
+    const selectedImages = Array.from(event.target.files);
+    setImages(selectedImages);
   };
   
   
@@ -131,6 +114,25 @@ function Addproduct() {
         throw new Error('Failed to add product');
       }
       console.log('Product added successfully');
+      setProductname('');
+    setSku('');
+    setBatchnumber('');
+    setImages([]);
+    setCountryorign('');
+    setInventory('');
+    setDescription('');
+    setTag('');
+    setPrice('');
+    setSaleprice('');
+    setBrand('');
+    setCategories('');
+    setProductnameError(false);
+    setSkuError(false);
+    setBatchnumberError(false);
+    setCountryOriginError(false);
+    setInventoryError(false);
+    setPriceError(false);
+    setBrandError(false);
     } catch (error) {
       console.error('Error adding product:', error.message);
     }
@@ -165,10 +167,7 @@ function Addproduct() {
       setBrandError(true);
       return;
     }
-    if (categories.trim()==='') {
-      setCategoriesError(true);
-      return;
-    }
+    
     
   };
   
@@ -219,17 +218,16 @@ function Addproduct() {
     <CustomInput placeholder="Brand name" value={brand} id="standard-basic"  variant="outlined" onChange={handleBrandname} required error={brandError} />
     {brandError && (<Typography variant="caption" sx={{ color: 'red' , textAlign:'left'}}> Please enter a Brand Name.</Typography>)}
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Categories</InputLabel>
-    <CustomInput placeholder="Categories"  value={categories} id="standard-basic"  variant="outlined" onChange={handleCategories} required error={CategoriesError} />
-    {CategoriesError && (<Typography variant="caption" sx={{ color: 'red', textAlign:'left' }}> Please enter a product categories.</Typography>)}
+    <CustomInput placeholder="Categories"  value={categories} id="standard-basic"  variant="outlined" onChange={handleCategories} required  />
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Image</InputLabel>
     <CustomInput type="file" multiple id="standard-basic" variant="outlined" onChange={handleImages} required  /><br />
     
-    <Button variant="text" onClick={handlesubmit} sx={{color:'#fff', backgroundColor:'#124BF2', '&:hover':{
+    <Button variant="text" onClick={handlesubmit}  sx={{color:'#fff', backgroundColor:'#124BF2', '&:hover':{
       color:'#fff', backgroundColor:'#124BF2',
     }}}>Update</Button>
     {images.map((image) => (
         <div key={image.id}>
-          <img src={image.imagedata} alt={`Image ${image.id}`} />
+          <img src={image.imageData} alt={`Image ${image.id}`} />
           <p>ID: {image.id}</p>
           {/* You can include additional information here if needed */}
         </div>

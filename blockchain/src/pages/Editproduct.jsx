@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import axios from 'axios';
 //search bar start here
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,24 +53,57 @@ function Editproduct() {
   let token = localStorage.getItem('bcToken')
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://3.6.93.117:9091/product', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        const data = await response.json();
-        console.log('Data type:', typeof data); 
-        console.log('get data', data);
-        setProductData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    // const fetchData = async () => {
+    
+    //   try {
+    //     const response = await fetch('http://3.6.93.117:9091/product', {
+    //       headers: {
+    //         'Authorization': `Bearer ${token}`
+    //       },data:{
+    //         limit:100,
+    //         page:1
+    //       }
+    //     });
+    //     const data = await response.json();
+    //     console.log('Data type:', typeof data); 
+    //     console.log('get data', data);
+    //     setProductData(data);
+    //   } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //   }
+    // };
 
-    fetchData();
+    // fetchData();
+
+
+
+    axios({
+      method:'GET',
+      url:"http://3.6.93.117:9091/product",
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },params:{
+        limit:100,
+        page:1
+      }
+    })
+    .then((res)=>{
+      setProductData(res.data);
+    }).catch((error)=>{
+    
+    })
+
+
+
+
+
+
   }, []);
+
+
+
+
+
 
   const handleDelete = async (productId) => {
     try {
@@ -122,7 +156,13 @@ function Editproduct() {
         <Box  sx={{border: '1px solid #95AAAD36', display:'flex',width:'100%', justifyContent:'space-between'}}>
         <Box id="main-box-edit" sx={{display:'flex', justifyContent:'space-between', width:'100%', textAlign:'left'}}>
         <Box sx={{display:'flex', justifyContent:'space-between', gap:'10x', width:'20%', border:'1px solid #95AAAD36',textAlign:"left"}}>
-          <Box sx={{textAlign:"left",padding:'10px 20px', justifyContent:'space-between'}}><img src={`http://3.6.93.117:9091/${product.image[0].imageData}`} alt="Product" /></Box>
+
+      {product?.image.map((image)=>(
+        <Box sx={{textAlign:"left",padding:'10px 20px', justifyContent:'space-between'}}><img src={image?.imageData} alt="Product" /></Box>
+      ))}
+
+
+          
           <Box sx={{textAlign:"left",padding:'10px 20px', justifyContent:'space-between'}} ><Typography sx={{textAlign:"left"}}>{product.product}</Typography></Box>
         </Box> 
         <Box sx={{width:'20%', borderRight:'1px solid #95AAAD36', padding:'10px 20px', justifyContent:'space-between'}}><Typography>SKU: {product.sku}</Typography>

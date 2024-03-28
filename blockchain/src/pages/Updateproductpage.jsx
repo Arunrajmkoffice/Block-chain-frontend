@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Box, Button, InputLabel, ListItem, ListItemIcon, TextField,Typography,styled } from '@mui/material'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 const CustomInput = styled(TextField)(({ theme }) => ({
   border:"1px solid #232321", borderRadius:"10px",width:'100%',
   [theme.breakpoints.down("xl")]: {},
@@ -14,10 +15,10 @@ const CustomInput = styled(TextField)(({ theme }) => ({
 
 function Updateproductpage() {
   const { id } = useParams();
-  const [products, setProducts] = useState([]);
   let token = localStorage.getItem('bcToken')
+  const [products, setProducts] = useState('');
   const [productname, setProductname]=useState('');
-  const [errorProductname, setErrorProductname]=useState('');
+ 
   const [sku, setSku]=useState('');
   const [batchnumber, setBatchnumber]=useState('');
   const [images, setImages]=useState([]);
@@ -63,14 +64,8 @@ useEffect(()=>{
 
 },[]);
 const handleProductname=(e)=>{
-    const value=e.target.value;
-    const isValid = /^[a-zA-Z0-9\s]*$/.test(value);
-    if (isValid || value === ''){
-      setProductname(value);
-      setErrorProductname('');
-    }else{
-      setErrorProductname('please enter only alphanumeric character')
-    }
+  setProductname(e.target.value)
+  
   };
   const handleSku=(e)=>{
     setSku(e.target.value)
@@ -129,8 +124,8 @@ const handleProductname=(e)=>{
       salesPrice: saleprice.trim(),
       image: images,
     };
-  
 
+    
   };
 
   return (
@@ -151,7 +146,7 @@ const handleProductname=(e)=>{
         </Box>
       </Box>
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Product Name</InputLabel>
-    <CustomInput placeholder="Productname" value={productname} id="outlined-basic"  variant="outlined" onChange={handleProductname} error={Boolean(errorProductname)} helperText={errorProductname}  required />
+    <CustomInput placeholder="Productname" value={productname} id="outlined-basic"  variant="outlined" onChange={handleProductname}   required />
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Batch Number</InputLabel>
     <CustomInput placeholder="Batchnumber" value={batchnumber}  id="standard-basic"  variant="outlined" onChange={handleBatchnumber} />
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Country Origin</InputLabel>
@@ -169,7 +164,7 @@ const handleProductname=(e)=>{
     <Box display="flex" gap="10px">
       <Box width='100%'>
         <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Price</InputLabel>
-        <CustomInput placeholder="Price" value={products?.product?.price} type="text" id="standard-basic"  variant="outlined" onChange={handlePrice} /></Box>
+        <CustomInput placeholder="Price" value={price} type="text" id="standard-basic"  variant="outlined" onChange={handlePrice} /></Box>
       <Box width='100%'>
         <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Sale Price</InputLabel>
         <CustomInput placeholder="Saleprice" value={saleprice} type="text" id="standard-basic"  variant="outlined" onChange={handleSaleprice} /></Box>

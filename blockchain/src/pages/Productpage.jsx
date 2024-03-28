@@ -7,26 +7,6 @@ function Productpage() {
     const { id } = useParams();
     const [products, setProducts]=useState([]);
     let token = localStorage.getItem('bcToken');
-    const [currentDestination, setCurrentDestination] = useState(null);
-    const [currentPath, setCurrentPath] = useState([]);
-
-  const updateDestination = (destination) => {
-    setCurrentDestination(destination);
-    updatePath(destination);
-  };
-  const updatePath = (destination) => {
-    let newPath = ['USA vendor'];
-    
-    if (destination === 'medorna') {
-      newPath.push('Medorna office');
-    } else if (destination === 'igo') {
-      newPath.push('Medorna office', 'IGO office');
-    } else if (destination === 'amazon') {
-      newPath.push('Medorna office', 'Amazon office','Buyer');
-    } 
-    
-    setCurrentPath(newPath);
-  };
 
     useEffect(()=>{
         const fetchData = async ()=>{
@@ -49,9 +29,7 @@ function Productpage() {
   const qrCodeContent = window.location.href;
   const handleQRCodeScan = (scannedContent) => {
     // Update destination based on scanned content
-    if (scannedContent === 'YOUR_EXPECTED_CONTENT') {
-      updateDestination('usa'); // Change 'usa' to your expected destination
-    }
+    
   };
   useEffect(() => {
     handleQRCodeScan(qrCodeContent);
@@ -59,14 +37,15 @@ function Productpage() {
   return (
 <>
 <Box sx={{margin:'10px'}}>
-  <Box sx={{backgroundColor:'#124BF2', padding:'10px 0px'}}>
+  <Box sx={{backgroundColor:'#124BF2', padding:'10px 0px', display:'flex', justifyContent:'space-evenly', width:'100%'}}>
   {products?.product?.tracking.map((track, index) => (
-  <Box sx={{ display: 'flex', alignItems: 'center'}}>
-        <Box sx={{ margin: '0 10px' }}>{track.productAt}</Box>
+  <Box sx={{ display: 'flex', alignItems: 'center', width:"100%", color:'#ffffff', }}>
+        <Box sx={{ margin: '0 10px' , border:''}}>{track.productAt}</Box>
         <Box
           sx={{
-            flexGrow: '1',
-            borderTop: `1px solid ${track.complete ? 'red' : 'black'}` 
+            width: '100%',
+            borderTop: `3px solid ${track.complete ? '#ffffff' : '#FFFFFF78'}` ,
+            // border:'1px solid white',
           }}
         >
         </Box>

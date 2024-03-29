@@ -18,8 +18,10 @@ import CategoryIcon from '@mui/icons-material/Category';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import Addproduct from './Addproduct';
-import { Link } from 'react-router-dom';
+import Editproduct from './Editproduct';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -29,6 +31,9 @@ export default function Sidebar2(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  let role = JSON.parse(localStorage.getItem('bcUserData'));
+  const navigate = useNavigate();
+  const data = useSelector((store) => store.auth.siginAuth);
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -44,44 +49,51 @@ export default function Sidebar2(props) {
       setMobileOpen(!mobileOpen);
     }
   };
+  const handleLogout = () => {
+    localStorage.removeItem('bcToken');
+    localStorage.removeItem('bcUserData');
+    navigate('/')
+  };
 
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-      <Link to="/">
-        <ListItem disablePadding>
+        <Link to="/">
+          <ListItem disablePadding>
             <ListItemIcon>
-                <HomeIcon/>
+              <HomeIcon />
             </ListItemIcon>
-            
-            <ListItemText primary="Dashboard"/>
-        </ListItem>
+
+            <ListItemText primary="Dashboard" />
+          </ListItem>
         </Link>
       </List>
       <Divider />
       <List>
         <Link to="/edit">
-        <ListItem disablePadding>
+          <ListItem disablePadding>
             <ListItemIcon>
-                <ArchiveIcon/>
+              <ArchiveIcon />
             </ListItemIcon>
-            <ListItemText primary="All Products"/>
-        </ListItem>
+            <ListItemText primary="All Products" />
+          </ListItem>
         </Link>
       </List>
-      <Divider/>
-      <List>
-        <Link to="/addproduct">
-        <ListItem disablePadding>
-            <ListItemIcon>
-                <CategoryIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Add Product"/>
-        </ListItem>
-        </Link>
-      </List>
+      <Divider />
+      {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
+        <List>
+          <Link to="/addproduct">
+            <ListItem disablePadding>
+              <ListItemIcon>
+                <CategoryIcon />
+              </ListItemIcon>
+              <ListItemText primary="Add Product" />
+            </ListItem>
+          </Link>
+        </List>
+      )}
     </div>
   );
 
@@ -95,10 +107,10 @@ export default function Sidebar2(props) {
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px`, color:'red' },
+          ml: { sm: `${drawerWidth}px`, color: 'red' },
         }}
       >
-        <Toolbar sx={{ justifyContent: { xs: 'flex-start', sm: 'flex-end' },backgroundColor:'#ffffff'}}>
+        <Toolbar sx={{ justifyContent: { xs: 'flex-start', sm: 'flex-end' }, backgroundColor: '#ffffff' }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -108,23 +120,23 @@ export default function Sidebar2(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Divider/>
+          <Divider />
           <List>
             <ListItem>
-                <ListItemIcon><NotificationsIcon sx={{color:'#124BF2'}}/></ListItemIcon>
+              <ListItemIcon><NotificationsIcon sx={{ color: '#124BF2' }} /></ListItemIcon>
             </ListItem>
           </List>
-          <FormControl  sx={{width:{ xs: '100%', sm: '10%' }, backgroundColor:'#124BF2',borderRadius:'10px', color:'#ffffff',border:'none'}}>
-  <InputLabel id="demo-simple-select-label" sx={{color:'#ffffff'}}>Admin</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select" 
-  >
-    <MenuItem sx={{color:'#000000'}}>Admin</MenuItem>
-    <MenuItem sx={{color:'#000000'}}>Profile</MenuItem>
-    <MenuItem sx={{color:'#000000'}}>Log Out</MenuItem>
-  </Select>
-</FormControl>
+          <FormControl sx={{ width: { xs: '100%', sm: '10%' }, backgroundColor: '#124BF2', borderRadius: '10px', color: '#ffffff', border: 'none' }}>
+            <InputLabel id="demo-simple-select-label" sx={{ color: '#ffffff' }}>Admin</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+            >
+              <MenuItem sx={{ color: '#000000' }}>Admin</MenuItem>
+              <MenuItem sx={{ color: '#000000' }}>Profile</MenuItem>
+              <MenuItem sx={{ color: '#000000' }} onClick={handleLogout}>Log Out</MenuItem>
+            </Select>
+          </FormControl>
         </Toolbar>
       </AppBar>
       <Box
@@ -165,7 +177,6 @@ export default function Sidebar2(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <Addproduct/>
       </Box>
 
     </Box>

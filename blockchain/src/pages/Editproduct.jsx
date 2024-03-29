@@ -51,7 +51,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Editproduct() {
   const [productData, setProductData] = useState([]);
   let token = localStorage.getItem('bcToken')
-
+  let role = JSON.parse(localStorage.getItem('bcUserData'));
+console.log("data",productData)
   useEffect(() => {
     // const fetchData = async () => {
     
@@ -125,6 +126,7 @@ function Editproduct() {
     }
   };
 
+
   return (<>
      <Box sx={{margin:'0px',display:'flex', flexDirection:'column', gap:'20px',width:'100%'}}>
       <Box sx={{backgroundColor:'#124BF2',width:'100%'}}>
@@ -159,10 +161,7 @@ function Editproduct() {
 
       {product?.image.map((image)=>(
         <Box sx={{textAlign:"left",padding:'10px 20px', justifyContent:'space-between'}}><img style={{width:'100px'}} src={image?.imageData} alt="Product" /></Box>
-      ))}
-
-
-          
+      ))}          
           <Box sx={{textAlign:"left",padding:'10px 20px', justifyContent:'space-between'}} ><Typography sx={{textAlign:"left"}}>{product.product}</Typography></Box>
         </Box> 
         <Box sx={{width:'20%', borderRight:'1px solid #95AAAD36', padding:'10px 20px', justifyContent:'space-between'}}><Typography>SKU: {product.sku}</Typography>
@@ -180,27 +179,31 @@ function Editproduct() {
           <Typography>Brand: {product.brand}</Typography>
           </Box>
         <Box sx={{width:'2%', borderRight:'1px solid #95AAAD36', padding:'10px 20px', backgroundColor:'#124BF2',WebkitBorderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', justifyContent:'space-between'}}>
+        <ListItem >
+            <ListItemIcon>
+          <Link href={`productpage/${product._id}`}>
+          <VisibilityIcon sx={{ color: '#ffffff' }} />
+          </Link>
+            </ListItemIcon>
+          </ListItem>
           <ListItem>
+          {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' &&  (
             <ListItemIcon>
               <Link href={`edit/${product._id}`}>
               <BorderColorIcon sx={{color:'#ffffff'}}/>
               </Link>
             </ListItemIcon>
+             )}
           </ListItem>
           <ListItem>
             <ListItemIcon>
               <Box>
+              {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' &&  (
                 <IconButton onClick={() => handleDelete(product._id)}>
               <DeleteIcon sx={{color:'#ffffff'}}/>
               </IconButton>
+                )}
               </Box>
-            </ListItemIcon>
-          </ListItem>
-          <ListItem >
-            <ListItemIcon>
-            <Link href={`productpage/${product._id}`}>
-              <VisibilityIcon sx={{color:'ffffff'}}/>
-              </Link>
             </ListItemIcon>
           </ListItem>
         </Box>
@@ -209,6 +212,7 @@ function Editproduct() {
         </Box>
       ))}
     </Box>
+    
     </>
 
   );

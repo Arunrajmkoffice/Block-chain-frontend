@@ -74,9 +74,11 @@ function Addproduct() {
     setCategories(e.target.value);
  
   }
-  const handleImages = (event) => {
-    const selectedImages = Array.from(event.target.files);
-    setImages(selectedImages);
+  const handleImages = (e) => {
+    const selectedFiles = e.target.files;
+    const filesArray = Array.from(selectedFiles); 
+    const imageFiles = filesArray.filter(file => file.type.startsWith('image/'));
+    setImages(prevImages => [...prevImages, ...imageFiles]);
   };
   
   
@@ -166,9 +168,7 @@ function Addproduct() {
     if (brand.trim() ==='') {
       setBrandError(true);
       return;
-    }
-    
-    
+    } 
   };
   
 
@@ -225,11 +225,10 @@ function Addproduct() {
     <Button variant="text" onClick={handlesubmit}  sx={{color:'#fff', backgroundColor:'#124BF2', '&:hover':{
       color:'#fff', backgroundColor:'#124BF2',
     }}}>Update</Button>
-    {images.map((image) => (
-        <div key={image.id}>
-          <img src={image.imageData} alt={`Image ${image.id}`} />
-          <p>ID: {image.id}</p>
-          {/* You can include additional information here if needed */}
+    {images.map((image, index) => (
+        <div key={index}>
+          <img src={URL.createObjectURL(image)} alt={`Uploaded Image ${index}`} width="100" />
+          <p>{image.name}</p>
         </div>
       ))}
     <br/><br/>

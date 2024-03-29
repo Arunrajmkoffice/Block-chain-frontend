@@ -4,7 +4,7 @@ import React from 'react';
 function App() {
   // Assuming you have a condition variable named "condition"
   const condition = true; // or false based on your logic
-  const conditions = false; 
+  const conditions = false;
 
   return (
     <>
@@ -13,21 +13,21 @@ function App() {
         <Box
           sx={{
             flexGrow: '1',
-            borderTop: `1px solid ${condition ? 'red' : 'black'}` 
+            borderTop: `1px solid ${condition ? 'red' : 'black'}`
           }}
         ></Box>
         <Box sx={{ margin: '0 10px' }}>Medorna</Box>
         <Box
           sx={{
             flexGrow: '1',
-            borderTop: `1px solid ${condition ? 'red' : 'black'}` 
+            borderTop: `1px solid ${condition ? 'red' : 'black'}`
           }}
         ></Box>
         <Box sx={{ margin: '0 10px' }}>IGO</Box>
         <Box
           sx={{
             flexGrow: '1',
-            borderTop: `1px solid ${conditions ? 'red' : 'black'}` 
+            borderTop: `1px solid ${conditions ? 'red' : 'black'}`
           }}
         ></Box>
         <Box sx={{ margin: '0 10px' }}>Amazon</Box>

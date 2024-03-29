@@ -15,18 +15,27 @@ import QRScanner from '../pages/QRScanner'
 
 
 function PrivateRoutes() {
+  let role = JSON.parse(localStorage.getItem('bcUserData'))
   return (
     <Routes>
+      {role && (
+        <>
+          {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
+            <>
       <Route path="/" element={<Dashboard/>}/>
       <Route path="/addproduct" element={<ProductForm/>}/>
       <Route path='/productdata' element={<Productdata/>}/>
-      <Route path='/sidebar' element={<Sidebar2/>}/>
       <Route path='/bulkproduct' element={<Bulkproduct/>}/>
-      <Route path='/edit' element={<Editproduct/>}/>
       <Route path='edit/:id' element={<Updateproductpage/>}/>
       <Route path='/demo' element={<Demo/>}/>
+      </>
+      )}
+    </>
+  )}
       <Route path='productpage/:id' element={<Productpage/>}/>
       <Route path ='/qrcode' element={<QRScanner/>}/>
+      <Route path='/edit' element={<Editproduct/>}/>
+      <Route path='/sidebar' element={<Sidebar2/>}/>
     </Routes>
   )
 }

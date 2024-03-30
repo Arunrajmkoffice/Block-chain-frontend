@@ -101,7 +101,7 @@ export default function Sidebar2(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box>
       <CssBaseline />
       <AppBar
         position="fixed"

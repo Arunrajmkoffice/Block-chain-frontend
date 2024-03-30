@@ -49,7 +49,7 @@ const QRScanner = () => {
   };
 
   return (
-    <div>
+    <div style={{padding:'8% 0%'}}>
       <QrReader
         delay={delay}
         style={previewStyle}

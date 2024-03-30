@@ -39,7 +39,7 @@ const Bulkproduct = () => {
   };
 
   return (
-    <div>
+    <div style={{padding:'8% 0%'}}>
       <h2>CSV to JSON Converter</h2>
       <input type="file" accept=".csv" onChange={handleFileUpload} />
       <button onClick={convertToJSON}>Convert to JSON</button>

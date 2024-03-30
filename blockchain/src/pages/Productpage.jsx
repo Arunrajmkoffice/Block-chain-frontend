@@ -11,7 +11,7 @@ function Productpage() {
     useEffect(()=>{
         const fetchData = async ()=>{
             try{
-                const response = await fetch(`http://3.6.93.117:9091/product/${id}`,{
+                const response = await fetch(`http://52.66.194.234:9092/product/${id}`,{
                     headers:{
                         'Authorization':`Bearer ${token}`
                     }
@@ -36,7 +36,7 @@ function Productpage() {
   }, []);
   return (
 <>
-<Box sx={{margin:'10px'}}>
+<Box sx={{margin:'10px',padding:'8% 0%'}}>
   <Box sx={{backgroundColor:'#124BF2', padding:'10px 0px', display:'flex', justifyContent:'space-evenly', width:'100%'}}>
   {products?.product?.tracking.map((track, index) => (
   <Box sx={{ display: 'flex', alignItems: 'center', width:"100%", color:'#ffffff', }}>

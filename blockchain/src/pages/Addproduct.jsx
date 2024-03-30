@@ -64,7 +64,7 @@ function Addproduct() {
     setPriceError(false);
   }
   const handleSaleprice=(e)=>{
-    setSaleprice(e.target.value)
+    setSaleprice(e.target.value);
   }
   const handleBrandname=(e)=>{
     setBrand(e.target.value);
@@ -75,11 +75,12 @@ function Addproduct() {
  
   }
   const handleImages = (e) => {
-    const selectedFiles = e.target.files;
-    const filesArray = Array.from(selectedFiles); 
-    const imageFiles = filesArray.filter(file => file.type.startsWith('image/'));
-    setImages(prevImages => [...prevImages, ...imageFiles]);
+    const files = e.target.files;
+    setImages([...images, ...files]);
+    
+  console.log("files",files)
   };
+
   
   
   const handlesubmit = async (e) => {
@@ -97,12 +98,12 @@ function Addproduct() {
       brand: brand.trim(),
       category: categories.trim(),
       salesPrice: saleprice.trim(),
-      image: images,
+      image:[],
     };
     console.log("data",productData)
   
     try {
-      const response = await fetch('http://3.6.93.117:9091/product', {
+      const response = await fetch('http://52.66.194.234:9092/product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -173,7 +174,7 @@ function Addproduct() {
   
 
   return (
-    <Box sx={{display:'flex',flexDirection:'column', margin:'0px 10%'}}  >
+    <Box sx={{display:'flex',flexDirection:'column', margin:'0px 10%',padding:'8% 0%'}}  >
       <Box display="flex" gap="10px" justifyContent="space-between">
         <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:'20px'}}>ADD NEW PRODUCT </Typography></Box>
         <Box display="flex" gap="20px">

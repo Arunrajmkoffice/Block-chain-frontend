@@ -1,4 +1,5 @@
 
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const Bulkproduct = () => {
@@ -16,6 +17,7 @@ const Bulkproduct = () => {
   };
 
   const convertToJSON = () => {
+    const token = localStorage.getItem('bcToken');
     if (!csvData) {
       alert('Please upload a CSV file first.');
       return;
@@ -25,16 +27,37 @@ const Bulkproduct = () => {
     const headers = lines[0].split(',');
 
     const jsonArray = [];
-    for (let i = 1; i < lines.length; i++) {
-      const data = lines[i].split(',');
-      const obj = {};
-      for (let j = 0; j < headers.length; j++) {
-        obj[headers[j]] = data[j];
-      }
-      jsonArray.push(obj);
-    }
+for (let i = 1; i < lines.length; i++) {
+  const data = lines[i].split(',');
+  const obj = {};
+  for (let j = 0; j < headers.length; j++) {
+    // Removing \n and \r characters from the keys
+    const key = headers[j].replace(/\r?\n|\r/g, '');
+    // Removing \r from the value
+    const value = data[j].trim().replace(/\r/g, '');
+    obj[key] = value;
+  }
+  jsonArray.push(obj);
+}
+
 
     setJSONData(JSON.stringify(jsonArray, null, 2));
+
+    axios({
+      method:'POST',
+      url:'http://52.66.194.234:9092/product/convert',
+      headers:{
+        'Authorization':`Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      data: JSON.stringify(jsonArray)
+    })
+    .then((res)=>{
+      console.log("res",res.data)
+    })
+    .catch((error)=>{
+
+    })
     
   };
 

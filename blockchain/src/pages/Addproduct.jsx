@@ -74,17 +74,33 @@ function Addproduct() {
     setCategories(e.target.value);
  
   }
-  const handleImages = (e) => {
-    const files = e.target.files;
-    setImages([...images, ...files]);
-    
-  console.log("files",files)
+  const handleImage = (e) => {
+    const fileList = e.target.files; // Get the FileList object
+    const imageArray = [];
+  
+    for (let i = 0; i < fileList.length; i++) {
+      const file = fileList[i];
+     
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+       
+        imageArray.push({ id: `image${i}`, imageData: reader.result });
+       
+        if (imageArray.length === fileList.length) {
+          console.log(imageArray); 
+        
+          setImages(imageArray);
+        }
+      };
+    }
   };
 
   
   
   const handlesubmit = async (e) => {
     e.preventDefault();
+    console.log("image",images);
     const token = localStorage.getItem('bcToken');
     const productData = {
       product: productname.trim(),
@@ -98,7 +114,10 @@ function Addproduct() {
       brand: brand.trim(),
       category: categories.trim(),
       salesPrice: saleprice.trim(),
-      image:[],
+      image: images.map(image => ({
+        imageData: image.imageData.split(',')[1], // Remove the 'data:image/jpeg;base64,' prefix
+        id: image.id
+      }))
     };
     console.log("data",productData)
   
@@ -221,18 +240,12 @@ function Addproduct() {
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Categories</InputLabel>
     <CustomInput placeholder="Categories"  value={categories} id="standard-basic"  variant="outlined" onChange={handleCategories} required  />
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Image</InputLabel>
-    <CustomInput type="file" multiple id="standard-basic" variant="outlined" onChange={handleImages} required  /><br />
+    <CustomInput type="file" multiple  accept="image/*" id="standard-basic" variant="outlined" onChange={handleImage} required  /><br />
     
     <Button variant="text" onClick={handlesubmit}  sx={{color:'#fff', backgroundColor:'#124BF2', '&:hover':{
       color:'#fff', backgroundColor:'#124BF2',
     }}}>Update</Button>
-    {images.map((image, index) => (
-        <div key={index}>
-          <img src={URL.createObjectURL(image)} alt={`Uploaded Image ${index}`} width="100" />
-          <p>{image.name}</p>
-        </div>
-      ))}
-    <br/><br/>
+    
     </Box>
   )
 }

@@ -54,7 +54,7 @@ function PrivateRoutes() {
         <>
           {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
             <>
-      <Route path="/" element={<Dashboard/>}/>
+      <Route path="/qrcode1" element={<Dashboard/>}/>
       <Route path="/addproduct" element={<ProductForm/>}/>
       <Route path='/productdata' element={<Productdata/>}/>
       <Route path='/bulkproduct' element={<Bulkproduct/>}/>
@@ -65,7 +65,7 @@ function PrivateRoutes() {
     </>
   )}
       <Route path='productpage/:id' element={<Productpage/>}/>
-      <Route path ='/qrcode' element={<QRScanner/>}/>
+      <Route path ='/' element={<QRScanner/>}/>
       <Route path='/edit' element={<Editproduct/>}/>
       <Route path='/sidebar' element={<Sidebar2/>}/>
         </Routes>

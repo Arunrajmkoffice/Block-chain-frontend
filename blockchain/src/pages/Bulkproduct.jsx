@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import React, { useState } from 'react';
 
@@ -16,8 +15,7 @@ const Bulkproduct = () => {
     reader.readAsText(file);
   };
 
-  const convertToJSON = () => {
-    const token = localStorage.getItem('bcToken');
+  const convertToJSONAndUpload = () => {
     if (!csvData) {
       alert('Please upload a CSV file first.');
       return;
@@ -27,45 +25,46 @@ const Bulkproduct = () => {
     const headers = lines[0].split(',');
 
     const jsonArray = [];
-for (let i = 1; i < lines.length; i++) {
-  const data = lines[i].split(',');
-  const obj = {};
-  for (let j = 0; j < headers.length; j++) {
-    // Removing \n and \r characters from the keys
-    const key = headers[j].replace(/\r?\n|\r/g, '');
-    // Removing \r from the value
-    const value = data[j].trim().replace(/\r/g, '');
-    obj[key] = value;
-  }
-  jsonArray.push(obj);
-}
+    for (let i = 1; i < lines.length; i++) {
+      const data = lines[i].split(',');
+      const obj = {};
+      for (let j = 0; j < headers.length; j++) {
+        const key = headers[j].replace(/\r?\n|\r/g, '');
+        const value = data[j].trim().replace(/\r/g, '');
+        obj[key] = value;
+      }
+      jsonArray.push(obj);
+    }
 
+    const jsonDataWrapped = { csvData: jsonArray }; // Wrap the JSON array in an object with key 'csvData'
 
-    setJSONData(JSON.stringify(jsonArray, null, 2));
+    setJSONData(JSON.stringify(jsonDataWrapped, null, 2));
 
+    const token = localStorage.getItem('bcToken');
     axios({
-      method:'POST',
-      url:'http://52.66.194.234:9093/product/convert',
-      headers:{
-        'Authorization':`Bearer ${token}`,
-        'Content-Type': 'application/json'
+      method: 'POST',
+      url: 'http://52.66.194.234:9093/convert',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
-      data: JSON.stringify(jsonArray)
+      data: jsonDataWrapped,
     })
-    .then((res)=>{
-      console.log("res",res.data)
-    })
-    .catch((error)=>{
-
-    })
-    
+      .then((res) => {
+        console.log('Response:', res.data);
+        // Handle success response here
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Handle error here
+      });
   };
 
   return (
-    <div style={{padding:'8% 0%'}}>
+    <div style={{ padding: '8% 0%' }}>
       <h2>CSV to JSON Converter</h2>
       <input type="file" accept=".csv" onChange={handleFileUpload} />
-      <button onClick={convertToJSON}>Convert to JSON</button>
+      <button onClick={convertToJSONAndUpload}>Convert to JSON and Upload</button>
       {jsonData && (
         <div>
           <h3>JSON Output</h3>

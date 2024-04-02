@@ -33,7 +33,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Editproduct from '../pages/Editproduct'
 import Ai from '../pages/Ai'
@@ -52,7 +51,7 @@ function PrivateRoutes() {
         <Routes>
       {role && (
         <>
-          {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
+           {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
             <>
       <Route path="/qrcode1" element={<Dashboard/>}/>
       <Route path="/addproduct" element={<ProductForm/>}/>
@@ -82,7 +81,8 @@ function ContentSidebar(props){
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
-  let role = JSON.parse(localStorage.getItem('bcUserData'));
+  let userData = localStorage.getItem('bcUserData');
+  let role = userData ? JSON.parse(userData) : null;
   const navigate = useNavigate();
   const data = useSelector((store) => store.auth.siginAuth);
 
@@ -103,7 +103,7 @@ function ContentSidebar(props){
   const handleLogout = () => {
     localStorage.removeItem('bcToken');
     localStorage.removeItem('bcUserData');
-   navigate('/')
+   navigate('/',{ replace: true })
   };
 
   const drawer = (
@@ -133,7 +133,7 @@ function ContentSidebar(props){
         </Link>
       </List>
       <Divider />
-      {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
+      {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
         <List>
           <Link to="/addproduct">
             <ListItem disablePadding>

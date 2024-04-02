@@ -130,12 +130,6 @@ function Productpage() {
       </Box>
 
 
-      {products?.product?.tracking.map((track, index) => (
-        <div key={index}>
-          <p>Complete: {String(track.complete)}</p>
-          <p>productat: {String(track.productAt)}</p>
-        </div>
-      ))}
 
     </>
 

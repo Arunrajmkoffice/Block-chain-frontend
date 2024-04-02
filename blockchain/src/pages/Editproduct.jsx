@@ -163,9 +163,11 @@ function Editproduct() {
                 {product?.image.map((image) => (
                   <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
                 ))}
-                <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }} ><Typography sx={{ textAlign: "left" }}>{product.product}</Typography></Box>
+                <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }} ></Box>
               </Box>
-              <Box sx={{ width: '30%', borderRight: '1px solid #95AAAD36', padding: '10px 20px', justifyContent: 'space-between' }}><Typography>SKU: {product.sku}</Typography>
+              <Box sx={{ width: '30%', borderRight: '1px solid #95AAAD36', padding: '10px 20px', justifyContent: 'space-between' }}>
+              <Typography sx={{ textAlign: "left",fontWeight:'bold' }}>{product.product}</Typography>
+                <Typography>SKU: {product.sku}</Typography>
                 <Typography>Category: {product.category}</Typography>
                 <Typography>Tag: {product.tag}</Typography>
               </Box>

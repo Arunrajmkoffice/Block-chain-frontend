@@ -53,6 +53,7 @@ useEffect(()=>{
             setTag(data?.product?.tag);
             setBrand(data?.product?.brand);
             setCategories(data?.product?.category);
+            
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -96,12 +97,19 @@ const handleProductname=(e)=>{
     setCategories(e.target.value)
   }
   const handleImages = (e) => {
-    const files = e.target.files;
-    const fileArray = Array.from(files).map((file) => ({
-      imageData: URL.createObjectURL(file),
-      imageId: 'type', 
-    }));
-    setImages((prevImages) => prevImages.concat(fileArray));
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    
+    reader.onloadend = () => {
+      setImages(prevImages => [...prevImages, {
+        id: 'image' + (prevImages.length + 1),
+        imageData: reader.result
+      }]);
+    };
+    
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
   
   

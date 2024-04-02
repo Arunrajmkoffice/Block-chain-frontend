@@ -45,7 +45,7 @@ for (let i = 1; i < lines.length; i++) {
 
     axios({
       method:'POST',
-      url:'http://52.66.194.234:9092/product/convert',
+      url:'http://52.66.194.234:9093/product/convert',
       headers:{
         'Authorization':`Bearer ${token}`,
         'Content-Type': 'application/json'

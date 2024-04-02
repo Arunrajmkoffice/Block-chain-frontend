@@ -57,7 +57,7 @@ function Editproduct() {
     // const fetchData = async () => {
 
     //   try {
-    //     const response = await fetch('http://52.66.194.234:9092/product', {
+    //     const response = await fetch('http://52.66.194.234:9093/product', {
     //       headers: {
     //         'Authorization': `Bearer ${token}`
     //       },data:{
@@ -80,7 +80,7 @@ function Editproduct() {
 
     axios({
       method: 'GET',
-      url: "http://52.66.194.234:9092/product",
+      url: "http://52.66.194.234:9093/product",
       headers: {
         'Authorization': `Bearer ${token}`
       }, params: {
@@ -108,7 +108,7 @@ function Editproduct() {
 
   const handleDelete = async (productId) => {
     try {
-      const response = await fetch(`http://52.66.194.234:9092/product/${productId}`, {
+      const response = await fetch(`http://52.66.194.234:9093/product/${productId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

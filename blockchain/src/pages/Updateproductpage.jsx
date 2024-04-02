@@ -33,7 +33,7 @@ function Updateproductpage() {
 useEffect(()=>{
     const fetchData = async ()=>{
         try{
-            const response =await fetch(`http://52.66.194.234:9092/product/${id}`,{
+            const response =await fetch(`http://52.66.194.234:9093/product/${id}`,{
                 headers:{
                     'Authorization':`Bearer ${token}`
                 }
@@ -145,7 +145,7 @@ const handleProductname=(e)=>{
 
     axios({
       method:'PATCH',
-      url:`http://52.66.194.234:9092/product/edit/${id}`,
+      url:`http://52.66.194.234:9093/product/edit/${id}`,
       data,
       headers: {
               'Authorization': `Bearer ${token}`

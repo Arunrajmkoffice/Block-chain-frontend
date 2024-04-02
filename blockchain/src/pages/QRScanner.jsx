@@ -21,7 +21,7 @@ const QRScanner = () => {
 
     axios({
             method:"PATCH",
-            url:`http://3.6.93.117:9091/product/${id}`,
+            url:`http://52.66.194.234:9093/product/${id}`,
           data:{role:role.role},
             headers: {
                 Authorization:`Bearer ${token}` 
@@ -56,7 +56,7 @@ const QRScanner = () => {
         onError={handleError}
         onScan={handleScan}
       />
-      <p>Full Result: {scanResult.fullResult}</p>
+      <p>Full Result:<a href={scanResult.fullResult}> {scanResult.fullResult}</a></p>
       <p>ID: {scanResult.id}</p>
     </div>
   );

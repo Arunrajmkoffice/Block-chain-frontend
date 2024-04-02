@@ -51,7 +51,7 @@ export const addproductData=(data)=>(dispatch)=>{
     dispatch(addproductDataRequest())
     return axios({
         method:"POST",
-        url:"http://52.66.194.234:9092/product",
+        url:"http://52.66.194.234:9093/product",
         data
 
     })

@@ -75,24 +75,18 @@ function Addproduct() {
  
   }
   const handleImage = (e) => {
-    const fileList = e.target.files; // Get the FileList object
-    const imageArray = [];
-  
-    for (let i = 0; i < fileList.length; i++) {
-      const file = fileList[i];
-     
-      const reader = new FileReader();
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    
+    reader.onloadend = () => {
+      setImages(prevImages => [...prevImages, {
+        id: 'image' + (prevImages.length + 1),
+        imagedata: reader.result
+      }]);
+    };
+    
+    if (file) {
       reader.readAsDataURL(file);
-      reader.onload = () => {
-       
-        imageArray.push({ id: `image${i}`, imageData: reader.result });
-       
-        if (imageArray.length === fileList.length) {
-          console.log(imageArray); 
-        
-          setImages(imageArray);
-        }
-      };
     }
   };
 
@@ -102,7 +96,7 @@ function Addproduct() {
     e.preventDefault();
     console.log("image",images);
     const token = localStorage.getItem('bcToken');
-    const productData = {
+    const data = {
       product: productname.trim(),
       branchNumber: batchnumber.trim(),
       sku: sku.trim(),
@@ -114,21 +108,19 @@ function Addproduct() {
       brand: brand.trim(),
       category: categories.trim(),
       salesPrice: saleprice.trim(),
-      image: images.map(image => ({
-        imageData: image.imageData.split(',')[1], // Remove the 'data:image/jpeg;base64,' prefix
-        id: image.id
-      }))
+      image: images,
     };
-    console.log("data",productData)
+  
+    console.log("data",data)
   
     try {
-      const response = await fetch('http://52.66.194.234:9092/product', {
+      const response = await fetch(`http://52.66.194.234:9093/product`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(productData),
+        body: JSON.stringify(data),
 
       });
   

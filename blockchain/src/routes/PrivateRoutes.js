@@ -11,7 +11,6 @@ import Updateproductpage from '../pages/Updateproductpage'
 import Productpage from '../pages/Productpage'
 import QRScanner from '../pages/QRScanner'
 import {  Menu } from '@mui/material'
-
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -37,6 +36,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Editproduct from '../pages/Editproduct'
+import Ai from '../pages/Ai'
 
 const drawerWidth = 240;
 
@@ -60,6 +60,8 @@ function PrivateRoutes() {
       <Route path='/bulkproduct' element={<Bulkproduct/>}/>
       <Route path='edit/:id' element={<Updateproductpage/>}/>
       <Route path='/demo' element={<Demo/>}/>
+      <Route path ='/' element={<QRScanner/>}/>
+      <Route path='/ai' element={<Ai/>}/>
       </>
       )}
     </>
@@ -101,7 +103,7 @@ function ContentSidebar(props){
   const handleLogout = () => {
     localStorage.removeItem('bcToken');
     localStorage.removeItem('bcUserData');
-    navigate('/')
+   navigate('/')
   };
 
   const drawer = (

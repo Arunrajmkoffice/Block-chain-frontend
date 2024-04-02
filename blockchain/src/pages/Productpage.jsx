@@ -11,7 +11,7 @@ function Productpage() {
     useEffect(()=>{
         const fetchData = async ()=>{
             try{
-                const response = await fetch(`http://52.66.194.234:9092/product/${id}`,{
+                const response = await fetch(`http://52.66.194.234:9093/product/${id}`,{
                     headers:{
                         'Authorization':`Bearer ${token}`
                     }
@@ -56,6 +56,7 @@ function Productpage() {
       <Grid container rowSpacing={1} columnSpacing={{ xs: 3, sm: 3, md: 3 }}>
         <Grid sx={{textAlign:'left'}} item xs={4}>
         <h3>{products?.product?.product}</h3>
+        
         <QRCode value={qrCodeContent} />
         <Typography>product image</Typography>
         </Grid>

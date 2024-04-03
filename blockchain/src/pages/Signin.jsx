@@ -74,11 +74,11 @@ window.location.reload()
     <Box sx={{backgroundColor:'#fff', width:'100%', height:'100%'}}>
 <Grid container spacing={2} style={{padding:10}}>
   <Grid item xs={12} sm={7}>
-  <Box sx={{ marginTop: '15%'}}></Box>
+  <Box sx={{ marginTop: '15%',width: '100%', display: 'flex', justifyContent: 'center'}}></Box>
     <Box   as="img"
   src={b2}
   alt="Background Image"
-  sx={{ width:'100%'}}>
+  sx={{ width:'100%',height: 'auto'}}>
       </Box>  
   
   </Grid>

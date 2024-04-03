@@ -57,7 +57,7 @@ function Editproduct() {
     // const fetchData = async () => {
 
     //   try {
-    //     const response = await fetch('http://52.66.194.234:9093/product', {
+    //     const response = await fetch('http://52.66.194.234:9094/product', {
     //       headers: {
     //         'Authorization': `Bearer ${token}`
     //       },data:{
@@ -80,7 +80,7 @@ function Editproduct() {
 
     axios({
       method: 'GET',
-      url: "http://52.66.194.234:9093/product",
+      url: "http://52.66.194.234:9094/product",
       headers: {
         'Authorization': `Bearer ${token}`
       }, params: {
@@ -108,7 +108,7 @@ function Editproduct() {
 
   const handleDelete = async (productId) => {
     try {
-      const response = await fetch(`http://52.66.194.234:9093/product/${productId}`, {
+      const response = await fetch(`http://52.66.194.234:9094/product/${productId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -128,7 +128,7 @@ function Editproduct() {
 
 
   return (<>
-    <Box sx={{ margin: '0px', display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: '5% 0%' }}>
+    <Box sx={{  display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: {sx:'5% 0%',xs:'6% 0%'},margin:{sx:'0% 0% 0% 10%',xs:'0% 0% 0% 0%'} }}>
       <Box sx={{ backgroundColor: '#124BF2', width: '100%' }}>
         <Box sx={{ flexGrow: 1 }}>
           <Toolbar>

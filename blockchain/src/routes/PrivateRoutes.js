@@ -185,14 +185,12 @@ function ContentSidebar(props){
               <ListItemIcon><NotificationsIcon sx={{ color: '#124BF2' }} /></ListItemIcon>
             </ListItem>
           </List>
-          <FormControl sx={{ width: { xs: '100%', sm: '10%' }, backgroundColor: '#124BF2', borderRadius: '10px', color: '#ffffff', border: 'none' }}>
+          <FormControl sx={{ width: { xs: '25%', sm: '10%' }, backgroundColor: '#124BF2', borderRadius: '10px', color: '#ffffff', border: 'none',marginLeft:{xs:'50%',sm:'0%'} }}>
             <InputLabel id="demo-simple-select-label" sx={{ color: '#ffffff' }}>Admin</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
             >
-              <MenuItem sx={{ color: '#000000' }}>Admin</MenuItem>
-              <MenuItem sx={{ color: '#000000' }}>Profile</MenuItem>
               <MenuItem sx={{ color: '#000000' }} onClick={handleLogout}>Log Out</MenuItem>
             </Select>
           </FormControl>

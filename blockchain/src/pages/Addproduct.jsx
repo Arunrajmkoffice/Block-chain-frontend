@@ -114,7 +114,7 @@ function Addproduct() {
     console.log("data",data)
   
     try {
-      const response = await fetch(`http://52.66.194.234:9093/product`, {
+      const response = await fetch(`http://52.66.194.234:9094/product`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ function Addproduct() {
   
 
   return (
-    <Box sx={{display:'flex',flexDirection:'column', margin:'0px 10%',padding:'8% 0%'}}  >
+    <Box sx={{display:'flex',flexDirection:'column', margin:{sm:'0% 10%',xs:"0% 0% 0% -16%"},padding:{sm:'8% 0%',xs:'15% 3%'}}}  >
       <Box display="flex" gap="10px" justifyContent="space-between">
         <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:'20px'}}>ADD NEW PRODUCT </Typography></Box>
         <Box display="flex" gap="20px">

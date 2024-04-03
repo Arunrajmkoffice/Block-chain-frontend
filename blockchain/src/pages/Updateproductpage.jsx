@@ -33,7 +33,7 @@ function Updateproductpage() {
 useEffect(()=>{
     const fetchData = async ()=>{
         try{
-            const response =await fetch(`http://52.66.194.234:9093/product/${id}`,{
+            const response =await fetch(`http://52.66.194.234:9094/product/${id}`,{
                 headers:{
                     'Authorization':`Bearer ${token}`
                 }
@@ -133,7 +133,7 @@ const handleProductname=(e)=>{
     };
     
     // try {
-    //   const response = await fetch(`http://3.6.93.117:9091/product/${id}`,productData {
+    //   const response = await fetch(`http://52.66.194.234:9094/product/${id}`,productData {
     //     method: 'PATCH',
     //     headers: {
     //       'Authorization': `Bearer ${token}`
@@ -153,7 +153,7 @@ const handleProductname=(e)=>{
 
     axios({
       method:'PATCH',
-      url:`http://52.66.194.234:9093/product/edit/${id}`,
+      url:`http://52.66.194.234:9094/product/edit/${id}`,
       data,
       headers: {
               'Authorization': `Bearer ${token}`
@@ -169,7 +169,7 @@ const handleProductname=(e)=>{
   }
   return (
   <>
-    <Box sx={{display:'flex',flexDirection:'column', margin:'0px 10%', padding:'8% 0%'}}  >
+    <Box sx={{display:'flex',flexDirection:'column', margin:{sm:'0% 10%',xs:"0% 0% 0% -16%"},padding:{sm:'8% 0%',xs:'15% 3%'}}}  >
       <Box display="flex" gap="10px" justifyContent="space-between">
         <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:'20px'}}>EDIT PRODUCT </Typography></Box>
         <Box display="flex" gap="20px">

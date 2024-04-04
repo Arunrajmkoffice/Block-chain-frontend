@@ -6,9 +6,9 @@ import { Box, Button, FormControl, IconButton, InputAdornment, InputLabel, Outli
 import b2 from '../images/b2.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import axios from 'axios';
 
 function Signin() {
-    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [email,setEmail]=useState("");
     const [password, setPassword]=useState("");
@@ -16,8 +16,8 @@ function Signin() {
     const [passwordError, setPasswordError] = useState('');
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const data = useSelector((store)=>store.auth.siginAuth);
-    console.log("datasigin",data);
+    const [responseData, setResponseData] = useState(null);
+    
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
@@ -51,23 +51,33 @@ const handleSubmit =()=>{
         password
      }
    
-     if (!emailError) {
-        console.log('Submitting email:', email);
-      }
-      if (!passwordError) {
-        console.log('Submitting password:', password);
-      }
-        dispatch(siginAuth(data))
-    console.log(email, password )
+     if (!emailError && !passwordError) {
+      axios.post("http://52.66.194.234:9094/signin", data)
+          .then((res) => {
+            setResponseData(res.data);
+              if (res.data.token !== undefined) {
+                  localStorage.setItem('bcToken', res.data.token);
+                  let userData = {
+                      role: res.data.role,
+                      userId: res.data.userId,
+                  };
+                  localStorage.setItem('bcUserData', JSON.stringify(userData));
+              }
+          })
+          .catch((err) => {
+              console.error('Error:', err);
+              // Handle error state
+          });
+  }
 }
 
 
-useEffect(()=>{
-if(Object.keys(data).length>0){
-navigate('/')
-window.location.reload()
-}
-},[data])
+useEffect(() => {
+  if (responseData && Object.keys(responseData).length > 0) {
+      navigate('/');
+      window.location.reload();
+  }
+}, [responseData]);
 
 
   return (

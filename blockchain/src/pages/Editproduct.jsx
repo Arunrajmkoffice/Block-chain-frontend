@@ -52,32 +52,9 @@ function Editproduct() {
   const [productData, setProductData] = useState([]);
   let token = localStorage.getItem('bcToken')
   let role = JSON.parse(localStorage.getItem('bcUserData'));
+  const [searchInput, setSearchInput] = useState("");
   console.log("data", productData)
   useEffect(() => {
-    // const fetchData = async () => {
-
-    //   try {
-    //     const response = await fetch('http://52.66.194.234:9094/product', {
-    //       headers: {
-    //         'Authorization': `Bearer ${token}`
-    //       },data:{
-    //         limit:100,
-    //         page:1
-    //       }
-    //     });
-    //     const data = await response.json();
-    //     console.log('Data type:', typeof data); 
-    //     console.log('get data', data);
-    //     setProductData(data);
-    //   } catch (error) {
-    //     console.error('Error fetching data:', error);
-    //   }
-    // };
-
-    // fetchData();
-
-
-
     axios({
       method: 'GET',
       url: "http://52.66.194.234:9094/product",
@@ -85,7 +62,11 @@ function Editproduct() {
         'Authorization': `Bearer ${token}`
       }, params: {
         limit: 100,
-        page: 1
+        page: 1,
+        sortBy: 'createdDate',
+        sortOrder:"desc",
+        /*search:searchInput,*/
+        
       }
     })
       .then((res) => {
@@ -95,16 +76,7 @@ function Editproduct() {
       })
 
 
-
-
-
-
   }, []);
-
-
-
-
-
 
   const handleDelete = async (productId) => {
     try {
@@ -140,6 +112,8 @@ function Editproduct() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                value={searchInput}
+                onChange={(e)=>setSearchInput(e.target.value)}
               />
             </Search>
             <DeleteIcon sx={{ color: '#ffffff', padding: '0px 10px' }} />

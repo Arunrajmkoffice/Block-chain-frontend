@@ -20,16 +20,17 @@ let data = {
     
   return (
     <>
-      <div>Productdata</div>
+      <div style={{padding:'10%'}}>Productdata</div>
       <Input onChange={(e)=>setSearch(e.target.value)} />
-      {data?.products?.map(product => (
+      <div>{data?.products?.map(product => (
         <div key={product._id}>
           <h3>{product.product}</h3>
           <p>Brand: {product.brand}</p>
           <p>Description: {product.description}</p>
           <p>Price: {product.price}</p>
         </div>
-      ))}
+      ))}</div>
+      
     
     </>
     

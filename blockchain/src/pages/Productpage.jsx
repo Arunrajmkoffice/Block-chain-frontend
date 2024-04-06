@@ -33,9 +33,10 @@ function Productpage() {
     const canvas = document.getElementById('qr-code-canvas');
     if (canvas) {
       const url = canvas.toDataURL('image/png');
+      const fileName = `${products?.product?.product}.png`; // Include product name in filename
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'qr-code.png';
+      a.download = fileName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

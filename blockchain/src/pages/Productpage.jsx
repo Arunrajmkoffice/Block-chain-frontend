@@ -52,10 +52,10 @@ function Productpage() {
   return (
     <>
       <Box sx={{ margin: { xs: '10px 10px 0px -100px ', sm: '5px', }, padding: { sm: '5% 0%', xs: '12% 10%' }, width: '100%' }}>
-      <Box sx={{padding:'0px'}}>
+      <Box sx={{padding:'0px',width:{xs:'100%',sm:'100%'}}}>
           <ol class="progtrckr" data-progtrckr-steps="4">
             {products?.product?.tracking.map((track, index) => (
-              <li class={track.complete ? 'progtrckr-done' : 'progtrckr-todo'}>{track.productAt}</li>
+              <li  class={track.complete ? 'progtrckr-done' : 'progtrckr-todo'}>{track.productAt}</li>
             ))}
           </ol>
         </Box >
@@ -70,7 +70,6 @@ function Productpage() {
               <br></br>
               <QRCode id="qr-code-canvas" value={qrCodeContent} /><br></br>
                <Button variant="contained" onClick={downloadQRCode}>Download QR Code</Button>
-              <Typography>product image</Typography>
             </Grid>
             <Grid sx={{ borderRight: '1px solid #1A316C94', textAlign: 'left' }} item xs={4}>
               <Table>

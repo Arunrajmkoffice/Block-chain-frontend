@@ -187,9 +187,9 @@ function Addproduct() {
   return (
     <Box sx={{display:'flex',flexDirection:'column', margin:{sm:'0% 10%',xs:"0% 0% 0% -16%"},padding:{sm:'8% 0%',xs:'15% 3%'}}}  >
       <Box display="flex" gap="10px" justifyContent="space-between">
-        <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:'20px'}}>ADD NEW PRODUCT </Typography></Box>
-        <Box display="flex" gap="20px">
-          <Link to="/addproduct" style={{backgroundColor:"#0D2768" ,color:"#ffffff", borderRadius:"10px", textDecoration:"none" }}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#ffffff'}}/></ListItemIcon>SINGLE PRODUCT UPLOAD</ListItem></Link>
+        <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:{sm:'20px',xs:'16px'}}}>ADD NEW PRODUCT </Typography></Box>
+        <Box display="flex" gap="10px">
+          <Link to="/addproduct" style={{backgroundColor:"#0D2768" ,color:"#ffffff", borderRadius:"10px", textDecoration:"none",fontSize:{sm:'20px', xs:'10px'} }}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#ffffff',display:{sm:'block',xs:'none'}}}/></ListItemIcon>SINGLE PRODUCT UPLOAD</ListItem></Link>
           <Link to="/bulkproduct" style={{color:'#0C2262', border:'1px solid #0C2262',padding:'0px 10px', borderRadius:'10px', textDecoration:'none'}}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#0C2262'}} /></ListItemIcon >BULK UPLOAD</ListItem></Link>
         </Box>
       </Box>

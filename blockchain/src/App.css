@@ -95,5 +95,10 @@ ol.progtrckr li.progtrckr-todo:before {
   font-size: 2.2em;
   bottom: -1.2em;
 }
-
+@media only screen and (max-width: 768px) {
+  ol.progtrckr li {
+    width: 100%; /* Set the width to 100% for mobile screens */
+    font-size:6px;
+  }
+}
 /* tracking css start here*/

@@ -82,7 +82,7 @@ export default function Sidebar2(props) {
         </Link>
       </List>
       <Divider />
-      {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
+      {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
         <List>
           <Link to="/addproduct">
             <ListItem disablePadding>

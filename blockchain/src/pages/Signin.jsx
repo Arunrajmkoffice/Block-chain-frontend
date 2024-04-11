@@ -52,7 +52,7 @@ function Signin() {
     }
 
     if (!emailError && !passwordError) {
-      axios.post("http://52.66.194.234:9094/signin", data)
+      axios.post("http://52.66.194.234:9095/signin", data)
         .then((res) => {
           setResponseData(res.data);
           if (res.data.token !== undefined) {

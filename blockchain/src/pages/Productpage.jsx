@@ -12,7 +12,7 @@ function Productpage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://52.66.194.234:9094/product/${id}`, {
+        const response = await fetch(`http://52.66.194.234:9095/product/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

@@ -62,7 +62,7 @@ function Editproduct() {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: "http://52.66.194.234:9094/product",
+      url: "http://52.66.194.234:9095/product",
       headers: {
         'Authorization': `Bearer ${token}`
       }, params: {
@@ -92,7 +92,7 @@ function Editproduct() {
 
   const handleDelete = async (productId) => {
     try {
-      const response = await fetch(`http://52.66.194.234:9094/product/${productId}`, {
+      const response = await fetch(`http://52.66.194.234:9095/product/${productId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -143,12 +143,15 @@ function Editproduct() {
                   "& fieldset": {
                     borderColor: "#ffffff", // customize border color
                   },
+                  "&:hover fieldset": {
+                    borderColor: "#ffffff", // customize border color on hover
+                  },
                   "& input": {
                     color: "#ffffff", // customize text color
                   }
                 }
               }}
-              renderInput={(params) => <TextField {...params} label="Select brand" sx={{color:'#ffffff'}} />}
+              renderInput={(params) => <TextField {...params} label="Select brand" InputLabelProps={{style: { color: '#ffffff' }}} />}
             />
             </Toolbar>
           </Box>
@@ -197,7 +200,7 @@ function Editproduct() {
                         </ListItemIcon>
                       </ListItem>
                       <ListItem>
-                        {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
+                        {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
                           <ListItemIcon>
                             <Link href={`edit/${product._id}`}>
                               <BorderColorIcon sx={{ color: '#ffffff' }} />
@@ -208,7 +211,7 @@ function Editproduct() {
                       <ListItem>
                         <ListItemIcon>
                           <Box>
-                            {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
+                            {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
                               <IconButton onClick={() => handleDelete(product._id)}>
                                 <DeleteIcon sx={{ color: '#ffffff' }} />
                               </IconButton>

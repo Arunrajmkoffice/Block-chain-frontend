@@ -1,11 +1,9 @@
-
 import { Route, Routes } from 'react-router-dom'
 import Dashboard from '../pages/Dashboard'
 import ProductForm from '../pages/Addproduct'
 import Productdata from '../pages/Productdata'
 import Sidebar2 from '../pages/Sidebar2'
 import Bulkproduct from '../pages/Bulkproduct'
-
 import Demo from '../pages/demo'
 import Updateproductpage from '../pages/Updateproductpage'
 import Productpage from '../pages/Productpage'
@@ -31,15 +29,12 @@ import CategoryIcon from '@mui/icons-material/Category';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Editproduct from '../pages/Editproduct'
 import Ai from '../pages/Ai'
-
+import AssignmentIcon from '@mui/icons-material/Assignment';
 const drawerWidth = 240;
-
-
 function PrivateRoutes() {
   let role = JSON.parse(localStorage.getItem('bcUserData'))
   return (
@@ -51,7 +46,7 @@ function PrivateRoutes() {
         <Routes>
       {role && (
         <>
-           {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
+           {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
             <>
       <Route path="/qrcode1" element={<Dashboard/>}/>
       <Route path="/addproduct" element={<ProductForm/>}/>
@@ -71,12 +66,9 @@ function PrivateRoutes() {
       <Route path='/sidebar' element={<Sidebar2/>}/>
         </Routes>
     </Box>
-    
     </Box>
-   
   )
 }
- 
 function ContentSidebar(props){
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -111,19 +103,18 @@ function ContentSidebar(props){
       <Toolbar />
       <Divider />
       <List>
-        <Link to="/">
+        <Link style={{textDecoration:'none'}} to="/">
           <ListItem disablePadding>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
-
             <ListItemText primary="Dashboard" />
           </ListItem>
         </Link>
       </List>
       <Divider />
       <List>
-        <Link to="/edit">
+        <Link style={{textDecoration:'none'}} to="/edit">
           <ListItem disablePadding>
             <ListItemIcon>
               <ArchiveIcon />
@@ -133,9 +124,9 @@ function ContentSidebar(props){
         </Link>
       </List>
       <Divider />
-      {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazone Office' && (
+      {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
         <List>
-          <Link to="/addproduct">
+          <Link style={{textDecoration:'none'}} to="/addproduct">
             <ListItem disablePadding>
               <ListItemIcon>
                 <CategoryIcon />
@@ -145,12 +136,24 @@ function ContentSidebar(props){
           </Link>
         </List>
       )}
+      <Divider />
+      {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+            <List>
+        <Link style={{textDecoration:'none'}} to="/ai">
+          <ListItem disablePadding>
+            <ListItemIcon>
+              <AssignmentIcon />
+            </ListItemIcon>
+            <ListItemText primary="Ai" />
+          </ListItem>
+        </Link>
+      </List>
+      )}
     </div>
   );
 
   // Remove this const when copying and pasting into your project.
   const container = window !== undefined ? () => window().document.body : undefined;
-
   return(
     <>
     <Menu items={[

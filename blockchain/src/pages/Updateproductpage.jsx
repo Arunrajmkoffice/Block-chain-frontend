@@ -33,7 +33,7 @@ function Updateproductpage() {
 useEffect(()=>{
     const fetchData = async ()=>{
         try{
-            const response =await fetch(`http://52.66.194.234:9094/product/${id}`,{
+            const response =await fetch(`http://52.66.194.234:9095/product/${id}`,{
                 headers:{
                     'Authorization':`Bearer ${token}`
                 }
@@ -53,6 +53,7 @@ useEffect(()=>{
             setTag(data?.product?.tag);
             setBrand(data?.product?.brand);
             setCategories(data?.product?.category);
+            setImages(data?.product?.image);
             
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -97,20 +98,31 @@ const handleProductname=(e)=>{
     setCategories(e.target.value)
   }
   const handleImages = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    
-    reader.onloadend = () => {
-      setImages(prevImages => [...prevImages, {
-        id: 'image' + (prevImages.length + 1),
-        imageData: reader.result
-      }]);
-    };
-    
-    if (file) {
-      reader.readAsDataURL(file);
+    const files = e.target.files;
+    const updatedImages = [];
+  
+    // Iterate over the selected files
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        // Push the new image data into the updatedImages array
+        updatedImages.push({
+          id: 'new-image' + i, // You can adjust the ID as needed
+          imageData: reader.result
+        });
+      };
+  
+      if (file) {
+        reader.readAsDataURL(file);
+      }
     }
+  
+    // Update the state with the new and existing images
+    setImages(prevImages => [...prevImages, ...updatedImages]);
   };
+  
   
   
   const handlesubmit =  (e) => {
@@ -133,7 +145,7 @@ const handleProductname=(e)=>{
     };
     
     // try {
-    //   const response = await fetch(`http://52.66.194.234:9094/product/${id}`,productData {
+    //   const response = await fetch(`http://52.66.194.234:9095/product/${id}`,productData {
     //     method: 'PATCH',
     //     headers: {
     //       'Authorization': `Bearer ${token}`
@@ -153,7 +165,7 @@ const handleProductname=(e)=>{
 
     axios({
       method:'PATCH',
-      url:`http://52.66.194.234:9094/product/edit/${id}`,
+      url:`http://52.66.194.234:9095/product/edit/${id}`,
       data,
       headers: {
               'Authorization': `Bearer ${token}`

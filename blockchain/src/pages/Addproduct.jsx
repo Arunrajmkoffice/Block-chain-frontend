@@ -114,7 +114,7 @@ function Addproduct() {
     console.log("data",data)
   
     try {
-      const response = await fetch(`http://52.66.194.234:9094/product`, {
+      const response = await fetch(`http://52.66.194.234:9095/product`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

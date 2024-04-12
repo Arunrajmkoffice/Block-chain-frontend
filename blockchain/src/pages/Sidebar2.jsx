@@ -178,7 +178,7 @@ export default function Sidebar2(props) {
       >
         <Toolbar />
       </Box>
-
+<p style={{textAlign:"left"}}>test</p>
     </Box>
   );
 }

@@ -28,7 +28,7 @@ function Productpage() {
   }, [])
   // Generate the QR code content
   const qrCodeContent = window.location.href;
- 
+
   const downloadQRCode = () => {
     const canvas = document.getElementById('qr-code-canvas');
     if (canvas) {
@@ -48,30 +48,30 @@ function Productpage() {
   useEffect(() => {
     setQRCodeReady(true); // Set QR code ready when component mounts
   }, []);
-  
+
   return (
     <>
-      <Box sx={{ margin: { xs: '10px 10px 0px -100px ', sm: '5px', }, padding: { sm: '5% 0%', xs: '12% 10%' }, width: '100%' }}>
-      <Box sx={{padding:'0px',width:{xs:'100%',sm:'100%'}}}>
+      <Box sx={{ margin: { xs: '24px 0px 0px -30px', sm: '35px 0px 0px 0px',lg:"0px"}, padding: { xs: '12% 10%' , sm: '10% 0%', lg:'5%' }, width: '100%' }}>
+        <Box sx={{ padding: '0px', width: { xs: '100%', sm: '100%' }}}>
           <ol class="progtrckr" data-progtrckr-steps="4">
             {products?.product?.tracking.map((track, index) => (
-              <li  class={track.complete ? 'progtrckr-done' : 'progtrckr-todo'}>{track.productAt}</li>
+              <li class={track.complete ? 'progtrckr-done' : 'progtrckr-todo'}>{track.productAt}</li>
             ))}
           </ol>
         </Box >
         {/* destopview code start here */}
-        <Box sx={{ width: '100%',padding:'5% 0%', display: { xs: 'none', sm: 'block' } }}>
+        <Box sx={{ width: '100%', padding: '5% 0%', display: { xs: 'none', sm: 'block' } }}>
           <Grid container rowSpacing={1} columnSpacing={{ xs: 3, sm: 3, md: 3 }}>
-            <Grid sx={{ textAlign: 'left' }} item xs={4}>
+            <Grid item xs={12} sm={6} md={4}>
               <h3>{products?.product?.product}</h3>
               {products?.product?.image.map((image) => (
-                <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
+                <Box sx={{padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
               ))}
               <br></br>
               <QRCode id="qr-code-canvas" value={qrCodeContent} /><br></br>
-               <Button variant="contained" onClick={downloadQRCode}>Download QR Code</Button>
+              <Button variant="contained" onClick={downloadQRCode}>Download QR Code</Button>
             </Grid>
-            <Grid sx={{ borderRight: '1px solid #1A316C94', textAlign: 'left' }} item xs={4}>
+            <Grid sx={{ borderRight: '1px solid #1A316C94', textAlign: 'left' }} item xs={12} sm={6} md={4} >
               <Table>
                 <TableBody>
                   <TableRow>
@@ -102,7 +102,7 @@ function Productpage() {
                 </TableBody>
               </Table>
             </Grid>
-            <Grid sx={{ textAlign: 'left' }} item xs={4}>
+            <Grid sx={{ textAlign: 'left' }} item xs={12} sm={6} md={4}>
               <Table>
                 <TableBody sx={{ border: 'none' }}>
                   <TableRow>
@@ -215,9 +215,9 @@ function Productpage() {
         </Box>
         {/* mobileview code end here */}
         <Box sx={{ textAlign: 'center' }}>
-            
-          </Box>
-        <Box sx={{ backgroundColor: '#124BF2', padding: '10px 0px', display: 'flex', justifyContent: 'space-evenly', width: { xs: '130%', sm: '100%' }, display:'none'}}>
+
+        </Box>
+        <Box sx={{ backgroundColor: '#124BF2', padding: '10px 0px', display: 'flex', justifyContent: 'space-evenly', width: { xs: '130%', sm: '100%' }, display: 'none' }}>
           {products?.product?.tracking.map((track, index) => (
             <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', color: '#ffffff', }}>
               <Box sx={{ margin: { xs: '0px 0px', sm: '0 10px' }, border: '', }}>{track.productAt}</Box>

@@ -94,6 +94,7 @@ ol.progtrckr li.progtrckr-todo:before {
   background-color: white;
   font-size: 2.2em;
   bottom: -1.2em;
+  text-align:left;
 }
 @media only screen and (max-width: 768px) {
   ol.progtrckr li {
@@ -101,4 +102,11 @@ ol.progtrckr li.progtrckr-todo:before {
     font-size:6px;
   }
 }
+@media only screen and (max-width: 300px) {
+  .css-jyslms {
+    margin: 24px 0px 0px -30px;
+    padding: 11% 0%;
+}
+}
 /* tracking css start here*/
+

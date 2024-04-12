@@ -1,4 +1,4 @@
-import {Box, Checkbox, FormControlLabel, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -52,7 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 // search bar end here
 function Editproduct() {
   const [productData, setProductData] = useState([]);
-  console.log('produ',productData)
+  console.log('produ', productData)
   const [dataFetched, setDataFetched] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState(null);
   let token = localStorage.getItem('bcToken')
@@ -112,120 +112,215 @@ function Editproduct() {
 
 
   return (
-    <>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: { sx: '5% 0%', xs: '6% 0%' }, margin: { sx: '0% 0% 0% 10%', xs: '0% 0% 0% 0%' } }}>
-        <Box sx={{ backgroundColor: '#124BF2', width: '100%' ,display:'flex'}}>
-          <Box sx={{ flexGrow: 1 }}>
-            <Toolbar>
-              <Checkbox sx={{ color: '#ffffff' }} />
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
+    <> {/* desktop view code start here */}
+      <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: { sx: '5% 0%', xs: '6% 0%' }, margin: { sx: '0% 0% 0% 10%', xs: '0% 0% 0% 0%' } }}>
+          <Box sx={{ backgroundColor: '#124BF2', width: '100%', display: 'flex' }}>
+            <Box sx={{ flexGrow: 1 }}>
+              <Toolbar>
+                <Checkbox sx={{ color: '#ffffff' }} />
+                <Search>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ 'aria-label': 'search' }}
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                  />
+                </Search>
+                <DeleteIcon sx={{ color: '#ffffff', padding: '0px 10px', fontSize: '2.5rem' }} />
+                <Typography sx={{ color: '#ffffff', padding: '0px 5%' }}>Total products: {productData.length}</Typography>
+                <Autocomplete
+                  id="grouped-demo1"
+                  options={uniqueBrands}
+                  getOptionLabel={(option) => option}
+                  onChange={handleBrandChange}
+                  sx={{
+                    color: '#ffffff', // Change the text color of the label
+                    width: 200,
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "#ffffff", // customize border color
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#ffffff", // customize border color on hover
+                      },
+                      "& input": {
+                        color: "#ffffff", // customize text color
+                      }
+                    }
+                  }}
+                  renderInput={(params) => <TextField {...params} label="Select brand" InputLabelProps={{ style: { color: '#ffffff' } }} />}
                 />
-              </Search>
-              <DeleteIcon sx={{ color: '#ffffff', padding: '0px 10px', fontSize: '2.5rem' }} />
-              <Typography sx={{ color: '#ffffff', padding: '0px 5%' }}>Total products: {productData.length}</Typography>
-              <Autocomplete
-              id="grouped-demo1"
-              options={uniqueBrands}
-              getOptionLabel={(option) => option}
-              onChange={handleBrandChange}
-              sx={{ 
-                color: '#ffffff', // Change the text color of the label
-                width: 200,
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": {
-                    borderColor: "#ffffff", // customize border color
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "#ffffff", // customize border color on hover
-                  },
-                  "& input": {
-                    color: "#ffffff", // customize text color
-                  }
-                }
-              }}
-              renderInput={(params) => <TextField {...params} label="Select brand" InputLabelProps={{style: { color: '#ffffff' }}} />}
-            />
-            </Toolbar>
+              </Toolbar>
+            </Box>
           </Box>
-        </Box>
-        <Box>
-          {productData
-            .filter(product => selectedBrand === null || product.brand === selectedBrand)
-            .map((product, index) => (
-              <Box key={index} id="full-width-box" sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-                <FormControlLabel
-                  control={
-                    <Checkbox />
-                  }
-                />
-                <Box sx={{ border: '1px solid #95AAAD36', display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-                  <Box id="main-box-edit" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', textAlign: 'left' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '10x', width: '20%', border: '1px solid #95AAAD36', textAlign: "left" }}>
+          <Box>
+            {productData
+              .filter(product => selectedBrand === null || product.brand === selectedBrand)
+              .map((product, index) => (
+                <Box key={index} id="full-width-box" sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox />
+                    }
+                  />
+                  <Box sx={{ border: '1px solid #95AAAD36', display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+                    <Box id="main-box-edit" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', textAlign: 'left' }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '10x', width: '20%', border: '1px solid #95AAAD36', textAlign: "left" }}>
 
-                      {product?.image.map((image) => (
-                        <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
-                      ))}
-                      <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }} ></Box>
-                    </Box>
-                    <Box sx={{ width: '30%', borderRight: '1px solid #95AAAD36', padding: '10px 20px', justifyContent: 'space-between' }}>
-                      <Typography sx={{ textAlign: "left", fontWeight: 'bold' }}>{product.product}</Typography>
-                      <Typography>SKU: {product.sku}</Typography>
-                      <Typography>Category: {product.category}</Typography>
-                      <Typography>Tag: {product.tag}</Typography>
-                    </Box>
-                    <Box sx={{ width: '30%', borderRight: '1px solid #95AAAD36', padding: '10px 20px', justifyContent: 'sspace-between' }}>
-                      <Typography sx={{ color: '#F3941E' }}>Price: ${product.price}</Typography>
-                      <Typography>Sales Price: ${product.salesPrice}</Typography>
-                      <Typography>Inventory: {product.inventory}</Typography>
-                    </Box>
-                    <Box sx={{ width: '30%', padding: '10px 20px', justifyContent: 'space-between' }}> <Typography>Branch Number: {product.branchNumber}</Typography>
-                      <Typography>Country of Origin: {product.countryOfOrigin}</Typography>
-                      <Typography>Description: {product.description}</Typography>
-                      <Typography>Brand: {product.brand}</Typography>
-                    </Box>
-                    <Box sx={{ width: '10%', borderRight: '1px solid #95AAAD36', padding: '10px 20px', backgroundColor: '#124BF2', WebkitBorderTopLeftRadius: '10px', borderBottomLeftRadius: '10px', justifyContent: 'space-between' }}>
-                      <ListItem >
-                        <ListItemIcon>
-                          <Link href={`productpage/${product._id}`}>
-                            <VisibilityIcon sx={{ color: '#ffffff' }} />
-                          </Link>
-                        </ListItemIcon>
-                      </ListItem>
-                      <ListItem>
-                        {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+                        {product?.image.map((image) => (
+                          <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
+                        ))}
+                        <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }} ></Box>
+                      </Box>
+                      <Box sx={{ width: '30%', borderRight: '1px solid #95AAAD36', padding: '10px 20px', justifyContent: 'space-between' }}>
+                        <Typography sx={{ textAlign: "left", fontWeight: 'bold' }}>{product.product}</Typography>
+                        <Typography>SKU: {product.sku}</Typography>
+                        <Typography>Category: {product.category}</Typography>
+                        <Typography>Tag: {product.tag}</Typography>
+                      </Box>
+                      <Box sx={{ width: '30%', borderRight: '1px solid #95AAAD36', padding: '10px 20px', justifyContent: 'sspace-between' }}>
+                        <Typography sx={{ color: '#F3941E' }}>Price: ${product.price}</Typography>
+                        <Typography>Sales Price: ${product.salesPrice}</Typography>
+                        <Typography>Inventory: {product.inventory}</Typography>
+                      </Box>
+                      <Box sx={{ width: '30%', padding: '10px 20px', justifyContent: 'space-between' }}> <Typography>Branch Number: {product.branchNumber}</Typography>
+                        <Typography>Country of Origin: {product.countryOfOrigin}</Typography>
+                        <Typography>Description: {product.description}</Typography>
+                        <Typography>Brand: {product.brand}</Typography>
+                      </Box>
+                      <Box sx={{ width: '10%', borderRight: '1px solid #95AAAD36', padding: '10px 20px', backgroundColor: '#124BF2', WebkitBorderTopLeftRadius: '10px', borderBottomLeftRadius: '10px', justifyContent: 'space-between' }}>
+                        <ListItem >
                           <ListItemIcon>
-                            <Link href={`edit/${product._id}`}>
-                              <BorderColorIcon sx={{ color: '#ffffff' }} />
+                            <Link href={`productpage/${product._id}`}>
+                              <VisibilityIcon sx={{ color: '#ffffff' }} />
                             </Link>
                           </ListItemIcon>
-                        )}
-                      </ListItem>
-                      <ListItem>
-                        <ListItemIcon>
-                          <Box>
-                            {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
-                              <IconButton onClick={() => handleDelete(product._id)}>
-                                <DeleteIcon sx={{ color: '#ffffff' }} />
-                              </IconButton>
-                            )}
-                          </Box>
-                        </ListItemIcon>
-                      </ListItem>
+                        </ListItem>
+                        <ListItem>
+                          {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+                            <ListItemIcon>
+                              <Link href={`edit/${product._id}`}>
+                                <BorderColorIcon sx={{ color: '#ffffff' }} />
+                              </Link>
+                            </ListItemIcon>
+                          )}
+                        </ListItem>
+                        <ListItem>
+                          <ListItemIcon>
+                            <Box>
+                              {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+                                <IconButton onClick={() => handleDelete(product._id)}>
+                                  <DeleteIcon sx={{ color: '#ffffff' }} />
+                                </IconButton>
+                              )}
+                            </Box>
+                          </ListItemIcon>
+                        </ListItem>
+                      </Box>
                     </Box>
                   </Box>
                 </Box>
-              </Box>
-            ))}
+              ))}
+          </Box>
         </Box>
       </Box>
+      {/*desktop view code end  here */}
+      {/*mobile view start code here */}
+      <Box sx={{ display: { xs: 'block', sm: 'none' },padding:'0px' }}>
+      <Box sx={{ backgroundColor: '#124BF2', width: '100%', display: 'flex', margin:'13% 0% 0% -14%',width:'110%'}}>
+            <Box sx={{ flexGrow: 1 }}>
+              <Toolbar>
+                <Checkbox sx={{ color: '#ffffff' }} />
+                <Search>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ 'aria-label': 'search' }}
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                  />
+                </Search>
+                <DeleteIcon sx={{ color: '#ffffff', padding: '0px 10px', fontSize: '2.5rem' }} />
+                <Typography sx={{ color: '#ffffff', padding: '0px 5%' }}>Total products: {productData.length}</Typography>
+                <Autocomplete
+                  id="grouped-demo1"
+                  options={uniqueBrands}
+                  getOptionLabel={(option) => option}
+                  onChange={handleBrandChange}
+                  sx={{
+                    color: '#ffffff', // Change the text color of the label
+                    width: 200,
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "#ffffff", // customize border color
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "#ffffff", // customize border color on hover
+                      },
+                      "& input": {
+                        color: "#ffffff", // customize text color
+                      }
+                    }
+                  }}
+                  renderInput={(params) => <TextField {...params} label="Select brand" InputLabelProps={{ style: { color: '#ffffff' } }} />}
+                />
+              </Toolbar>
+            </Box>
+          </Box>
+  {productData
+    .filter(product => selectedBrand === null || product.brand === selectedBrand)
+    .map((product, index) => (
+      <Box key={index} id="full-width-box" sx={{ display: 'flex', flexDirection: 'column', width: '100%' ,margin:'1% 0% 0% -14%',width:'110%' ,borderBottom:'2px solid black'}}>
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', width: '100%', textAlign: 'justify' }}>
+          <Typography sx={{ fontWeight: 'bold' }}>{product.product}</Typography>
+          {product?.image.map((image, imageIndex) => (
+            <img key={imageIndex} style={{ width: '100px' }} src={image?.imageData} alt="Product" />
+          ))}
+          <Typography>SKU: {product.sku}</Typography>
+          <Typography>Category: {product.category}</Typography>
+          <Typography>Tag: {product.tag}</Typography>
+          <Typography sx={{ color: '#F3941E' }}>Price: ${product.price}</Typography>
+          <Typography>Sales Price: ${product.salesPrice}</Typography>
+          <Typography>Inventory: {product.inventory}</Typography>
+          <Typography>Branch Number: {product.branchNumber}</Typography>
+          <Typography>Country of Origin: {product.countryOfOrigin}</Typography>
+          <Typography>Brand: {product.brand}</Typography>
+          <Typography>Description: {product.description}</Typography>
+        </Box>
+        <ListItem>
+          <ListItemIcon>
+            <Link href={`productpage/${product._id}`}>
+              <VisibilityIcon sx={{ color: 'red' }} />
+            </Link>
+          </ListItemIcon>
+          {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+            <ListItemIcon>
+              <Link href={`edit/${product._id}`}>
+                <BorderColorIcon sx={{ color: 'red' }} />
+              </Link>
+            </ListItemIcon>
+          )}
+          {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+            <ListItemIcon>
+              <IconButton onClick={() => handleDelete(product._id)}>
+                <DeleteIcon sx={{ color: 'red' }} />
+              </IconButton>
+            </ListItemIcon>
+          )}
+        </ListItem>
+      </Box>
+    ))}
+</Box>
+
+
+      {/*mobile view end here */}
     </>
 
   );

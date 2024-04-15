@@ -144,25 +144,7 @@ const handleProductname=(e)=>{
       image: images,
     };
     
-    // try {
-    //   const response = await fetch(`http://52.66.194.234:9095/product/${id}`,productData {
-    //     method: 'PATCH',
-    //     headers: {
-    //       'Authorization': `Bearer ${token}`
-    //     }
-    //   });
-
-    //   if (response) {
-       
-    //     console.log('Product deleted successfully',response);
-    //   } else {
-    //     console.error('Failed to delete product');
-    //   }
-    // } catch (error) {
-    //   console.error('Error deleting product:', error);
-    // }
-
-
+    
     axios({
       method:'PATCH',
       url:`http://52.66.194.234:9095/product/edit/${id}`,
@@ -181,12 +163,12 @@ const handleProductname=(e)=>{
   }
   return (
   <>
-    <Box sx={{display:'flex',flexDirection:'column', margin:{sm:'0% 10%',xs:"0% 0% 0% -16%"},padding:{sm:'8% 0%',xs:'15% 3%'}}}  >
+    <Box sx={{display: 'flex', flexDirection: 'column', margin: { sm: '3% 5%', xs: "0% 0% 0% -16%" }, padding: {md:'5% 5%', sm: '15% 3%', xs: '20% 3%' } }}  >
       <Box display="flex" gap="10px" justifyContent="space-between">
-        <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:'20px'}}>EDIT PRODUCT </Typography></Box>
+        <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:'18px'}}>EDIT PRODUCT </Typography></Box>
         <Box display="flex" gap="20px">
           <Link to="/addproduct" style={{backgroundColor:"#0D2768" ,color:"#ffffff", borderRadius:"10px", textDecoration:"none" }}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#ffffff'}}/></ListItemIcon>SINGLE PRODUCT UPLOAD</ListItem></Link>
-          <Link to="/bulkproduct" style={{color:'#0C2262', border:'1px solid #0C2262',padding:'0px 10px', borderRadius:'10px', textDecoration:'none'}}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#0C2262'}} /></ListItemIcon >BULK UPLOAD</ListItem></Link>
+         {/** <Link to="/bulkproduct" style={{color:'#0C2262', border:'1px solid #0C2262',padding:'0px 10px', borderRadius:'10px', textDecoration:'none'}}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#0C2262'}} /></ListItemIcon >BULK UPLOAD</ListItem></Link>*/} 
         </Box>
       </Box>
     <InputLabel sx={{textAlign:'left', padding:'10px 0px',color:'#080F21',fontWeight:'bold'}}>Product Name</InputLabel>

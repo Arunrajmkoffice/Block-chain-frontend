@@ -60,7 +60,7 @@ function Productpage() {
           </ol>
         </Box >
         {/* destopview code start here */}
-        <Box sx={{ width: '100%', padding: '5% 0%', display: { xs: 'none', sm: 'block' } }}>
+        <Box sx={{ width: '100%', padding: '5% 0%', display: { xs: 'none', sm: 'none' ,md:'block'} }}>
           <Grid container rowSpacing={1} columnSpacing={{ xs: 3, sm: 3, md: 3 }}>
             <Grid item xs={12} sm={6} md={4}>
               <h3>{products?.product?.product}</h3>
@@ -71,7 +71,7 @@ function Productpage() {
               <QRCode id="qr-code-canvas" value={qrCodeContent} /><br></br>
               <Button variant="contained" onClick={downloadQRCode}>Download QR Code</Button>
             </Grid>
-            <Grid sx={{ borderRight: '1px solid #1A316C94', textAlign: 'left' }} item xs={12} sm={6} md={4} >
+            <Grid sx={{ borderRight: '1px solid #1A316C94', textAlign: 'left' }} item xs={12} sm={1} md={4} >
               <Table>
                 <TableBody>
                   <TableRow>
@@ -95,9 +95,9 @@ function Productpage() {
                     <TableCell sx={{ width: '70%', border: 'none' }}>{products?.product?.countryOfOrigin}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ width: '28%', border: 'none', color: '#1A316C94', fontWeight: '600' }}>Description</TableCell>
+                    <TableCell sx={{ width: '28%', border: 'none', color: '#1A316C94', fontWeight: '600' }}>Tag</TableCell>
                     <TableCell sx={{ width: '2%', border: 'none' }}>:</TableCell>
-                    <TableCell sx={{ width: '70%', border: 'none' }}>{products?.product?.description}</TableCell>
+                    <TableCell sx={{ width: '70%', border: 'none' }}>{products?.product?.tag}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -126,9 +126,9 @@ function Productpage() {
                     <TableCell sx={{ width: '70%', border: 'none' }}>{products?.product?.salesPrice}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ width: '28%', border: 'none', color: '#1A316C94', fontWeight: '600' }}>Tag</TableCell>
+                    <TableCell sx={{ width: '28%', border: 'none', color: '#1A316C94', fontWeight: '600' }}>Description</TableCell>
                     <TableCell sx={{ width: '2%', border: 'none' }}>:</TableCell>
-                    <TableCell sx={{ width: '70%', border: 'none' }}>{products?.product?.tag}</TableCell>
+                    <TableCell sx={{ width: '70%', border: 'none' }}>{products?.product?.description}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -137,7 +137,7 @@ function Productpage() {
         </Box>
         {/* destopview code end here here */}
         {/* mobileview code start here */}
-        <Box sx={{ width: '100%', display: { xs: 'block', sm: 'none' } }}>
+        <Box sx={{ width: '100%', display: { xs: 'block',sm: 'block', md:'none' } }}>
           <Grid container rowSpacing={1} >
             <Grid sx={{ textAlign: 'left' }} >
               <h3>{products?.product?.product}</h3>
@@ -214,10 +214,11 @@ function Productpage() {
           </Grid>
         </Box>
         {/* mobileview code end here */}
+        
         <Box sx={{ textAlign: 'center' }}>
 
         </Box>
-        <Box sx={{ backgroundColor: '#124BF2', padding: '10px 0px', display: 'flex', justifyContent: 'space-evenly', width: { xs: '130%', sm: '100%' }, display: 'none' }}>
+        <Box sx={{ backgroundColor: '#124BF2', padding: '10px 0px',  justifyContent: 'space-evenly', width: { xs: '130%', sm: '100%' }, display: 'none' }}>
           {products?.product?.tracking.map((track, index) => (
             <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', color: '#ffffff', }}>
               <Box sx={{ margin: { xs: '0px 0px', sm: '0 10px' }, border: '', }}>{track.productAt}</Box>

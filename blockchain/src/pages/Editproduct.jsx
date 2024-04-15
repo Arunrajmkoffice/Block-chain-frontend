@@ -114,7 +114,7 @@ function Editproduct() {
   return (
     <> {/* desktop view code start here */}
       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: { sx: '5% 0%', xs: '6% 0%' }, margin: { sx: '0% 0% 0% 10%', xs: '0% 0% 0% 0%' } }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: { sx: '5% 0%', xs: '8% 0%',lg:'6% 0%' }, margin: { sx: '0% 0% 0% 10%', xs: '0% 0% 0% 0%' } }}>
           <Box sx={{ backgroundColor: '#124BF2', width: '100%', display: 'flex' }}>
             <Box sx={{ flexGrow: 1 }}>
               <Toolbar>
@@ -189,8 +189,8 @@ function Editproduct() {
                       </Box>
                       <Box sx={{ width: '30%', padding: '10px 20px', justifyContent: 'space-between' }}> <Typography>Branch Number: {product.branchNumber}</Typography>
                         <Typography>Country of Origin: {product.countryOfOrigin}</Typography>
-                        <Typography>Description: {product.description}</Typography>
                         <Typography>Brand: {product.brand}</Typography>
+                        <Typography>Description: {product.description}</Typography>
                       </Box>
                       <Box sx={{ width: '10%', borderRight: '1px solid #95AAAD36', padding: '10px 20px', backgroundColor: '#124BF2', WebkitBorderTopLeftRadius: '10px', borderBottomLeftRadius: '10px', justifyContent: 'space-between' }}>
                         <ListItem >
@@ -234,7 +234,6 @@ function Editproduct() {
       <Box sx={{ backgroundColor: '#124BF2', width: '100%', display: 'flex', margin:'13% 0% 0% -14%',width:'110%'}}>
             <Box sx={{ flexGrow: 1 }}>
               <Toolbar>
-                <Checkbox sx={{ color: '#ffffff' }} />
                 <Search>
                   <SearchIconWrapper>
                     <SearchIcon />
@@ -318,8 +317,6 @@ function Editproduct() {
       </Box>
     ))}
 </Box>
-
-
       {/*mobile view end here */}
     </>
 

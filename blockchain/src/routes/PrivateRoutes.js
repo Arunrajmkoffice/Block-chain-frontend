@@ -78,6 +78,7 @@ function ContentSidebar(props) {
   let role = userData ? JSON.parse(userData) : null;
   const navigate = useNavigate();
   const data = useSelector((store) => store.auth.siginAuth);
+  const [logOut, setlogOut]= React.useState('')
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -101,27 +102,32 @@ function ContentSidebar(props) {
   const handleLinkClick = (link) => {
     setClickedLink(link);
   };
+  
+  const handleChange = (event) => {
+    setlogOut(event.target.value);
+  };
+
 
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
-      <List>
+      <List sx={{ paddingLeft: { sm: '10px' } }}>
         <Link style={{ textDecoration: 'none', color: clickedLink === 'dashboard' ? '#124BF2' : '#474749' }} onClick={() => handleLinkClick('dashboard')} to="/" >
           <ListItem disablePadding>
             <ListItemIcon>
-              <HomeIcon  style={{ color: clickedLink === 'dashboard' ? '#124BF2' : '#474749' }} />
+              <HomeIcon style={{ color: clickedLink === 'dashboard' ? '#124BF2' : '#474749' }} />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItem>
         </Link>
       </List>
       <Divider />
-      <List>
+      <List sx={{ paddingLeft: { sm: '10px' } }}>
         <Link style={{ textDecoration: 'none', color: clickedLink === 'edit' ? '#124BF2' : '#474749' }} onClick={() => handleLinkClick('edit')} to="/edit"  >
           <ListItem disablePadding>
             <ListItemIcon>
-              <ArchiveIcon  style={{ color: clickedLink === 'edit' ? '#124BF2' : '#474749' }} />
+              <ArchiveIcon style={{ color: clickedLink === 'edit' ? '#124BF2' : '#474749' }} />
             </ListItemIcon>
             <ListItemText primary="All Products" />
           </ListItem>
@@ -129,11 +135,11 @@ function ContentSidebar(props) {
       </List>
       <Divider />
       {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
-        <List>
+        <List sx={{ paddingLeft: { sm: '10px' } }}>
           <Link style={{ textDecoration: 'none', color: clickedLink === 'addproduct' ? '#124BF2' : '#474749' }} onClick={() => handleLinkClick('addproduct')} to="/addproduct">
             <ListItem disablePadding>
               <ListItemIcon>
-                <CategoryIcon  style={{ color: clickedLink === 'addproduct' ? '#124BF2' : '#474749' }} />
+                <CategoryIcon style={{ color: clickedLink === 'addproduct' ? '#124BF2' : '#474749' }} />
               </ListItemIcon>
               <ListItemText primary="Add Product" />
             </ListItem>
@@ -142,11 +148,11 @@ function ContentSidebar(props) {
       )}
       <Divider />
       {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
-        <List>
+        <List sx={{ paddingLeft: { sm: '10px' } }}>
           <Link style={{ textDecoration: 'none', color: clickedLink === 'ai' ? '#124BF2' : '#474749' }} onClick={() => handleLinkClick('ai')} to="/ai">
             <ListItem disablePadding>
               <ListItemIcon>
-                <AssignmentIcon style={{ color: clickedLink === 'ai' ? '#124BF2' : '#474749' }}  />
+                <AssignmentIcon style={{ color: clickedLink === 'ai' ? '#124BF2' : '#474749' }} />
               </ListItemIcon>
               <ListItemText primary="Ai" />
             </ListItem>
@@ -192,12 +198,18 @@ function ContentSidebar(props) {
                 <ListItemIcon><NotificationsIcon sx={{ color: '#124BF2' }} /></ListItemIcon>
               </ListItem>
             </List>
-            <FormControl sx={{ width: { xs: '25%', sm: '25%',md:'10%' }, backgroundColor: '#124BF2', borderRadius: '10px', color: '#ffffff', border: 'none', marginLeft: { xs: '45%', sm: '0%' } }}>
-              <InputLabel id="demo-simple-select-label" sx={{ color: '#ffffff',fontSize:{xs:'10px',sm:'16px',md:'16px'} }}>Admin</InputLabel>
+            <FormControl  id="admin-logout" sx={{ width: { xs: '30%', sm: '25%',md:'10%' }, backgroundColor: '#124BF2', borderRadius: '10px', color: '#ffffff', border: 'none', marginLeft: { sm: '0%' } }}>
               <Select
+                value={logOut}
+                onChange={handleChange}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
               >
+                <MenuItem value="">
+                  <em style={{ color: '#ffffff',fontSize:{xs:'10px',sm:'16px',md:'16px'} }}>Admin</em>
+                </MenuItem>
                 <MenuItem sx={{ color: '#000000' }} onClick={handleLogout}>Log Out</MenuItem>
               </Select>
             </FormControl>

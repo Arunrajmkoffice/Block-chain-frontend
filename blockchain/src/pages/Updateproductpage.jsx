@@ -166,9 +166,9 @@ const handleProductname=(e)=>{
   <>
     <Box sx={{display: 'flex', flexDirection: 'column', margin: { sm: '3% 5%', xs: "0% 0% 0% -16%" }, padding: {md:'5% 5%', sm: '15% 3%', xs: '20% 3%' } }}  >
       <Box display="flex" gap="10px" justifyContent="space-between">
-        <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:'18px'}}>EDIT PRODUCT </Typography></Box>
+        <Box ><Typography sx={{color:'#124BF2',fontWeight:'bold',fontSize:{xs:'12px',sm:"18px",sx:'18px'},textAlign:{xs:'left'},paddingTop:{xs:'10px'}}}>EDIT PRODUCT </Typography></Box>
         <Box display="flex" gap="20px">
-          <Link to="/addproduct" style={{backgroundColor:"#0D2768" ,color:"#ffffff", borderRadius:"10px", textDecoration:"none" }}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#ffffff'}}/></ListItemIcon>SINGLE PRODUCT UPLOAD</ListItem></Link>
+          <Link to="/addproduct" style={{backgroundColor:"#0D2768" ,color:"#ffffff", borderRadius:"10px", textDecoration:"none" ,padding:'0px'}}><ListItem sx={{fontSize:{xs:'12px',sm:'18px'}}}><ListItemIcon><AddCircleOutlineIcon sx={{color:'#ffffff', fontSize:{xs:"12px",sm:"18px"}}  }/></ListItemIcon>SINGLE PRODUCT UPLOAD</ListItem></Link>
          {/** <Link to="/bulkproduct" style={{color:'#0C2262', border:'1px solid #0C2262',padding:'0px 10px', borderRadius:'10px', textDecoration:'none'}}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{color:'#0C2262'}} /></ListItemIcon >BULK UPLOAD</ListItem></Link>*/} 
         </Box>
       </Box>

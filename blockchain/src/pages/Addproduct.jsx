@@ -191,9 +191,9 @@ function Addproduct() {
 
   return (
     <Box sx={{background:'#ffffff',  }}>
-      <Box sx={{display: 'flex', flexDirection: 'column', margin: { sm: '3% 5%', xs: "0% 0% 0% -16%" }, padding: {md:'5% 5%', sm: '15% 3%', xs: '20% 3%' } }}  >
+      <Box sx={{display: 'flex', flexDirection: 'column', margin: { sm: '3% 5%', xs: "4% 0% 0% -16%" }, padding: {md:'5% 5%', sm: '15% 3%', xs: '20% 3%' } }}  >
         <Box display="flex" gap="10px" justifyContent="space-between">
-          <Box ><Typography sx={{ color: '#124BF2', fontWeight: 'bold', fontSize: {md:'20px', sm: '16px', xs: '16px' } }}>ADD NEW PRODUCT </Typography></Box>
+          <Box ><Typography sx={{ color: '#124BF2', fontWeight: 'bold', fontSize: {md:'20px', sm: '16px', xs: '16px' },textAlign:{xs:'left',} }}>ADD NEW PRODUCT </Typography></Box>
           <Box display="flex" gap="10px">
            {/**<Link to="/addproduct" style={{ backgroundColor: "#0D2768", color: "#ffffff", borderRadius: "10px", textDecoration: "none", fontSize: { sm: '10px', xs: '5px',md:'20px' } }}><ListItem sx={{fontSize: { sm: '20px', xs: '10px',md:'20px' }}}><ListItemIcon><AddCircleOutlineIcon sx={{ color: '#ffffff',fontSize: { sm: '20px', xs: '20px',md:'20px' } }} /></ListItemIcon>SINGLE PRODUCT UPLOAD</ListItem></Link> */} 
             <Link to="/bulkproduct" style={{ color: '#0C2262', border: '1px solid #0C2262', padding: '0px 10px', borderRadius: '10px', textDecoration: 'none' }}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{ color: '#0C2262' }} /></ListItemIcon >BULK UPLOAD</ListItem></Link>

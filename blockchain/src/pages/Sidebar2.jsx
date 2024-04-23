@@ -82,18 +82,7 @@ export default function Sidebar2(props) {
         </Link>
       </List>
       <Divider />
-      {role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
-        <List>
-          <Link to="/addproduct">
-            <ListItem disablePadding>
-              <ListItemIcon>
-                <CategoryIcon />
-              </ListItemIcon>
-              <ListItemText primary="Add Product" />
-            </ListItem>
-          </Link>
-        </List>
-      )}
+    
     </div>
   );
 
@@ -178,7 +167,7 @@ export default function Sidebar2(props) {
       >
         <Toolbar />
       </Box>
-<p style={{textAlign:"left"}}>test</p>
+<p style={{background:'red'}}>medpick</p>
     </Box>
   );
 }

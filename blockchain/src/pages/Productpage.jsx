@@ -56,7 +56,7 @@ function Productpage() {
 
   return (
     <>
-      <Box sx={{ margin: { xs: '24px 0px 0px -30px', sm: '35px 0px 0px 0px', lg: "0px" }, padding: { xs: '12% 10%', sm: '10% 0%', lg: '5%' }, width: '100%' }}>
+      <Box sx={{ margin: { xs: '23px 0px 0px -37px', sm: '35px 0px 0px 0px', lg: "0px" }, padding: { xs: '12% 0%', sm: '10% 0%', lg: '5%' }, width: '100%' }}>
         <Box sx={{ padding: '0px', width: { xs: '100%', sm: '100%' } }}>
           <ol class="progtrckr" data-progtrckr-steps="4">
             {products?.product?.tracking.map((track, index) => (
@@ -74,7 +74,7 @@ function Productpage() {
               ))}
               <br></br>
               <QRCode id="qr-code-canvas" value={qrCodeContent} /><br></br>
-              <Button variant="contained" onClick={downloadQRCode}>Bulk Download QR Codes</Button>
+              <Button variant="contained" onClick={downloadQRCode}>Bulk Download</Button>
             </Grid>
             <Grid sx={{ borderRight: '1px solid #1A316C94', textAlign: 'left' }} item xs={12} sm={1} md={4} >
               <Table>
@@ -152,7 +152,7 @@ function Productpage() {
               ))}
               <br></br>
               <QRCode id="qr-code-canvas" value={qrCodeContent} /><br></br>
-              <Button variant="contained" onClick={downloadQRCode}>Bulk Download QR Codes</Button>
+              <Button variant="contained" onClick={downloadQRCode}>Bulk Download</Button>
               <Typography>product image</Typography>
             </Grid>
             <Grid sx={{ textAlign: 'left' }} >

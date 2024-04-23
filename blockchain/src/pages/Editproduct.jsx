@@ -13,9 +13,9 @@ import TextField from '@mui/material/TextField';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: "white",
+  backgroundColor: 'white',
   '&:hover': {
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -40,7 +40,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -307,47 +306,26 @@ function Editproduct() {
       </Box>
       {/*desktop view code end  here */}
       {/*mobile view start code here */}
-      <Box sx={{ display: { xs: 'block', sm: 'none' },padding:'0px' }}>
-      <Box sx={{ backgroundColor: '#124BF2', width: '100%', display: 'flex', margin:'13% 0% 0% -14%',width:'110%'}}>
-            <Box sx={{ flexGrow: 1 }}>
-              <Toolbar>
-                <Search>
-                  <SearchIconWrapper>
-                    <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{ 'aria-label': 'search' }}
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                  />
-                </Search>
-                <DeleteIcon sx={{ color: '#ffffff', padding: '0px 10px', fontSize: '2.5rem' }} />
-                <Typography sx={{ color: '#ffffff', padding: '0px 5%' }}>Total products: {productData.length}</Typography>
-                <Autocomplete
-                  id="grouped-demo1"
-                  options={uniqueBrands}
-                  getOptionLabel={(option) => option}
-                  onChange={handleBrandChange}
-                  sx={{
-                    color: '#ffffff', // Change the text color of the label
-                    width: 200,
-                    "& .MuiOutlinedInput-root": {
-                      "& fieldset": {
-                        borderColor: "#ffffff", // customize border color
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "#ffffff", // customize border color on hover
-                      },
-                      "& input": {
-                        color: "#ffffff", // customize text color
-                      }
-                    }
-                  }}
-                  renderInput={(params) => <TextField {...params} label="Select brand" InputLabelProps={{ style: { color: '#ffffff' } }} />}
-                />
-              </Toolbar>
-            </Box>
+      <Box sx={{ display: { xs: 'block', sm: 'none' },padding:'0px',}}>
+      <Box class="edit-page-top" sx={{display: 'flex'}}>
+      <Box class="edit-page-header">
+      <Toolbar>
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ 'aria-label': 'search' }}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </Search>
+        <DeleteIcon sx={{ color: '#ffffff', padding: '0px 10px', fontSize: '2.5rem' }} />
+        <Typography sx={{ color: '#ffffff', padding: '0px 5%' }}>Total products: {productData.length}</Typography>
+      </Toolbar>
+      
+    </Box>
           </Box>
   {data.products
     .filter(product => selectedBrand === null || product.brand === selectedBrand)

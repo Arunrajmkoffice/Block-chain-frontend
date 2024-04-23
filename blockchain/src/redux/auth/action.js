@@ -36,7 +36,7 @@ export const siginAuth = (data)=>(dispatch)=>{
 dispatch(siginAuthRequest())
     return axios({
         method:"POST",
-        url:"http://52.66.194.234:9094/signin",
+        url:"http://localhost:9096/signin",
         data
     })
     .then((res)=>{

@@ -14,7 +14,8 @@ const CustomInput = styled(TextField)(({ theme }) => ({
 }));
 
 function Updateproductpage() {
-  const { id } = useParams();
+  //const { id } = useParams();
+  const id = "6621fcfbe7ee7e6d5d8384c0";
   let token = localStorage.getItem('bcToken')
   const [productname, setProductname]=useState('');
   const [sku, setSku]=useState('');
@@ -33,7 +34,7 @@ function Updateproductpage() {
 useEffect(()=>{
     const fetchData = async ()=>{
         try{
-            const response =await fetch(`http://52.66.194.234:9095/product/${id}`,{
+            const response =await fetch(`http://localhost:9096/product/${id}`,{
                 headers:{
                     'Authorization':`Bearer ${token}`
                 }
@@ -147,7 +148,7 @@ const handleProductname=(e)=>{
     
     axios({
       method:'PATCH',
-      url:`http://52.66.194.234:9095/product/edit/${id}`,
+      url:`http://localhost:9096/product/edit/${id}`,
       data,
       headers: {
               'Authorization': `Bearer ${token}`

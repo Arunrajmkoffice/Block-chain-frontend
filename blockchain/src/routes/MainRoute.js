@@ -4,6 +4,7 @@ import PublicRoutes from './PublicRoutes'
 
 function MainRoute() {
   const token = localStorage.getItem('bcToken');
+ 
   return (
     <>
       { token ? <PrivateRoutes/>:

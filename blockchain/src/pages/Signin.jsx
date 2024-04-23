@@ -18,6 +18,7 @@ function Signin() {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [responseData, setResponseData] = useState(null);
 
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -52,7 +53,7 @@ function Signin() {
     }
 
     if (!emailError && !passwordError) {
-      axios.post("http://52.66.194.234:9095/signin", data)
+      axios.post("http://localhost:9096/signin", data)
         .then((res) => {
           setResponseData(res.data);
           if (res.data.token !== undefined) {
@@ -60,6 +61,7 @@ function Signin() {
             let userData = {
               role: res.data.role,
               userId: res.data.userId,
+              vendorId:res.data.vendorId
             };
             localStorage.setItem('bcUserData', JSON.stringify(userData));
           }

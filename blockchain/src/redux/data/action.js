@@ -51,7 +51,7 @@ export const addproductData=(data)=>(dispatch)=>{
     dispatch(addproductDataRequest())
     return axios({
         method:"POST",
-        url:"http://52.66.194.234:9094/product",
+        url:"http://localhost:9096/product",
         data
 
     })
@@ -67,7 +67,7 @@ export const getproductdata =(data,token)=>(dispatch)=>{
     dispatch(getproductdatarequest)
     return axios({
         method:"GET",
-        url:"http://3.6.93.117:9091/product",
+        url:"http://localhost:9096/product",
        params:data,
         headers: {
             Authorization:`Bearer ${token}` 

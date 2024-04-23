@@ -19,7 +19,7 @@ let data ={
 
     axios({
         method:"POST",
-        url:"http://52.66.194.234:9095/ai",
+        url:"http://localhost:9096/ai",
         data,
         headers: {
             Authorization: `Bearer ${token}`,

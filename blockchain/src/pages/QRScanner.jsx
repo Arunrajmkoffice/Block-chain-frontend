@@ -21,7 +21,7 @@ const QRScanner = () => {
 
     axios({
             method:"PATCH",
-            url:`http://52.66.194.234:9095/product/${id}`,
+            url:`http://localhost:9096/product/${id}`,
           data:{role:role.role},
             headers: {
                 Authorization:`Bearer ${token}` 

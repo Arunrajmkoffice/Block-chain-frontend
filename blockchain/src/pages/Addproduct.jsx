@@ -81,7 +81,7 @@ function Addproduct() {
     reader.onloadend = () => {
       setImages(prevImages => [...prevImages, {
         id: 'image' + (prevImages.length + 1),
-        imagedata: reader.result
+        imageData: reader.result
       }]);
     };
 
@@ -96,6 +96,10 @@ function Addproduct() {
     e.preventDefault();
     console.log("image", images);
     const token = localStorage.getItem('bcToken');
+    const userDataString = localStorage.getItem('bcUserData');
+    const userData = JSON.parse(userDataString);
+    const vendorId = userData.vendorId;
+    console.log('vendorid',vendorId)
     const data = {
       product: productname.trim(),
       branchNumber: batchnumber.trim(),
@@ -109,12 +113,13 @@ function Addproduct() {
       category: categories.trim(),
       salesPrice: saleprice.trim(),
       image: images,
+     vendorId: vendorId,
     };
 
     console.log("data", data)
 
     try {
-      const response = await fetch(`http://52.66.194.234:9095/product`, {
+      const response = await fetch(`http://localhost:9096/product`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

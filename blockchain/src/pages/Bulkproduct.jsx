@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 const Bulkproduct = () => {
   const [csvData, setCSVData] = useState(null);
   const [jsonData, setJSONData] = useState(null);
+  const vendorId = JSON.parse(localStorage.getItem('bcUserData'));
+
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -41,6 +43,13 @@ const Bulkproduct = () => {
     setJSONData(JSON.stringify(jsonDataWrapped, null, 2));
 
     const token = localStorage.getItem('bcToken');
+
+
+let data ={
+  csvData:jsonArray, 
+  vendorId:vendorId.vendorId
+}
+
     axios({
       method: 'POST',
       url: 'http://localhost:9096/convert',
@@ -48,7 +57,7 @@ const Bulkproduct = () => {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      data: jsonDataWrapped,
+     data
     })
       .then((res) => {
         console.log('Response:', res.data);

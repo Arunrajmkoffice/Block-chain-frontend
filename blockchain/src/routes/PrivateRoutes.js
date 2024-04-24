@@ -193,26 +193,23 @@ function ContentSidebar(props) {
               <MenuIcon />
             </IconButton>
             <Divider />
-            <List>
-              <ListItem>
-                <ListItemIcon><NotificationsIcon sx={{ color: '#124BF2' }} /></ListItemIcon>
-              </ListItem>
-            </List>
-            <FormControl  id="admin-logout" sx={{ width: { xs: '30%', sm: '25%',md:'10%' }, backgroundColor: '#124BF2', borderRadius: '10px', color: '#ffffff', border: 'none', marginLeft: { sm: '0%' } }}>
-              <Select
-                value={logOut}
-                onChange={handleChange}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-              >
-                <MenuItem value="">
-                  <em style={{ color: '#ffffff',fontSize:{xs:'10px',sm:'16px',md:'16px'} }}>Admin</em>
-                </MenuItem>
-                <MenuItem sx={{ color: '#000000' }} onClick={handleLogout}>Log Out</MenuItem>
-              </Select>
-            </FormControl>
+            <Box class="main-admin-menu" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <FormControl sx={{ backgroundColor: '#124BF2', borderRadius: '10px', color: '#ffffff', border: 'none', width: 'auto' }}>
+        <Select
+          value={logOut}
+          onChange={handleChange}
+          displayEmpty
+          inputProps={{ 'aria-label': 'Without label' }}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+        >
+          <MenuItem value="">
+            <em style={{ color: '#ffffff', fontSize: { xs: '10px', sm: '16px', md: '16px' } }}>Admin</em>
+          </MenuItem>
+          <MenuItem sx={{ color: '#000000' }} onClick={handleLogout}>Log Out</MenuItem>
+        </Select>
+      </FormControl>
+      </Box>
           </Toolbar>
         </AppBar>
         <Box

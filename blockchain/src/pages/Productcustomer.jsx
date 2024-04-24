@@ -1,29 +1,35 @@
 import { Box, Grid, Table, TableBody, TableCell, TableRow } from '@mui/material'
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 
 function Productcustomer() {
     const { id } = useParams();
   const [products, setProducts] = useState([]);
-  let token = localStorage.getItem('bcToken');
+  const token = localStorage.getItem('bcToken')
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:9096/product/${id}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
+        const token = localStorage.getItem('bcToken');
+        const response = await axios.patch(
+          `http://localhost:9096/product/user-scan/${id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
           }
-        });
-        const data = await response.json();
+        );
+        const data = response.data;
         setProducts(data);
-        console.log('datas', data)
+        console.log('datas', data);
       } catch (error) {
-        console.error('error:', error)
+        console.error('error:', error);
       }
     };
     fetchData();
-  }, [])
-  return (
+  }, [id]);
+return (
    <>
      <>
       <Box>

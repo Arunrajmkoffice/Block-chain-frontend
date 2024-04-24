@@ -14,8 +14,7 @@ const CustomInput = styled(TextField)(({ theme }) => ({
 }));
 
 function Updateproductpage() {
-  //const { id } = useParams();
-  const id = "6621fcfbe7ee7e6d5d8384c0";
+  const { id } = useParams();
   let token = localStorage.getItem('bcToken')
   const [productname, setProductname]=useState('');
   const [sku, setSku]=useState('');
@@ -101,27 +100,29 @@ const handleProductname=(e)=>{
   const handleImages = (e) => {
     const files = e.target.files;
     const updatedImages = [];
-  
+
     // Iterate over the selected files
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const reader = new FileReader();
-  
+
       reader.onloadend = () => {
         // Push the new image data into the updatedImages array
         updatedImages.push({
           id: 'new-image' + i, // You can adjust the ID as needed
           imageData: reader.result
         });
+
+        // If this is the last file, update the state with all images
+        if (i === files.length - 1) {
+          setImages(prevImages => [...prevImages, ...updatedImages]);
+        }
       };
-  
+
       if (file) {
         reader.readAsDataURL(file);
       }
     }
-  
-    // Update the state with the new and existing images
-    setImages(prevImages => [...prevImages, ...updatedImages]);
   };
   
   

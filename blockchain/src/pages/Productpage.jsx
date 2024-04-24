@@ -4,8 +4,7 @@ import { useParams } from 'react-router-dom';
 import QRCode from 'qrcode.react'; // Import QRCode library
 
 function Productpage() {
- // const { id } = useParams();
- const id = '6621fcfbe7ee7e6d5d8384c0';
+ const { id } = useParams();
   const [products, setProducts] = useState([]);
   let token = localStorage.getItem('bcToken');
   const [qrCodeReady, setQRCodeReady] = useState(false);

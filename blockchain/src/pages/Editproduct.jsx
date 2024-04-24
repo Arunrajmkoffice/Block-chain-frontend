@@ -62,29 +62,28 @@ function Editproduct() {
   const vendorId = userData.vendorId;
   console.log('vendorid',vendorId)
   console.log("data", productData)
+
   useEffect(() => {
-    let data= {
-      vendorId: vendorId
-      
-    }
-    console.log("data",data )
-    axios({
-      method: 'GET',
-      url: `http://localhost:9096/product`,
+     axios({
+      method:"GET",
+      url:`http://localhost:9096/product`,
+      params:{
+          vendorId:vendorId
+      },
       headers: {
-        'Authorization': `Bearer ${token}`,
-      },params: { vendorId },
-    })
-      .then((res) => {
-        setProductData(res.data.products);
-        console.log("res.data.",res.data)
-        setDataFetched(true); // Update state to indicate data has been fetched
-      }).catch((error) => {
+          Authorization:`Bearer ${token}` 
+      }
+  })
+  .then((res)=>{
+   setProductData(res.data.products)
+      console.log("data",res.data)
+  })
+  .catch((err)=>{
+     
+  })
 
-      })
 
-
-  }, [dataFetched, token]);
+  }, [dataFetched, token, vendorId]);
   const uniqueBrands = Array.from(new Set(productData.map(product => product.brand)));
 
   // Handle brand selection change
@@ -102,7 +101,6 @@ function Editproduct() {
       });
 
       if (response) {
-
         console.log('Product deleted successfully', response);
       } else {
         console.error('Failed to delete product');
@@ -112,80 +110,80 @@ function Editproduct() {
     }
   };
 
-  let data = {
-    "products": [
-      {
-        "_id": "6621fcfbe7ee7e6d5d8384c0",
-        "product": "Apples",
-        "price": "1000",
-        "sku": "MP10",
-        "branchNumber": "MP18",
-        "countryOfOrigin": "India",
-        "inventory": "10",
-        "description": "Debrox Earwax",
-        "tag": "MP18",
-        "brand": "Debrox Earwax",
-        "category": "Debrox Earwax",
-        "salesPrice": "999",
-        "createdDate": "2024-04-19",
-        "createdTime": "5:11:06 AM",
-        "image": [
-          {
-            "imageData": "azazazaz",
-            "id": "1711545349587",
-            "_id": "6621fcfbe7ee7e6d5d8384c1"
-          }
-        ],
-        "tracking": [
-          {
-            "productAt": "Us Warehouse",
-            "date": "2024-04-19",
-            "time": "5:11:06 AM",
-            "complete": true,
-            "_id": "6621fcfbe7ee7e6d5d8384c2"
-          },
-          {
-            "productAt": "Medorna Office",
-            "date": "2024-04-22",
-            "time": "12:39:37 pm",
-            "complete": true,
-            "_id": "6621fcfbe7ee7e6d5d8384c3"
-          },
-          {
-            "productAt": "IGO Office",
-            "date": "",
-            "time": "",
-            "complete": false,
-            "_id": "6621fcfbe7ee7e6d5d8384c4"
-          },
-          {
-            "productAt": "Amazon Office",
-            "date": "",
-            "time": "",
-            "complete": false,
-            "_id": "6621fcfbe7ee7e6d5d8384c5"
-          }
-        ],
-        "id": "apples",
-        "plot_embedding_hf": [],
-        "vendorId": "31b139eb-66e4-49c3-ba71-ab9affb502dd",
-        "qr": [
-          "429130e1-6fb6-4506-bc64-7c433e310575",
-          "3142b3b6-1998-4708-b247-1a0b6b7edb40",
-          "c3c2dc3e-4052-41be-b497-b0aec75dcc5c",
-          "8e56423e-7918-4ac1-a788-27adf9287399",
-          "8d54c97b-e2ae-4be7-b31c-918fe7a5bbd7",
-          "4f6406d5-cec7-4143-a0cc-a5be54094d4c",
-          "50a68801-9f65-4a69-ae15-56b1fb746b15",
-          "1053fcbd-5ca2-4ee4-b225-806acf0fbf29",
-          "e9a3aa87-9db8-4ce4-8c03-448beaf165f6",
-          "1f2c3e8b-f984-49db-850c-046ed2551114"
-        ],
-        "__v": 0
-      }
-    ],
-    "totalCount": 1
-  }
+  // let data = {
+  //   "products": [
+  //     {
+  //       "_id": "6621fcfbe7ee7e6d5d8384c0",
+  //       "product": "Apples",
+  //       "price": "1000",
+  //       "sku": "MP10",
+  //       "branchNumber": "MP18",
+  //       "countryOfOrigin": "India",
+  //       "inventory": "10",
+  //       "description": "Debrox Earwax",
+  //       "tag": "MP18",
+  //       "brand": "Debrox Earwax",
+  //       "category": "Debrox Earwax",
+  //       "salesPrice": "999",
+  //       "createdDate": "2024-04-19",
+  //       "createdTime": "5:11:06 AM",
+  //       "image": [
+  //         {
+  //           "imageData": "azazazaz",
+  //           "id": "1711545349587",
+  //           "_id": "6621fcfbe7ee7e6d5d8384c1"
+  //         }
+  //       ],
+  //       "tracking": [
+  //         {
+  //           "productAt": "Us Warehouse",
+  //           "date": "2024-04-19",
+  //           "time": "5:11:06 AM",
+  //           "complete": true,
+  //           "_id": "6621fcfbe7ee7e6d5d8384c2"
+  //         },
+  //         {
+  //           "productAt": "Medorna Office",
+  //           "date": "2024-04-22",
+  //           "time": "12:39:37 pm",
+  //           "complete": true,
+  //           "_id": "6621fcfbe7ee7e6d5d8384c3"
+  //         },
+  //         {
+  //           "productAt": "IGO Office",
+  //           "date": "",
+  //           "time": "",
+  //           "complete": false,
+  //           "_id": "6621fcfbe7ee7e6d5d8384c4"
+  //         },
+  //         {
+  //           "productAt": "Amazon Office",
+  //           "date": "",
+  //           "time": "",
+  //           "complete": false,
+  //           "_id": "6621fcfbe7ee7e6d5d8384c5"
+  //         }
+  //       ],
+  //       "id": "apples",
+  //       "plot_embedding_hf": [],
+  //       "vendorId": "31b139eb-66e4-49c3-ba71-ab9affb502dd",
+  //       "qr": [
+  //         "429130e1-6fb6-4506-bc64-7c433e310575",
+  //         "3142b3b6-1998-4708-b247-1a0b6b7edb40",
+  //         "c3c2dc3e-4052-41be-b497-b0aec75dcc5c",
+  //         "8e56423e-7918-4ac1-a788-27adf9287399",
+  //         "8d54c97b-e2ae-4be7-b31c-918fe7a5bbd7",
+  //         "4f6406d5-cec7-4143-a0cc-a5be54094d4c",
+  //         "50a68801-9f65-4a69-ae15-56b1fb746b15",
+  //         "1053fcbd-5ca2-4ee4-b225-806acf0fbf29",
+  //         "e9a3aa87-9db8-4ce4-8c03-448beaf165f6",
+  //         "1f2c3e8b-f984-49db-850c-046ed2551114"
+  //       ],
+  //       "__v": 0
+  //     }
+  //   ],
+  //   "totalCount": 1
+  // }
   
   return (
     <> {/* desktop view code start here */}
@@ -234,7 +232,7 @@ function Editproduct() {
             </Box>
           </Box>
           <Box>
-            {data.products
+            {productData
               .filter(product => selectedBrand === null || product.brand === selectedBrand)
               .map((product, index) => (
                 <Box key={index} id="full-width-box" sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
@@ -321,13 +319,13 @@ function Editproduct() {
             onChange={(e) => setSearchInput(e.target.value)}
           />
         </Search>
-        <DeleteIcon sx={{ color: '#ffffff', padding: '0px 10px', fontSize: '2.5rem' }} />
-        <Typography sx={{ color: '#ffffff', padding: '0px 5%' }}>Total products: {productData.length}</Typography>
+        {/* <DeleteIcon sx={{ color: '#ffffff', padding: '0px 10px', fontSize: '2.5rem' }} /> */}
+        <Typography sx={{ color: '#ffffff', padding: '0px 5%' }}>Total:{productData.length}</Typography>
       </Toolbar>
       
     </Box>
           </Box>
-  {data.products
+  {productData
     .filter(product => selectedBrand === null || product.brand === selectedBrand)
     .map((product, index) => (
       <Box key={index} id="full-width-box" sx={{ display: 'flex', flexDirection: 'column', width: '100%' ,margin:'1% 0% 0% -14%',width:'110%' ,borderBottom:'2px solid black'}}>

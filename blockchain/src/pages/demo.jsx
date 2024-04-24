@@ -64,20 +64,17 @@ function Editproduct() {
 
 
 
-  let data = { 
-      vendorId: '31b139eb-66e4-49c3-ba71-ab9affb502dd', 
-  }
+  
   useEffect(() => {
     axios({
       method: 'GET',
       url: `http://localhost:9096/product`,
       headers: {
         'Authorization': `Bearer ${token}`,
-      },
-      params: {
-        vendorId: "31b139eb-66e4-49c3-ba71-ab9affb502dd",
-        
+      },params:{
+        vendorId:vendorId
       }
+    
     })
     .then((res) => {
       setProductData(res.data);

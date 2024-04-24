@@ -61,7 +61,7 @@ function Signin() {
             let userData = {
               role: res.data.role,
               userId: res.data.userId,
-              vendorId:res.data.vendorId
+              vendorId:res.data.vendorId,
             };
             localStorage.setItem('bcUserData', JSON.stringify(userData));
           }

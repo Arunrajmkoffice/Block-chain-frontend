@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import QRCode from 'qrcode.react'; // Import QRCode library
 
+
 function Productpage() {
  const { id } = useParams();
+ //const id="7461712a-36ef-4a53-9298-382a17add992";
   const [products, setProducts] = useState([]);
   let token = localStorage.getItem('bcToken');
   const [qrCodeReady, setQRCodeReady] = useState(false);
@@ -14,9 +16,11 @@ function Productpage() {
     const fetchData = async () => {
       try {
         const response = await fetch(`http://localhost:9096/product/${id}`, {
+          
           headers: {
-            'Authorization': `Bearer ${token}`
-          }
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json' 
+          }, 
         });
         const data = await response.json();
         setProducts(data);
@@ -72,7 +76,11 @@ function Productpage() {
                 <Box sx={{ padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
               ))}
               <br></br>
-              <QRCode id="qr-code-canvas" value={qrCodeContent} /><br></br>
+              {products?.product?.qr.map((qrData, index) => (
+                <div key={index}>
+                  <QRCode id={`qr-code-canvas-${index}`} value={`http://localhost:3000/productpage/${qrData}`} /> 
+                </div>
+              ))}
               <Button variant="contained" onClick={downloadQRCode}>Bulk Download</Button>
             </Grid>
             <Grid sx={{ borderRight: '1px solid #1A316C94', textAlign: 'left' }} item xs={12} sm={1} md={4} >

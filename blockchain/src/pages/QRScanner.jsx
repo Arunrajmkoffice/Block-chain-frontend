@@ -8,6 +8,9 @@ const QRScanner = () => {
   let token = localStorage.getItem('bcToken')
   const [scanResult, setScanResult] = useState({ id: '', fullResult: '' });
   let role = JSON.parse(localStorage.getItem('bcUserData'));
+  const userDataString = localStorage.getItem('bcUserData');
+  const userData = JSON.parse(userDataString);
+  const vendorId = userData.vendorId;
   const handleScan = (data) => {
     if (data) {
       // Split the scanned data by slashes and extract the last part as the ID
@@ -25,6 +28,9 @@ const QRScanner = () => {
           data:{role:role.role},
             headers: {
                 Authorization:`Bearer ${token}` 
+            },
+            params:{
+              vendorId:vendorId
             }
         })
         .then((res)=>{
@@ -32,9 +38,7 @@ const QRScanner = () => {
         })
         .catch((err)=>{
             
-        })
-    
-      
+        }) 
 
     }
   };
@@ -56,7 +60,7 @@ const QRScanner = () => {
         onError={handleError}
         onScan={handleScan}
       />
-      <p>Full Result:<a href={scanResult.fullResult}> {scanResult.fullResult}</a></p>
+      <p>Full Result:<a href={scanResult.fullResult}>{scanResult.fullResult}</a></p>
       <p>ID: {scanResult.id}</p>
     </div>
   );

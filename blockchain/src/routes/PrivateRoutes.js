@@ -46,7 +46,7 @@ function PrivateRoutes() {
         <Routes>
           {role && (
             <>
-              {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+              {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
                 <>
                   <Route path="/qrcode1" element={<Dashboard />} />
                   <Route path="/addproduct" element={<ProductForm />} />
@@ -75,7 +75,7 @@ function ContentSidebar(props) {
   const [isClosing, setIsClosing] = React.useState(false);
   const [clickedLink, setClickedLink] = React.useState(false);
   let userData = localStorage.getItem('bcUserData');
-  let role = userData ? JSON.parse(userData) : null;
+  const role = userData ? JSON.parse(userData) : { role: '' }
   const navigate = useNavigate();
   const data = useSelector((store) => store.auth.siginAuth);
   const [logOut, setlogOut]= React.useState('')
@@ -134,7 +134,7 @@ function ContentSidebar(props) {
         </Link>
       </List>
       <Divider />
-      {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+      {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
         <List sx={{ paddingLeft: { sm: '10px' } }}>
           <Link style={{ textDecoration: 'none', color: clickedLink === 'addproduct' ? '#124BF2' : '#474749' }} onClick={() => handleLinkClick('addproduct')} to="/addproduct">
             <ListItem disablePadding>
@@ -147,7 +147,7 @@ function ContentSidebar(props) {
         </List>
       )}
       <Divider />
-      {role && role.role !== 'Medorna Office' && role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+      {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
         <List sx={{ paddingLeft: { sm: '10px' } }}>
           <Link style={{ textDecoration: 'none', color: clickedLink === 'ai' ? '#124BF2' : '#474749' }} onClick={() => handleLinkClick('ai')} to="/ai">
             <ListItem disablePadding>

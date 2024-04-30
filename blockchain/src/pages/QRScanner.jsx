@@ -7,10 +7,12 @@ const QRScanner = () => {
   const [delay] = useState(100);
   let token = localStorage.getItem('bcToken')
   const [scanResult, setScanResult] = useState({ id: '', fullResult: '' });
+  const [id, setId] = useState("")
+  const [selectedData, setSelectedData] = useState({})
   let role = JSON.parse(localStorage.getItem('bcUserData'));
-  const userDataString = localStorage.getItem('bcUserData');
-  const userData = JSON.parse(userDataString);
-  const vendorId = userData.vendorId;
+  // const userDataString = localStorage.getItem('bcUserData');
+  // const userData = JSON.parse(userDataString);
+  // const vendorId = userData.vendorId;
   const handleScan = (data) => {
     if (data) {
       // Split the scanned data by slashes and extract the last part as the ID
@@ -21,20 +23,16 @@ const QRScanner = () => {
       console.log("idscan",id)
       console.log("full url",data)
 
-
     axios({
             method:"PATCH",
             url:`http://localhost:9096/product/${id}`,
           data:{role:role.role},
             headers: {
-                Authorization:`Bearer ${token}` 
-            },
-            params:{
-              vendorId:vendorId
+              Authorization:`Bearer ${token}` ,
             }
         })
         .then((res)=>{
-            
+          setSelectedData(res.data)
         })
         .catch((err)=>{
             
@@ -51,6 +49,9 @@ const QRScanner = () => {
     height: 240,
     width: 320,
   };
+  console.log("role.role",role.role)
+
+  console.log("selectedData",selectedData)
 
   return (
     <div style={{padding:'8% 0%'}}>

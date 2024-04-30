@@ -196,7 +196,7 @@ function Addproduct() {
           <Box ><Typography sx={{ color: '#124BF2', fontWeight: 'bold', fontSize: {md:'20px', sm: '16px', xs: '16px' },textAlign:{xs:'left',} }}>ADD NEW PRODUCT </Typography></Box>
           <Box display="flex" gap="10px">
            {/**<Link to="/addproduct" style={{ backgroundColor: "#0D2768", color: "#ffffff", borderRadius: "10px", textDecoration: "none", fontSize: { sm: '10px', xs: '5px',md:'20px' } }}><ListItem sx={{fontSize: { sm: '20px', xs: '10px',md:'20px' }}}><ListItemIcon><AddCircleOutlineIcon sx={{ color: '#ffffff',fontSize: { sm: '20px', xs: '20px',md:'20px' } }} /></ListItemIcon>SINGLE PRODUCT UPLOAD</ListItem></Link> */} 
-            <Link to="/bulkproduct" style={{ color: '#0C2262', border: '1px solid #0C2262', padding: '0px 10px', borderRadius: '10px', textDecoration: 'none' }}><ListItem><ListItemIcon><AddCircleOutlineIcon sx={{ color: '#0C2262' }} /></ListItemIcon >BULK UPLOAD</ListItem></Link>
+            <Link to="/bulkproduct" style={{ color: '#0C2262', border: '1px solid #0C2262', padding: '0px 10px', borderRadius: '10px', textDecoration: 'none'}}><ListItem ><ListItemIcon><AddCircleOutlineIcon sx={{ color: '#0C2262' }} /></ListItemIcon >BULK UPLOAD</ListItem></Link>
           </Box>
         </Box>
         <InputLabel sx={{ textAlign: 'left', padding: '10px 0px', color: '#080F21', fontWeight: 'bold' }}>Product Name</InputLabel>

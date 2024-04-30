@@ -5,8 +5,8 @@ import QRCode from 'qrcode.react'; // Import QRCode library
 
 
 function Productpage() {
- const { id } = useParams();
- //const id="7461712a-36ef-4a53-9298-382a17add992";
+ let { id } = useParams();
+ //const id="1db08b6a-d7f5-47c0-b256-7b27b8a4e773";
   const [products, setProducts] = useState([]);
   let token = localStorage.getItem('bcToken');
   const [qrCodeReady, setQRCodeReady] = useState(false);
@@ -16,11 +16,11 @@ function Productpage() {
     const fetchData = async () => {
       try {
         const response = await fetch(`http://localhost:9096/product/${id}`, {
-          
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json' 
-          }, 
+          },
+        
         });
         const data = await response.json();
         setProducts(data);
@@ -31,6 +31,10 @@ function Productpage() {
     };
     fetchData();
   }, [])
+
+
+
+  console.log("products",products)
   // Generate the QR code content
   const qrCodeContent = `http://localhost:3000/productpage/${products?.product?.qr[0]}`;
   const downloadQRCode = () => {

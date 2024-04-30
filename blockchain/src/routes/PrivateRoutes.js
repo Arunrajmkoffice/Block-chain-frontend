@@ -60,7 +60,7 @@ function PrivateRoutes() {
               )}
             </>
           )}
-          <Route path='productpage/:id' element={<Productpage />} />
+          <Route path='/productpage/:id' element={<Productpage />} />
           <Route path='/' element={<QRScanner />} />
           <Route path='/edit' element={<Editproduct />} />
           <Route path='/sidebar' element={<Sidebar2 />} />

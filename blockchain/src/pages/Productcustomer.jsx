@@ -59,7 +59,7 @@ function Productpage() {
 
   return (
     <>
-      <Box sx={{ margin: { xs: '23px 0px 0px -37px', sm: '35px 0px 0px 0px', lg: "0px" }, padding: { xs: '12% 0%', sm: '10% 0%', lg: '5%' }, width: '100%' }}>
+      <Box >
         <Box sx={{ padding: '0px', width: { xs: '100%', sm: '100%' } }}>
           <ol class="progtrckr" data-progtrckr-steps="4">
             {products?.product?.tracking.map((track, index) => (

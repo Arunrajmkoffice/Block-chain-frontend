@@ -6,10 +6,12 @@ import QRCode from 'qrcode.react'; // Import QRCode library
 
 function Productpage() {
  let { id } = useParams();
- //const id="1db08b6a-d7f5-47c0-b256-7b27b8a4e773";
+ //const id="fc3f8f9a-4a14-48c2-93ce-e3c45f42aa30";
   const [products, setProducts] = useState([]);
   let token = localStorage.getItem('bcToken');
+  let role = JSON.parse(localStorage.getItem('bcUserData'));
   const [qrCodeReady, setQRCodeReady] = useState(false);
+
   
 
   useEffect(() => {
@@ -19,8 +21,7 @@ function Productpage() {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json' 
-          },
-        
+          }
         });
         const data = await response.json();
         setProducts(data);
@@ -79,13 +80,18 @@ function Productpage() {
               {products?.product?.image.map((image) => (
                 <Box sx={{ padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
               ))}
+              
               <br></br>
+              {role.role !== 'IGO Office' && role.role !== 'Amazon Office' &&(
+                <>
               {products?.product?.qr.map((qrData, index) => (
                 <div key={index}>
                   <QRCode id={`qr-code-canvas-${index}`} value={`http://localhost:3000/productpage/${qrData}`} /> 
                 </div>
               ))}
               <Button variant="contained" onClick={downloadQRCode}>Bulk Download</Button>
+              </>
+            )}
             </Grid>
             <Grid sx={{ borderRight: '1px solid #1A316C94', textAlign: 'left' }} item xs={12} sm={1} md={4} >
               <Table>

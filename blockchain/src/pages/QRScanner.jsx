@@ -1,18 +1,17 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import QrReader from 'react-qr-scanner';
+import { useNavigate } from 'react-router-dom';
 
 
 const QRScanner = () => {
   const [delay] = useState(100);
+  const navigate = useNavigate()
   let token = localStorage.getItem('bcToken')
   const [scanResult, setScanResult] = useState({ id: '', fullResult: '' });
   const [id, setId] = useState("")
   const [selectedData, setSelectedData] = useState({})
   let role = JSON.parse(localStorage.getItem('bcUserData'));
-  // const userDataString = localStorage.getItem('bcUserData');
-  // const userData = JSON.parse(userDataString);
-  // const vendorId = userData.vendorId;
   const handleScan = (data) => {
     if (data) {
       // Split the scanned data by slashes and extract the last part as the ID
@@ -49,10 +48,16 @@ const QRScanner = () => {
     height: 240,
     width: 320,
   };
-  console.log("role.role",role.role)
 
-  console.log("selectedData",selectedData)
 
+// useEffect(()=>{
+//   if(Object.keys(selectedData)?.length>0){
+//     navigate(`http://localhost:3000/productpage/${selectedData?.product?._id}`)
+//     }
+// },[selectedData])
+
+
+let path = `http://localhost:3000/productpage/${selectedData?.product?._id}`
   return (
     <div style={{padding:'8% 0%'}}>
       <QrReader
@@ -61,8 +66,8 @@ const QRScanner = () => {
         onError={handleError}
         onScan={handleScan}
       />
-      <p>Full Result:<a href={scanResult.fullResult}>{scanResult.fullResult}</a></p>
-      <p>ID: {scanResult.id}</p>
+    { Object.keys(selectedData)?.length>0 && <p>Full Result:<a href={path}>{path}</a></p>}
+      <p>ID: {selectedData?.product?._id}</p>
     </div>
   );
 };

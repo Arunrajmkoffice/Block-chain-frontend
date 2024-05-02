@@ -187,8 +187,6 @@ function Addproduct() {
       return;
     }
   };
-
-
   return (
     <Box sx={{background:'#ffffff',  }}>
       <Box sx={{display: 'flex', flexDirection: 'column', margin: { sm: '3% 5%', xs: "4% 0% 0% -16%" }, padding: {md:'5% 5%', sm: '15% 3%', xs: '20% 3%' } }}  >
@@ -239,7 +237,6 @@ function Addproduct() {
         <CustomInput placeholder="Categories" value={categories} id="standard-basic" variant="outlined" onChange={handleCategories} required />
         <InputLabel sx={{ textAlign: 'left', padding: '10px 0px', color: '#080F21', fontWeight: 'bold' }}>Image</InputLabel>
         <CustomInput type="file" multiple accept="image/*" id="standard-basic" variant="outlined" onChange={handleImage} required /><br />
-
         <Button variant="text" onClick={handlesubmit} sx={{
           color: '#fff', backgroundColor: '#124BF2', '&:hover': {
             color: '#fff', backgroundColor: '#124BF2',

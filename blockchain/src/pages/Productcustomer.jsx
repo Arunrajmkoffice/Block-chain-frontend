@@ -5,7 +5,8 @@ import QRCode from 'qrcode.react'; // Import QRCode library
 
 
 function Productpage() {
-  const id = 'fc3f8f9a-4a14-48c2-93ce-e3c45f42aa30';
+  let { id } = useParams();
+  //const id = 'fc3f8f9a-4a14-48c2-93ce-e3c45f42aa30';
   const [products, setProducts] = useState([]);
   const [qrCodeReady, setQRCodeReady] = useState(false);
   let token = localStorage.getItem('bcToken');

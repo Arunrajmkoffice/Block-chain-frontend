@@ -4,7 +4,6 @@ import ProductForm from '../pages/Addproduct'
 import Productdata from '../pages/Productdata'
 import Sidebar2 from '../pages/Sidebar2'
 import Bulkproduct from '../pages/Bulkproduct'
-import Demo from '../pages/demo'
 import Updateproductpage from '../pages/Updateproductpage'
 import Productpage from '../pages/Productpage'
 import QRScanner from '../pages/QRScanner'
@@ -34,6 +33,7 @@ import { useSelector } from 'react-redux';
 import Editproduct from '../pages/Editproduct'
 import Ai from '../pages/Ai'
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import AllUserList from '../pages/AllUserList'
 const drawerWidth = 240;
 function PrivateRoutes() {
   let role = JSON.parse(localStorage.getItem('bcUserData'))
@@ -53,7 +53,7 @@ function PrivateRoutes() {
                   <Route path='/productdata' element={<Productdata />} />
                   <Route path='/bulkproduct' element={<Bulkproduct />} />
                   <Route path='edit/:id' element={<Updateproductpage />} />
-                  <Route path='/demo' element={<Demo />} />
+                  <Route path='/alluserlist' element={<AllUserList />} />
                   <Route path='/' element={<QRScanner />} />
                   <Route path='/ai' element={<Ai />} />
                 </>
@@ -78,7 +78,7 @@ function ContentSidebar(props) {
   const role = userData ? JSON.parse(userData) : { role: '' }
   const navigate = useNavigate();
   const data = useSelector((store) => store.auth.siginAuth);
-  const [logOut, setlogOut]= React.useState('')
+  const [logOut, setlogOut] = React.useState('')
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -102,7 +102,7 @@ function ContentSidebar(props) {
   const handleLinkClick = (link) => {
     setClickedLink(link);
   };
-  
+
   const handleChange = (event) => {
     setlogOut(event.target.value);
   };
@@ -159,6 +159,19 @@ function ContentSidebar(props) {
           </Link>
         </List>
       )}
+      <Divider />
+      {role.role == 'Medorna Office' && (
+        <List sx={{ paddingLeft: { sm: '10px' } }}>
+          <Link style={{ textDecoration: 'none', color: clickedLink === 'alluserlist' ? '#124BF2' : '#474749' }} onClick={() => handleLinkClick('alluserlist')} to="/alluserlist">
+            <ListItem disablePadding>
+              <ListItemIcon>
+                <CategoryIcon style={{ color: clickedLink === 'alluserlist' ? '#124BF2' : '#474749' }} />
+              </ListItemIcon>
+              <ListItemText primary="All User List" />
+            </ListItem>
+          </Link>
+        </List>
+      )}
     </div>
   );
 
@@ -193,23 +206,27 @@ function ContentSidebar(props) {
               <MenuIcon />
             </IconButton>
             <Divider />
+            {role.role == 'Medorna Office' && (
+            <AllUserList />
+            )}
             <Box class="main-admin-menu" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <FormControl sx={{ backgroundColor: '#124BF2', borderRadius: '10px', color: '#ffffff', border: 'none', width: 'auto' }}>
-        <Select
-          value={logOut}
-          onChange={handleChange}
-          displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-        >
-          <MenuItem value="">
-            <em style={{ color: '#ffffff', fontSize: { xs: '10px', sm: '16px', md: '16px' } }}>Admin</em>
-          </MenuItem>
-          <MenuItem sx={{ color: '#000000' }} onClick={handleLogout}>Log Out</MenuItem>
-        </Select>
-      </FormControl>
-      </Box>
+              <FormControl sx={{ backgroundColor: '#124BF2', borderRadius: '10px', color: '#ffffff', border: 'none', width: 'auto' }}>
+                <Select
+                  value={logOut}
+                  onChange={handleChange}
+                  displayEmpty
+                  inputProps={{ 'aria-label': 'Without label' }}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                >
+                  <MenuItem value="">
+                    <em style={{ color: '#ffffff', fontSize: { xs: '10px', sm: '16px', md: '16px' } }}>Admin</em>
+                  </MenuItem>
+                  <MenuItem sx={{ color: '#000000' }} onClick={handleLogout}>Log Out</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+
           </Toolbar>
         </AppBar>
         <Box

@@ -132,6 +132,7 @@ function Signin() {
                 label="Password"
               />
             </FormControl><br /><br />
+            <Link to="/signup" target="_blank" rel="noopener" style={{ color: '#124bf2', textDecoration: 'none', float: 'left' }} >Sig UP</Link>
             <Link href="#" target="_blank" rel="noopener" style={{ color: '#124bf2', textDecoration: 'none', float: 'right' }} >Forgot Password</Link><br /><br />
             <Button variant="text" onClick={handleSubmit} sx={{
               '&:hover': {

@@ -49,7 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 // search bar end here
-function Editproduct() {
+function Editproduct({ selectedVendorId }) {
   const [productData, setProductData] = useState([]);
   console.log('produedrtftgyhjikl', productData)
   const [dataFetched, setDataFetched] = useState(false);
@@ -59,8 +59,9 @@ function Editproduct() {
   const [searchInput, setSearchInput] = useState("");
   const userDataString = localStorage.getItem('bcUserData');
   const userData = JSON.parse(userDataString);
-  const vendorId = userData.vendorId;
-  console.log('vendorid',vendorId)
+  const vendorId = selectedVendorId ||userData.vendorId;
+  
+  console.log('vendorid----------------',vendorId)
   console.log("data", productData)
 
   useEffect(() => {

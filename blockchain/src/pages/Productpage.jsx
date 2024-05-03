@@ -168,9 +168,16 @@ function Productpage() {
                 <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
               ))}
               <br></br>
-              <QRCode id="qr-code-canvas" value={qrCodeContent} /><br></br>
+              {role.role !== 'IGO Office' && role.role !== 'Amazon Office' &&(
+                <>
+              {products?.product?.qr.map((qrData, index) => (
+                <div key={index}>
+                  <QRCode id={`qr-code-canvas-${index}`} value={`http://localhost:3000/productpage/${qrData}`} /> 
+                </div>
+              ))}
               <Button variant="contained" onClick={downloadQRCode}>Bulk Download</Button>
-              <Typography>product image</Typography>
+              </>
+            )}
             </Grid>
             <Grid sx={{ textAlign: 'left' }} >
               <Table>

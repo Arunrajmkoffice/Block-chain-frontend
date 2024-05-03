@@ -77,12 +77,7 @@ function Productpage() {
                 <Box sx={{ padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
               ))}
               <br></br>
-              {products?.product?.qr.map((qrData, index) => (
-                <div key={index}>
-                  <QRCode id={`qr-code-canvas-${index}`} value={`http://localhost:3000/productpage/${qrData}`} /> 
-                </div>
-              ))}
-              <Button variant="contained" onClick={downloadQRCode}>Bulk Download</Button>
+
             </Grid>
             <Grid sx={{ borderRight: '1px solid #1A316C94', textAlign: 'left' }} item xs={12} sm={1} md={4} >
               <Table>
@@ -159,8 +154,6 @@ function Productpage() {
                 <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
               ))}
               <br></br>
-              <QRCode id="qr-code-canvas" value={qrCodeContent} /><br></br>
-              <Button variant="contained" onClick={downloadQRCode}>Bulk Download</Button>
               <Typography>product image</Typography>
             </Grid>
             <Grid sx={{ textAlign: 'left' }} >

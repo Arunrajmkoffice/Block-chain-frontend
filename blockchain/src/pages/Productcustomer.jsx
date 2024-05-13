@@ -2,6 +2,7 @@ import { Box, Grid, Table, TableBody, TableCell, TableRow, Typography, Button } 
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import QRCode from 'qrcode.react'; // Import QRCode library
+import axios from 'axios';
 
 
 function Productpage() {
@@ -9,27 +10,22 @@ function Productpage() {
   //const id = 'fc3f8f9a-4a14-48c2-93ce-e3c45f42aa30';
   const [products, setProducts] = useState([]);
   const [qrCodeReady, setQRCodeReady] = useState(false);
-  let token = localStorage.getItem('bcToken');
-  if (!token) {
-    token = false; // Set token to false if it's not available in localStorage
-  }
 
+const fetchData = ()=>{
+
+  axios({
+    method:'PATCH',
+    url:`http://localhost:9096/user-scan/${id}`,
+   
+  }).then((res)=>{
+    setProducts(res.data);
+    console.log("customer--",res.data)
+  }).catch((error)=>{
+
+  })
+}
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://localhost:9096/user-scan/${id}`, {
-          method: 'PATCH', // Specify the method as PATCH
-          headers: {
-            'Content-Type': 'application/json' 
-          },
-        });
-        const data = await response.json();
-        setProducts(data);
-        console.log('datas', data)
-      } catch (error) {
-        console.error('error:', error)
-      }
-    };
+  
     fetchData();
   }, [])
   // Generate the QR code content
@@ -62,10 +58,15 @@ function Productpage() {
     <>
       <Box >
         <Box sx={{ padding: '0px', width: { xs: '100%', sm: '100%' } }}>
-          <ol class="progtrckr" data-progtrckr-steps="4">
-            {products?.product?.tracking.map((track, index) => (
-               <li class={track.complete ? 'progtrckr-done' : 'progtrckr-todo'}>{track.productAt}</li>
+        <ol className="progtrckr" data-progtrckr-steps={products?.track?.length + 1}>
+            {products?.track?.map((track, index) => (
+              <li className={track.complete ? 'progtrckr-done' : 'progtrckr-todo'}>
+                {track.productAt}
+              </li>
             ))}
+            <li className={products?.track?.every(track => track.complete) ? 'progtrckr-done' : 'progtrckr-todo'}>
+              Complete
+            </li>
           </ol>
         </Box >
         {/* destopview code start here */}

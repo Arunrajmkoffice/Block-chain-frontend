@@ -34,6 +34,8 @@ import Editproduct from '../pages/Editproduct'
 import Ai from '../pages/Ai'
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import AllUserList from '../pages/AllUserList'
+import Send from '../pages/Send'
+import Viewproduct from '../pages/Viewproduct'
 const drawerWidth = 240;
 function PrivateRoutes() {
   let role = JSON.parse(localStorage.getItem('bcUserData'))
@@ -64,6 +66,8 @@ function PrivateRoutes() {
           <Route path='/' element={<QRScanner />} />
           <Route path='/edit' element={<Editproduct />} />
           <Route path='/sidebar' element={<Sidebar2 />} />
+          <Route path='/send' element={<Send/>}/>
+          <Route path='/viewproduct/:id' element={<Viewproduct />}/>
         </Routes>
       </Box>
     </Box>

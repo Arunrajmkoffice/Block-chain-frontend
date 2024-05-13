@@ -20,6 +20,7 @@ const QRScanner = () => {
       // Update state with both the full result and the extracted ID
       setScanResult({ id, fullResult: data.text });
       console.log("idscan",id)
+      setId(id)
       console.log("full url",data)
 
     axios({
@@ -32,6 +33,7 @@ const QRScanner = () => {
         })
         .then((res)=>{
           setSelectedData(res.data)
+          
         })
         .catch((err)=>{
             
@@ -57,7 +59,7 @@ const QRScanner = () => {
 // },[selectedData])
 
 
-let path = `http://localhost:3000/productpage/${selectedData?.product?._id}`
+let path = `http://localhost:3000/productpage/${id}`
   return (
     <div style={{padding:'8% 0%'}}>
       <QrReader
@@ -67,7 +69,7 @@ let path = `http://localhost:3000/productpage/${selectedData?.product?._id}`
         onScan={handleScan}
       />
     { Object.keys(selectedData)?.length>0 && <p>Full Result:<a href={path}>{path}</a></p>}
-      <p>ID: {selectedData?.product?._id}</p>
+      <p>ID: {id}</p>
     </div>
   );
 };

@@ -69,7 +69,11 @@ function Editproduct({ selectedVendorId }) {
       method:"GET",
       url:`http://localhost:9096/product`,
       params:{
-          vendorId:vendorId
+          vendorId:vendorId,
+          limit:20,
+          page:1,
+          sortBy: 'createdDate',
+          sortOrder: "desc",
       },
       headers: {
           Authorization:`Bearer ${token}` 
@@ -197,7 +201,7 @@ function Editproduct({ selectedVendorId }) {
                       <Box sx={{ width: '10%', borderRight: '1px solid #95AAAD36', padding: '10px 20px', backgroundColor: '#124BF2', WebkitBorderTopLeftRadius: '10px', borderBottomLeftRadius: '10px', justifyContent: 'space-between' }}>
                         <ListItem >
                           <ListItemIcon>
-                            <Link href={`productpage/${product._id}`}>
+                            <Link href={`viewproduct/${product._id}`}>
                               <VisibilityIcon sx={{ color: '#ffffff' }} />
                             </Link>
                           </ListItemIcon>
@@ -276,7 +280,7 @@ function Editproduct({ selectedVendorId }) {
         </Box>
         <ListItem>
           <ListItemIcon>
-            <Link href={`productpage/${product._id}`}>
+            <Link href={`viewproduct/${product._id}`}>
               <VisibilityIcon sx={{ color: 'red' }} />
             </Link>
           </ListItemIcon>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios';
+import b2 from '../images/b2.png';
 
 function Signup() {
   const [email, setEmail] = useState('');
@@ -56,27 +57,49 @@ function Signup() {
     }
   };
 
-  return (
-    <Box sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Box sx={{ width: '40%', p: 2 }}>
-        <Typography variant="h4" gutterBottom>Sign Up</Typography>
+  return (<>
+  
+    <Box sx={{ backgroundColor: '#fff', width: '100%', height: '100%' }}>
+      <Grid container spacing={2} style={{ padding: 10 }}>
+        <Grid item xs={12} sm={7}>
+          <Box sx={{ marginTop: '15%', width: '100%', display: 'flex', justifyContent: 'center' }}></Box>
+          <Box as="img"
+            src={b2}
+            alt="Background Image"
+            sx={{ width: '100%', height: 'auto' }}>
+          </Box>
+
+        </Grid>
+        <Grid item xs={12} sm={5}>
+          <Box sx={{ marginTop: '5%' }}></Box>
+          <br />
+          <Typography sx={{ marginLeft: '65%', textDecoration: 'underline', color: '#124BF2', padding: '10px 0px', fontSize: '20px', fontWeight: '800' }}>Profile</Typography>
+          <br />
+          <Box >
+      <Box sx={{
+            width: '80%', marginLeft: '20px', border: '1px solid #124BF2', padding: '10px 20px', borderRadius: '20px', boxShadow: '0px 0px 18px 8px #124BF229'
+          }}>
+        <Typography variant="h4" gutterBottom sx={{ color: '#124BF2', fontSize: '36px', fontWeight: 'bold' }}>Sign Up</Typography>
+        <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Email*</Typography>
         <TextField
-          label="Email"
+          
           variant="outlined"
           fullWidth
           value={email}
           onChange={handleEmailChange}
           error={!!emailError}
           helperText={emailError}
-          sx={{ mb: 2 }}
+          sx={{ mb: 2 , width:'100%', border:'1px solid #124bf2', borderRadius:'10px'}}
+
         />
         <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+        <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Password*</Typography>
           <OutlinedInput
             id="outlined-adornment-password"
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={handlePasswordChange}
+            sx={{width:'100%', border:'1px solid #124bf2', borderRadius:'10px'}}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -89,24 +112,33 @@ function Signup() {
                 </IconButton>
               </InputAdornment>
             }
-            label="Password"
+            
             error={!!passwordError}
             helperText={passwordError}
           />
         </FormControl>
+        <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Role*</Typography>
         <TextField
-          label="Role"
           variant="outlined"
           fullWidth
           value={role}
           onChange={handleRoleChange}
-          sx={{ mb: 2 }}
+          sx={{ mb: 2 , width:'100%', border:'1px solid #124bf2', borderRadius:'10px'}}
         />
-        <Button variant="contained" onClick={handleSubmit} fullWidth>
+        <Button variant="text" onClick={handleSubmit} sx={{
+              '&:hover': {
+                backgroundColor: 'green', // Change the color on hover
+              }, backgroundColor: '#124bf2', color: '#ffffff', padding: '5px 45px', textTransform: 'capitalize', borderRadius: '50px', fontSize: '20px'
+            }}>
           Sign Up
         </Button>
       </Box>
     </Box>
+        </Grid>
+      </Grid>
+
+    </Box>
+    </>
   );
 }
 

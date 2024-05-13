@@ -4,9 +4,8 @@ import { useParams } from 'react-router-dom';
 import QRCode from 'qrcode.react'; // Import QRCode library
 import axios from 'axios';
 
-
-function Productpage() {
-  let { id } = useParams();
+function Viewproduct() {
+    let { id } = useParams();
   const [products, setProducts] = useState([]);
   let token = localStorage.getItem('bcToken');
   let role = JSON.parse(localStorage.getItem('bcUserData'));
@@ -16,7 +15,7 @@ function Productpage() {
       role: role.role
     }
     axios({
-      method: "PATCH",
+      method: "GET",
       url: `http://localhost:9096/product/${id}`,
       data,
       headers: {
@@ -70,16 +69,7 @@ function Productpage() {
     <>
       <Box sx={{ margin: { xs: '23px 0px 0px -37px', sm: '35px 0px 0px 0px', lg: "0px" }, padding: { xs: '12% 0%', sm: '10% 0%', lg: '5%' }, width: '100%' }}>
         <Box sx={{ padding: '0px', width: { xs: '100%', sm: '100%' } }}>
-          <ol className="progtrckr" data-progtrckr-steps={products?.track?.length + 1}>
-            {products?.track?.map((track, index) => (
-              <li className={track.complete ? 'progtrckr-done' : 'progtrckr-todo'}>
-                {track.productAt}
-              </li>
-            ))}
-            <li className={products?.track?.every(track => track.complete) ? 'progtrckr-done' : 'progtrckr-todo'}>
-              Complete
-            </li>
-          </ol>
+         
         </Box >
         {/* destopview code start here */}
         <Box sx={{ width: '100%', padding: '5% 0%', display: { xs: 'none', sm: 'none', md: 'block' } }}>
@@ -91,7 +81,17 @@ function Productpage() {
               ))}
 
               <br></br>
-              
+              {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+                <>
+                  {products?.product?.qr.map((qrData, index) => (
+                    <div key={index}>
+                      {console.log("qrData", qrData)}
+                      <QRCode id={`qr-code-canvas-${index}`} value={`http://localhost:3000/productpage/${qrData._id}`} />
+                    </div>
+                  ))}
+                  <Button variant="contained" onClick={downloadQRCode}>Bulk Download</Button>
+                </>
+              )}
             </Grid>
             <Grid sx={{ borderRight: '1px solid #1A316C94', textAlign: 'left' }} item xs={12} sm={1} md={4} >
               <Table>
@@ -168,7 +168,17 @@ function Productpage() {
                 <Box sx={{ textAlign: "left", padding: '10px 20px', justifyContent: 'space-between' }}><img style={{ width: '100px' }} src={image?.imageData} alt="Product" /></Box>
               ))}
               <br></br>
-              
+              {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+                <>
+                {products?.product?.qr.map((qrData, index) => (
+                  <div key={index}>
+                    {console.log("qrData", qrData)}
+                    <QRCode id={`qr-code-canvas-${index}`} value={`http://localhost:3000/productpage/${qrData._id}`} />
+                  </div>
+                ))}
+                <Button variant="contained" onClick={downloadQRCode}>Bulk Download</Button>
+              </>
+              )}
             </Grid>
             <Grid sx={{ textAlign: 'left' }} >
               <Table>
@@ -269,9 +279,7 @@ function Productpage() {
 
 
     </>
-
-
   )
 }
 
-export default Productpage
+export default Viewproduct

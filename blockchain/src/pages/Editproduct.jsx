@@ -1,4 +1,4 @@
-import { Box, Checkbox, FormControlLabel, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography } from '@mui/material';
+import { Box, Checkbox, CircularProgress, FormControlLabel, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -60,11 +60,13 @@ function Editproduct({ selectedVendorId }) {
   const userDataString = localStorage.getItem('bcUserData');
   const userData = JSON.parse(userDataString);
   const vendorId = selectedVendorId ||userData.vendorId;
+  const [loading, setLoading]=useState(true)
   
   console.log('vendorid----------------',vendorId)
   console.log("data", productData)
 
   useEffect(() => {
+    setLoading(true);
      axios({
       method:"GET",
       url:`http://localhost:9096/product`,
@@ -74,6 +76,7 @@ function Editproduct({ selectedVendorId }) {
           page:1,
           sortBy: 'createdDate',
           sortOrder: "desc",
+          role:role.role,
       },
       headers: {
           Authorization:`Bearer ${token}` 
@@ -118,10 +121,11 @@ function Editproduct({ selectedVendorId }) {
  
   
   return (
-    <> {/* desktop view code start here */}
+    <>
+     {/* desktop view code start here */}
       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: { sx: '5% 0%', xs: '8% 0%',lg:'6% 0%' }, margin: { sx: '0% 0% 0% 10%', xs: '0% 0% 0% 0%' } }}>
-          <Box sx={{ backgroundColor: '#124BF2', width: '100%', display: 'flex' }}>
+       <Box sx={{ backgroundColor: '#124BF2', width: '100%', display: 'flex' }}>
             <Box sx={{ flexGrow: 1 }}>
               <Toolbar>
                 <Checkbox sx={{ color: '#ffffff' }} />
@@ -163,6 +167,7 @@ function Editproduct({ selectedVendorId }) {
               </Toolbar>
             </Box>
           </Box>
+         
           <Box>
             {productData
               .filter(product => selectedBrand === null || product.brand === selectedBrand)
@@ -206,7 +211,7 @@ function Editproduct({ selectedVendorId }) {
                             </Link>
                           </ListItemIcon>
                         </ListItem>
-                        <ListItem>
+                        {/* <ListItem>
                           {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
                             <ListItemIcon>
                               <Link href={`edit/${product._id}`}>
@@ -214,7 +219,7 @@ function Editproduct({ selectedVendorId }) {
                               </Link>
                             </ListItemIcon>
                           )}
-                        </ListItem>
+                        </ListItem> */}
                         <ListItem>
                           <ListItemIcon>
                             <Box>
@@ -284,13 +289,13 @@ function Editproduct({ selectedVendorId }) {
               <VisibilityIcon sx={{ color: 'red' }} />
             </Link>
           </ListItemIcon>
-          {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+          {/* {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
             <ListItemIcon>
               <Link href={`edit/${product._id}`}>
                 <BorderColorIcon sx={{ color: 'red' }} />
               </Link>
             </ListItemIcon>
-          )}
+          )} */}
           {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
             <ListItemIcon>
               <IconButton onClick={() => handleDelete(product._id)}>

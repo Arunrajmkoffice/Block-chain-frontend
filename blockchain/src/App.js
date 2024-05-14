@@ -1,12 +1,11 @@
+import { Box, CircularProgress } from '@mui/material';
 import './App.css';
-import Test from './pages/Test';
 import MainRoute from './routes/MainRoute';
 
 function App() {
   return (
     <div className="App">
-     <MainRoute/>
-     {/* <Test/> */}
+       <MainRoute />
     </div>
   );
 }

@@ -16,6 +16,7 @@ export default function Send() {
   const userDataString = localStorage.getItem('bcUserData');
   const userData = JSON.parse(userDataString);
   const vendorId = userData.vendorId;
+  let role = JSON.parse(localStorage.getItem('bcUserData'));
   const [productdata, setProductdata] = useState([]);
   const [productname, setProductname] = useState("");
   const [batchnumber, setBatchnumber] = useState("");
@@ -127,6 +128,7 @@ export default function Send() {
       url: 'http://localhost:9096/product',
       params: {
         vendorId: vendorId,
+        role:role.role,
       },
       headers: {
         'Authorization': `Bearer ${token}`

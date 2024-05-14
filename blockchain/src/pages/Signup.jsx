@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios';
 import b2 from '../images/b2.png';
@@ -14,7 +14,6 @@ function Signup() {
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = (event) => event.preventDefault();
-
   const handleEmailChange = (event) => {
     const value = event.target.value;
     setEmail(value);
@@ -45,7 +44,7 @@ function Signup() {
   const handleSubmit = () => {
     // Submit the signup data if there are no errors
     if (!emailError && !passwordError) {
-      axios.post("http://localhost:9096/signup",{ email, password, role })
+      axios.post("http://localhost:9096/signup",{ email, password, role:"Us Warehouse" })
         .then((res) => {
           console.log('Signup successful:', res.data);
           // Optionally, you can redirect the user to another page after successful signup
@@ -117,14 +116,28 @@ function Signup() {
             helperText={passwordError}
           />
         </FormControl>
-        <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Role*</Typography>
-        <TextField
+      
+        {/* <TextField
           variant="outlined"
           fullWidth
           value={role}
           onChange={handleRoleChange}
           sx={{ mb: 2 , width:'100%', border:'1px solid #124bf2', borderRadius:'10px'}}
-        />
+        /> */}
+
+<Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Role*</Typography>
+
+                  <FormControl fullWidth>
+                <InputLabel>Select Role</InputLabel>
+                <Select defaultValue="" onChange={handleRoleChange} id="select1">
+                    <MenuItem value="Us Warehouse">Warehouse</MenuItem>
+                    <MenuItem value="Medorna Office">Medorna</MenuItem>
+                    <MenuItem value="IGO Office">Igo</MenuItem>
+                    <MenuItem value="Amazon Office">Amazon</MenuItem>
+                </Select>
+            </FormControl>
+
+
         <Button variant="text" onClick={handleSubmit} sx={{
               '&:hover': {
                 backgroundColor: 'green', // Change the color on hover

@@ -164,14 +164,14 @@ function ContentSidebar(props) {
         </List>
       )}
       <Divider />
-      {role.role == 'Medorna Office' && (
+      {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
         <List sx={{ paddingLeft: { sm: '10px' } }}>
-          <Link style={{ textDecoration: 'none', color: clickedLink === 'alluserlist' ? '#124BF2' : '#474749' }} onClick={() => handleLinkClick('alluserlist')} to="/alluserlist">
+          <Link style={{ textDecoration: 'none', color: clickedLink === 'send' ? '#124BF2' : '#474749' }} onClick={() => handleLinkClick('send')} to="/send">
             <ListItem disablePadding>
               <ListItemIcon>
-                <CategoryIcon style={{ color: clickedLink === 'alluserlist' ? '#124BF2' : '#474749' }} />
+                <AssignmentIcon style={{ color: clickedLink === 'send' ? '#124BF2' : '#474749' }} />
               </ListItemIcon>
-              <ListItemText primary="All User List" />
+              <ListItemText primary="Send product" />
             </ListItem>
           </Link>
         </List>

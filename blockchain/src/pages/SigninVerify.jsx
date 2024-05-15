@@ -2,26 +2,78 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { siginAuth } from '../redux/auth/action';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Box, Button, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
 import b2 from '../images/b2.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import axios from 'axios';
 
-function Signin() {
+function SigninVerify() {
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
+  const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [responseData, setResponseData] = useState(null);
-
+  const params = useParams()
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+
+
+
+
+  let data = {
+      token:params.id
+  }
+     const siginAuth = ()=> {
+         
+               axios({
+                  method:"POST",
+                  url:`http://localhost:9096/verify`,
+                  data
+              })
+              .then((res)=>{
+                 
+                 console.log("verified successfully",res.data)
+                 handleClick()
+              })
+              .catch((err)=>{
+                 
+              })
+          }
+  
+          useEffect(()=>{
+            if(params.id){
+          
+              siginAuth()
+            }
+             
+          },[params.id])
+
+
 
   const handleEmail = (e) => {
     const value = (e.target.value);
@@ -55,19 +107,17 @@ function Signin() {
     if (!emailError && !passwordError) {
       axios.post("http://localhost:9096/signin", data)
         .then((res) => {
-          console.log("res-----", res)
           setResponseData(res.data);
           if (res.data.token !== undefined) {
             localStorage.setItem('bcToken', res.data.token);
             let userData = {
               role: res.data.role,
               userId: res.data.userId,
-              vendorId: res.data.vendorId,
+              vendorId:res.data.vendorId,
             };
             localStorage.setItem('bcUserData', JSON.stringify(userData));
           }
         })
-
         .catch((err) => {
           console.error('Error:', err);
           // Handle error state
@@ -113,9 +163,8 @@ function Signin() {
                 border: '1px solid #124BF2',
                 borderRadius: '10px'
               }} /><br /><br />
-          
             <Typography style={{ textAlign: 'left', color: '#124BF2' }}>Password*</Typography>
-            <FormControl sx={{ width: '100%', border: '1px solid #124BF2', borderRadius: '10px' }} variant="outlined" value={password} onChange={handlePassword} error={!!passwordError}  required>
+            <FormControl sx={{ width: '100%', border: '1px solid #124BF2', borderRadius: '10px' }} variant="outlined" value={password} onChange={handlePassword} error={!!passwordError} helperText={passwordError} required>
 
               <OutlinedInput
                 id="outlined-adornment-password"
@@ -134,9 +183,7 @@ function Signin() {
                 }
                 label="Password"
               />
-              {passwordError && <FormHelperText>{passwordError}</FormHelperText>}
             </FormControl><br /><br />
-            
             <Link to="/signup" target="_blank" rel="noopener" style={{ color: '#124bf2', textDecoration: 'none', float: 'left' }} >Sign UP</Link>
             <Link href="#" target="_blank" rel="noopener" style={{ color: '#124bf2', textDecoration: 'none', float: 'right' }} >Forgot Password</Link><br /><br />
             <Button variant="text" onClick={handleSubmit} sx={{
@@ -148,8 +195,22 @@ function Signin() {
         </Grid>
       </Grid>
 
+
+      <div>
+      <Snackbar   anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Email successfully verified !
+        </Alert>
+      </Snackbar>
+    </div>
     </Box>
   )
 }
 
-export default Signin
+export default SigninVerify

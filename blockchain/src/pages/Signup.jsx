@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField, Typography, FormHelperText } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios';
 import b2 from '../images/b2.png';
@@ -115,15 +115,9 @@ function Signup() {
             error={!!passwordError}
             helperText={passwordError}
           />
+          {passwordError && <FormHelperText sx={{color:'red'}}>{passwordError}</FormHelperText>}
         </FormControl>
       
-        {/* <TextField
-          variant="outlined"
-          fullWidth
-          value={role}
-          onChange={handleRoleChange}
-          sx={{ mb: 2 , width:'100%', border:'1px solid #124bf2', borderRadius:'10px'}}
-        /> */}
 
 <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Role*</Typography>
 

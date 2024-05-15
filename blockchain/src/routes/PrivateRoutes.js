@@ -36,6 +36,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import AllUserList from '../pages/AllUserList'
 import Send from '../pages/Send'
 import Viewproduct from '../pages/Viewproduct'
+import Loader from '../pages/Loader'
 const drawerWidth = 240;
 function PrivateRoutes() {
   let role = JSON.parse(localStorage.getItem('bcUserData'))
@@ -68,6 +69,7 @@ function PrivateRoutes() {
           <Route path='/sidebar' element={<Sidebar2 />} />
           <Route path='/send' element={<Send/>}/>
           <Route path='/viewproduct/:id' element={<Viewproduct />}/>
+          <Route path='/loader' element={<Loader />}/>
         </Routes>
       </Box>
     </Box>

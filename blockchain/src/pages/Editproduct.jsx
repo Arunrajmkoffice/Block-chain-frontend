@@ -60,7 +60,7 @@ function Editproduct({ selectedVendorId }) {
   const userDataString = localStorage.getItem('bcUserData');
   const userData = JSON.parse(userDataString);
   const vendorId = selectedVendorId ||userData.vendorId;
-  const [loading, setLoading]=useState(true)
+  const [loading, setLoading]=useState(false)
   
   console.log('vendorid----------------',vendorId)
   console.log("data", productData)
@@ -84,6 +84,7 @@ function Editproduct({ selectedVendorId }) {
   })
   .then((res)=>{
    setProductData(res.data.products)
+   setLoading(false)
       console.log("data",res.data)
   })
   .catch((err)=>{
@@ -120,9 +121,10 @@ function Editproduct({ selectedVendorId }) {
 
  
   
-  return (
+  return(
     <>
      {/* desktop view code start here */}
+     
       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: { sx: '5% 0%', xs: '8% 0%',lg:'6% 0%' }, margin: { sx: '0% 0% 0% 10%', xs: '0% 0% 0% 0%' } }}>
        <Box sx={{ backgroundColor: '#124BF2', width: '100%', display: 'flex' }}>
@@ -167,8 +169,10 @@ function Editproduct({ selectedVendorId }) {
               </Toolbar>
             </Box>
           </Box>
+          
          
           <Box>
+          
             {productData
               .filter(product => selectedBrand === null || product.brand === selectedBrand)
               .map((product, index) => (

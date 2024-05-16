@@ -82,7 +82,7 @@ function ContentSidebar(props) {
   const [clickedLink, setClickedLink] = React.useState(false);
   let userData = localStorage.getItem('bcUserData');
   const role = userData ? JSON.parse(userData) : { role: '' }
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const data = useSelector((store) => store.auth.siginAuth);
   const [logOut, setlogOut] = React.useState('')
 
@@ -103,7 +103,7 @@ function ContentSidebar(props) {
   const handleLogout = () => {
     localStorage.removeItem('bcToken');
     localStorage.removeItem('bcUserData');
-    navigate('/', { replace: true })
+    navigate('/',{replace:true})
   };
   const handleLinkClick = (link) => {
     setClickedLink(link);

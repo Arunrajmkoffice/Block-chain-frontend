@@ -10,7 +10,7 @@ import SigninVerify from '../pages/SigninVerify'
 function PublicRoutes() {
   return (
    <Routes>
-    <Route   path="/" element={<Signin/>} />
+    <Route path="/" element={<Signin/>} />
     <Route path='productpage/:id' element={<Productcustomer />} />
     <Route path='/signup' element={<Signup/>}/>
     <Route path='signin/:id' element={<SigninVerify/>}/>

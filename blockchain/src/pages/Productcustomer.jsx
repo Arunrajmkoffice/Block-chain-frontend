@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import QRCode from 'qrcode.react'; // Import QRCode library
 import axios from 'axios';
+import Loader from './Loader';
 
 
 function Productpage() {
@@ -10,15 +11,17 @@ function Productpage() {
   //const id = 'fc3f8f9a-4a14-48c2-93ce-e3c45f42aa30';
   const [products, setProducts] = useState([]);
   const [qrCodeReady, setQRCodeReady] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 const fetchData = ()=>{
-
+setLoading(true)
   axios({
     method:'PATCH',
     url:`http://localhost:9096/user-scan/${id}`,
    
   }).then((res)=>{
     setProducts(res.data);
+    setLoading(false)
     console.log("customer--",res.data)
   }).catch((error)=>{
 
@@ -252,8 +255,7 @@ const fetchData = ()=>{
           </Box>
         </Box>
       </Box>
-
-
+      {loading && <Loader/>}
 
     </>
 

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import QRCode from 'qrcode.react'; // Import QRCode library
 import axios from 'axios';
+import Loader from './Loader';
 
 function Viewproduct() {
     let { id } = useParams();
@@ -10,7 +11,9 @@ function Viewproduct() {
   let token = localStorage.getItem('bcToken');
   let role = JSON.parse(localStorage.getItem('bcUserData'));
   const [qrCodeReady, setQRCodeReady] = useState(false);
+  const [loading, setLoading] = useState(false);
   const fetchData = () => {
+    
     let data = {
       role: role.role
     }
@@ -23,6 +26,7 @@ function Viewproduct() {
       }
     }).then((res) => {
       setProducts(res.data);
+      setLoading(false)
       console.log("ressssssssss", res.data)
     }).catch((err) => {
 
@@ -32,7 +36,7 @@ function Viewproduct() {
 
 
   useEffect(() => {
-
+    setLoading(true)
     fetchData();
   }, [])
 
@@ -275,9 +279,7 @@ function Viewproduct() {
           </Box>
         </Box>
       </Box>
-
-
-
+      {loading && <Loader/>}
     </>
   )
 }

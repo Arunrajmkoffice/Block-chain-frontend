@@ -33,7 +33,7 @@ function AllUserList() {
     console.log("updatedData", updatedData)
 
     localStorage.setItem('bcUserData', JSON.stringify(updatedData));
-    window.location.reload()
+
   }
   // State to keep track of the selected vendor
 

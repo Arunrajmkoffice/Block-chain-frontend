@@ -129,7 +129,7 @@ function SigninVerify() {
   useEffect(() => {
     if (responseData && Object.keys(responseData).length > 0) {
       navigate('/');
-      window.location.reload();
+
     }
   }, [responseData]);
 

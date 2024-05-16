@@ -1,4 +1,4 @@
-import { Box, Checkbox, CircularProgress, FormControlLabel, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography } from '@mui/material';
+import { Box, Button, Checkbox, CircularProgress, DialogActions, DialogTitle, FormControlLabel, IconButton, Link, List, ListItem, ListItemIcon, Toolbar, Typography, Dialog } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,6 +9,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import axios from 'axios';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import Loader from './Loader';
 //search bar start here
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -51,6 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 // search bar end here
 function Editproduct({ selectedVendorId }) {
   const [productData, setProductData] = useState([]);
+  const [getId, setGetId] = useState("");
   console.log('produedrtftgyhjikl', productData)
   const [dataFetched, setDataFetched] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -59,37 +61,39 @@ function Editproduct({ selectedVendorId }) {
   const [searchInput, setSearchInput] = useState("");
   const userDataString = localStorage.getItem('bcUserData');
   const userData = JSON.parse(userDataString);
-  const vendorId = selectedVendorId ||userData.vendorId;
-  const [loading, setLoading]=useState(false)
-  
-  console.log('vendorid----------------',vendorId)
+  const vendorId = selectedVendorId || userData.vendorId;
+  const [loading, setLoading] = useState(false)
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
+
+  console.log('vendorid----------------', vendorId)
   console.log("data", productData)
 
   useEffect(() => {
     setLoading(true);
-     axios({
-      method:"GET",
-      url:`http://localhost:9096/product`,
-      params:{
-          vendorId:vendorId,
-          limit:20,
-          page:1,
-          sortBy: 'createdDate',
-          sortOrder: "desc",
-          role:role.role,
+    axios({
+      method: "GET",
+      url: `http://localhost:9096/product`,
+      params: {
+        vendorId: vendorId,
+        limit: 20,
+        page: 1,
+        sortBy: 'createdDate',
+        sortOrder: "desc",
+        role: role.role,
       },
       headers: {
-          Authorization:`Bearer ${token}` 
+        Authorization: `Bearer ${token}`
       }
-  })
-  .then((res)=>{
-   setProductData(res.data.products)
-   setLoading(false)
-      console.log("data",res.data)
-  })
-  .catch((err)=>{
-     
-  })
+    })
+      .then((res) => {
+        setProductData(res.data.products)
+        setLoading(false)
+        console.log("data", res.data)
+      })
+      .catch((err) => {
+
+      })
 
 
   }, [dataFetched, token, vendorId]);
@@ -100,34 +104,45 @@ function Editproduct({ selectedVendorId }) {
     setSelectedBrand(value);
   };
 
-  const handleDelete = async (productId) => {
-    try {
-      const response = await fetch(`http://localhost:9096/product/${productId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response) {
-        console.log('Product deleted successfully', response);
-      } else {
-        console.error('Failed to delete product');
-      }
-    } catch (error) {
-      console.error('Error deleting product:', error);
-    }
-  };
-
- 
+const handleDelete = (productId) => {
+  setLoading(true);
+  setProductIdToDelete(productId);
+  setShowConfirmation(true);
   
-  return(
+  axios({
+    method: "DELETE",
+    url: `http://localhost:9096/product/${productId}`,
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then((res) => {
+    setLoading(false);
+    setShowConfirmation(false);
+    console.log('Product deleted successfully', res);
+  }).catch((err) => {
+    console.error('Error deleting product:', err);
+  });
+};
+
+
+
+  // () => setShowConfirmation(true)
+
+
+  const handleSingleDelete = (id) => {
+    setShowConfirmation(true)
+    setGetId(id)
+  }
+
+
+  return (
     <>
-     {/* desktop view code start here */}
-     
+
+      {/* desktop view code start here */}
       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: { sx: '5% 0%', xs: '8% 0%',lg:'6% 0%' }, margin: { sx: '0% 0% 0% 10%', xs: '0% 0% 0% 0%' } }}>
-       <Box sx={{ backgroundColor: '#124BF2', width: '100%', display: 'flex' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: { sx: '5% 0%', xs: '8% 0%', lg: '6% 0%' }, margin: { sx: '0% 0% 0% 10%', xs: '0% 0% 0% 0%' } }}>
+          <Box sx={{ backgroundColor: '#124BF2', width: '100%', display: 'flex' }}>
             <Box sx={{ flexGrow: 1 }}>
               <Toolbar>
                 <Checkbox sx={{ color: '#ffffff' }} />
@@ -169,10 +184,10 @@ function Editproduct({ selectedVendorId }) {
               </Toolbar>
             </Box>
           </Box>
-          
-         
+
+
           <Box>
-          
+
             {productData
               .filter(product => selectedBrand === null || product.brand === selectedBrand)
               .map((product, index) => (
@@ -228,10 +243,13 @@ function Editproduct({ selectedVendorId }) {
                           <ListItemIcon>
                             <Box>
                               {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
-                                <IconButton onClick={() => handleDelete(product._id)}>
-                                  <DeleteIcon sx={{ color: '#ffffff' }} />
-                                </IconButton>
+                                <Box>
+                                  <IconButton onClick={() => handleSingleDelete(product._id)}>
+                                    <DeleteIcon sx={{ color: '#ffffff' }} />
+                                  </IconButton>
+                                </Box>
                               )}
+
                             </Box>
                           </ListItemIcon>
                         </ListItem>
@@ -245,73 +263,86 @@ function Editproduct({ selectedVendorId }) {
       </Box>
       {/*desktop view code end  here */}
       {/*mobile view start code here */}
-      <Box sx={{ display: { xs: 'block', sm: 'none' },padding:'0px',}}>
-      <Box class="edit-page-top" sx={{display: 'flex'}}>
-      <Box class="edit-page-header">
-      <Toolbar>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-        </Search>
-        {/* <DeleteIcon sx={{ color: '#ffffff', padding: '0px 10px', fontSize: '2.5rem' }} /> */}
-        <Typography sx={{ color: '#ffffff', padding: '0px 5%' }}>Total:{productData.length}</Typography>
-      </Toolbar>
-      
-    </Box>
-          </Box>
-  {productData
-    .filter(product => selectedBrand === null || product.brand === selectedBrand)
-    .map((product, index) => (
-      <Box key={index} id="full-width-box" sx={{ display: 'flex', flexDirection: 'column', width: '100%' ,margin:'1% 0% 0% -14%',width:'110%' ,borderBottom:'2px solid black'}}>
+      <Box sx={{ display: { xs: 'block', sm: 'none' }, padding: '0px', }}>
+        <Box class="edit-page-top" sx={{ display: 'flex' }}>
+          <Box class="edit-page-header">
+            <Toolbar>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ 'aria-label': 'search' }}
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                />
+              </Search>
+              {/* <DeleteIcon sx={{ color: '#ffffff', padding: '0px 10px', fontSize: '2.5rem' }} /> */}
+              <Typography sx={{ color: '#ffffff', padding: '0px 5%' }}>Total:{productData.length}</Typography>
+            </Toolbar>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', width: '100%', textAlign: 'justify' }}>
-          <Typography sx={{ fontWeight: 'bold' }}>{product.product}</Typography>
-          {product?.image.map((image, imageIndex) => (
-            <img key={imageIndex} style={{ width: '100px' }} src={image?.imageData} alt="Product" />
-          ))}
-          <Typography>SKU: {product.sku}</Typography>
-          <Typography>Category: {product.category}</Typography>
-          <Typography>Tag: {product.tag}</Typography>
-          <Typography sx={{ color: '#F3941E' }}>Price: ${product.price}</Typography>
-          <Typography>Sales Price: ${product.salesPrice}</Typography>
-          <Typography>Inventory: {product.inventory}</Typography>
-          <Typography>Branch Number: {product.branchNumber}</Typography>
-          <Typography>Country of Origin: {product.countryOfOrigin}</Typography>
-          <Typography>Brand: {product.brand}</Typography>
-          <Typography>Description: {product.description}</Typography>
+          </Box>
         </Box>
-        <ListItem>
-          <ListItemIcon>
-            <Link href={`viewproduct/${product._id}`}>
-              <VisibilityIcon sx={{ color: 'red' }} />
-            </Link>
-          </ListItemIcon>
-          {/* {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+        {loading && <Loader />}
+        {productData
+          .filter(product => selectedBrand === null || product.brand === selectedBrand)
+          .map((product, index) => (
+            <Box key={index} id="full-width-box" sx={{ display: 'flex', flexDirection: 'column', width: '100%', margin: '1% 0% 0% -14%', width: '110%', borderBottom: '2px solid black' }}>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '5px', width: '100%', textAlign: 'justify' }}>
+                <Typography sx={{ fontWeight: 'bold' }}>{product.product}</Typography>
+                {product?.image.map((image, imageIndex) => (
+                  <img key={imageIndex} style={{ width: '100px' }} src={image?.imageData} alt="Product" />
+                ))}
+                <Typography>SKU: {product.sku}</Typography>
+                <Typography>Category: {product.category}</Typography>
+                <Typography>Tag: {product.tag}</Typography>
+                <Typography sx={{ color: '#F3941E' }}>Price: ${product.price}</Typography>
+                <Typography>Sales Price: ${product.salesPrice}</Typography>
+                <Typography>Inventory: {product.inventory}</Typography>
+                <Typography>Branch Number: {product.branchNumber}</Typography>
+                <Typography>Country of Origin: {product.countryOfOrigin}</Typography>
+                <Typography>Brand: {product.brand}</Typography>
+                <Typography>Description: {product.description}</Typography>
+              </Box>
+              <ListItem>
+                <ListItemIcon>
+                  <Link href={`viewproduct/${product._id}`}>
+                    <VisibilityIcon sx={{ color: 'red' }} />
+                  </Link>
+                </ListItemIcon>
+                {/* {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
             <ListItemIcon>
               <Link href={`edit/${product._id}`}>
                 <BorderColorIcon sx={{ color: 'red' }} />
               </Link>
             </ListItemIcon>
           )} */}
-          {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
-            <ListItemIcon>
-              <IconButton onClick={() => handleDelete(product._id)}>
-                <DeleteIcon sx={{ color: 'red' }} />
-              </IconButton>
-            </ListItemIcon>
-          )}
-        </ListItem>
+                {role.role !== 'IGO Office' && role.role !== 'Amazon Office' && (
+                  <ListItemIcon>
+                    <Box>
+                      <IconButton onClick={() => handleSingleDelete(product._id)}>
+                        <DeleteIcon sx={{ color: 'red' }} />
+                      </IconButton>
+                    </Box>
+                  </ListItemIcon>
+                )}
+              </ListItem>
+
+            </Box>
+          ))}
       </Box>
-    ))}
-</Box>
       {/*mobile view end here */}
+
+      {loading && <Loader />}
+      <Dialog open={showConfirmation} onClose={() => setShowConfirmation(false)}>
+        <DialogTitle>Are you sure you want to delete this product?</DialogTitle>
+        <DialogActions>
+          <Button onClick={() => setShowConfirmation(false)}>No</Button>
+          <Button onClick={() => handleDelete(getId)} autoFocus>Yes</Button>
+        </DialogActions>
+      </Dialog>
     </>
 
   );

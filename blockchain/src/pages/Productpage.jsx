@@ -11,7 +11,9 @@ function Productpage() {
   let token = localStorage.getItem('bcToken');
   let role = JSON.parse(localStorage.getItem('bcUserData'));
   const [qrCodeReady, setQRCodeReady] = useState(false);
+  const [loading, setLoading]=useState(false)
   const fetchData = () => {
+    setLoading(true)
     let data = {
       role: role.role
     }

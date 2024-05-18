@@ -1,4 +1,4 @@
-import { Box, Button, InputLabel, ListItem, ListItemIcon, TextField, Typography, styled } from '@mui/material'
+import { Alert, Box, Button, InputLabel, ListItem, ListItemIcon, Snackbar, TextField, Typography, styled } from '@mui/material'
 import React, { useState } from 'react'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,6 @@ const CustomInput = styled(TextField)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.down("xs")]: {},
 }));
-
 
 function Addproduct() {
   const [productname, setProductname] = useState('');
@@ -32,6 +31,7 @@ function Addproduct() {
   const [inventoryError, setInventoryError] = useState(false);
   const [brandError, setBrandError] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   
 
 
@@ -95,13 +95,13 @@ function Addproduct() {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    
     console.log("image", images);
     const token = localStorage.getItem('bcToken');
     const userDataString = localStorage.getItem('bcUserData');
     const userData = JSON.parse(userDataString);
     const vendorId = userData.vendorId;
-    console.log('vendorid',vendorId)
+    console.log('vendorid',vendorId);
     const data = {
       product: productname.trim(),
       branchNumber: batchnumber.trim(),
@@ -147,12 +147,14 @@ function Addproduct() {
       setSaleprice('');
       setBrand('');
       setCategories('');
+      setOpenSnackbar(true);
       setProductnameError(false);
       setDescriptionError(false);
       setSkuError(false);
       setCountryOriginError(false);
       setInventoryError(false);
       setBrandError(false);
+      setFormSubmitted(true);
     } catch (error) {
       console.error('Error adding product:', error.message);
     }
@@ -185,6 +187,12 @@ function Addproduct() {
       setBrandError(true);
       return;
     }
+  };
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
   };
   return (
     <Box sx={{background:'#ffffff',  }}>
@@ -243,6 +251,16 @@ function Addproduct() {
         }}>Update</Button>
 
       </Box>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'center', horizontal: 'center' }}  // Centering the Snackbar
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+          Product added successfully!
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }

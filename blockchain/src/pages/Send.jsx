@@ -1,5 +1,5 @@
 import Autocomplete from '@mui/material/Autocomplete';
-import { Box, Button, InputLabel, TextField, Typography, styled } from '@mui/material'
+import { Box, Button, InputLabel, TextField, Typography, styled, Snackbar, Alert } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
@@ -30,6 +30,7 @@ export default function Send() {
   const [brandname, setBrandname] = useState('');
   const [categories, setCategories] = useState('');
   const [images, setImages] = useState([]);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleproductname = (e) => {
 
@@ -115,6 +116,8 @@ export default function Send() {
     })
       .then((res) => {
         console.log("res", res)
+        setOpenSnackbar(true)
+        
       })
       .catch((error) => {
 
@@ -123,23 +126,32 @@ export default function Send() {
 
   };
   useEffect(() => {
+    
     axios({
       method: 'GET',
-      url: 'http://localhost:9096/product',
-      params: {
-        vendorId: vendorId,
-        role:role.role,
+      url: 'http://localhost:9096/product/unique/one',
+      params:{
+        vendorId:vendorId, 
+        role:role.role
       },
       headers: {
         'Authorization': `Bearer ${token}`
       }
     })
       .then((res) => {
-        setProductdata(res.data.products)
-        console.log("setproduct--------->", res.data)
+        setProductdata(res?.data.uniqueProduct)
+        console.log("<---setproduct--->", res.data.uniqueProduct)
       })
       .catch((err) => { })
   }, [])
+  const handleCloseSnackbar = (event, reason)=>{
+    if(reason === 'clickaway'){
+      return;
+    }
+    setOpenSnackbar(false);
+  };
+
+
 
   return (
     <Box sx={{ background: '#ffffff', }}>
@@ -148,7 +160,7 @@ export default function Send() {
           <Box><Typography sx={{ color: '#124BF2', fontWeight: 'bold', fontSize: { md: '20px', sm: '16px', xs: '16px' }, textAlign: { xs: 'left', } }}>Stock Update </Typography></Box>
         </Box>
         <Autocomplete
-          options={productdata.map((item) => ({ label: item.product, value: item }))}
+          options={productdata?.map((item) => ({ label: item.product, value: item }))}
           getOptionLabel={(option) => option.label}
           onChange={(event, newValue) => {
             if (newValue) {
@@ -206,6 +218,16 @@ export default function Send() {
           }
         }}>Update</Button>
       </Box>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'center', horizontal: 'center' }}  // Centering the Snackbar
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+          Product added successfully!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

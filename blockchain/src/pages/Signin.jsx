@@ -78,7 +78,7 @@ function Signin() {
 
   useEffect(() => {
     if (responseData && Object.keys(responseData).length > 0) {
-      navigate('/');
+      navigate('*',{replace:true});
     }
   }, [responseData]);
 

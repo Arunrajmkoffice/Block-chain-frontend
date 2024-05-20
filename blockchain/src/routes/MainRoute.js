@@ -1,13 +1,13 @@
 import React from 'react'
-import PrivateRoutes from './PrivateRoutes'
 import PublicRoutes from './PublicRoutes'
+import Sidebar from '../pages/Sidebar2';
 
 function MainRoute() {
   const token = localStorage.getItem('bcToken');
  
   return (
     <>
-      { token ? <PrivateRoutes/>:
+      { token ? <Sidebar/>:
       <PublicRoutes/> 
       }    
     </>

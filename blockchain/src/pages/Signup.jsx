@@ -10,6 +10,9 @@ function Signup() {
   const [role, setRole] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [name, setName] = useState('');
+  const [vendorName, setVendorName] = useState('');
+  const [address, setAddress] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -40,11 +43,27 @@ function Signup() {
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
-
+  const handleVendorName = (event) => {
+    setVendorName(event.target.value);
+  }
+  const handleName = (event) => {
+    setName(event.target.value);
+  }
+  const handleAddress = (event) => {
+    setAddress(event.target.value);
+  }
   const handleSubmit = () => {
     // Submit the signup data if there are no errors
+
+let data = {
+  email, password, role: "Us Warehouse", vendorName, address, name
+}
+console.log("data----------",data)
+
     if (!emailError && !passwordError) {
-      axios.post("http://localhost:9096/signup",{ email, password, role:"Us Warehouse" })
+      axios.post("http://localhost:9096/signup", 
+      data
+      )
         .then((res) => {
           console.log('Signup successful:', res.data);
           // Optionally, you can redirect the user to another page after successful signup
@@ -57,7 +76,7 @@ function Signup() {
   };
 
   return (<>
-  
+
     <Box sx={{ backgroundColor: '#fff', width: '100%', height: '100%' }}>
       <Grid container spacing={2} style={{ padding: 10 }}>
         <Grid item xs={12} sm={7}>
@@ -75,77 +94,79 @@ function Signup() {
           <Typography sx={{ marginLeft: '65%', textDecoration: 'underline', color: '#124BF2', padding: '10px 0px', fontSize: '20px', fontWeight: '800' }}>Profile</Typography>
           <br />
           <Box >
-      <Box sx={{
-            width: '80%', marginLeft: '20px', border: '1px solid #124BF2', padding: '10px 20px', borderRadius: '20px', boxShadow: '0px 0px 18px 8px #124BF229'
-          }}>
-        <Typography variant="h4" gutterBottom sx={{ color: '#124BF2', fontSize: '36px', fontWeight: 'bold' }}>Sign Up</Typography>
-        <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Email*</Typography>
-        <TextField
-          
-          variant="outlined"
-          fullWidth
-          value={email}
-          onChange={handleEmailChange}
-          error={!!emailError}
-          helperText={emailError}
-          sx={{ mb: 2 , width:'100%', border:'1px solid #124bf2', borderRadius:'10px'}}
-
-        />
-        <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
-        <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Password*</Typography>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={handlePasswordChange}
-            sx={{width:'100%', border:'1px solid #124bf2', borderRadius:'10px'}}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            
-            error={!!passwordError}
-            helperText={passwordError}
-          />
-          {passwordError && <FormHelperText sx={{color:'red'}}>{passwordError}</FormHelperText>}
-        </FormControl>
-      
-
-<Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Role*</Typography>
-
-                  <FormControl fullWidth>
-                <InputLabel>Select Role</InputLabel>
-                <Select defaultValue="" onChange={handleRoleChange} id="select1">
-                    <MenuItem value="Us Warehouse">Warehouse</MenuItem>
-                    <MenuItem value="Medorna Office">Medorna</MenuItem>
-                    <MenuItem value="IGO Office">Igo</MenuItem>
-                    <MenuItem value="Amazon Office">Amazon</MenuItem>
-                </Select>
-            </FormControl>
-
-
-        <Button variant="text" onClick={handleSubmit} sx={{
-              '&:hover': {
-                backgroundColor: 'green', // Change the color on hover
-              }, backgroundColor: '#124bf2', color: '#ffffff', padding: '5px 45px', textTransform: 'capitalize', borderRadius: '50px', fontSize: '20px'
+            <Box sx={{
+              width: '80%', marginLeft: '20px', border: '1px solid #124BF2', padding: '10px 20px', borderRadius: '20px', boxShadow: '0px 0px 18px 8px #124BF229'
             }}>
-          Sign Up
-        </Button>
-      </Box>
-    </Box>
+              <Typography variant="h4" gutterBottom sx={{ color: '#124BF2', fontSize: '36px', fontWeight: 'bold' }}>Sign Up</Typography>
+              <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Email*</Typography>
+              <TextField
+
+                variant="outlined"
+                fullWidth
+                value={email}
+                onChange={handleEmailChange}
+                error={!!emailError}
+                helperText={emailError}
+                sx={{ mb: 2, width: '100%', border: '1px solid #124bf2', borderRadius: '10px' }}
+
+              />
+              <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Vendor Name*</Typography>
+              <TextField id="outlined-basic" variant="outlined" value={vendorName} onChange={handleVendorName} sx={{ mb: 2, width: '100%', border: '1px solid #124bf2', borderRadius: '10px' }} />
+              <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Company Name*</Typography>
+              <TextField variant="outlined" value={name} onChange={handleName} sx={{ mb: 2, width: '100%', border: '1px solid #124bf2', borderRadius: '10px' }} />
+              <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Address*</Typography>
+              <TextField variant="outlined" value={address} onChange={handleAddress} sx={{ mb: 2, width: '100%', border: '1px solid #124bf2', borderRadius: '10px' }} />
+              <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Role*</Typography>
+
+              <FormControl fullWidth>
+                <InputLabel sx={{ textAlign: 'left', color: '#124BF2' }}>Select Role</InputLabel>
+                <Select defaultValue="" onChange={handleRoleChange} id="select1">
+                  <MenuItem value="Us Warehouse">Warehouse</MenuItem>
+                  <MenuItem value="Medorna Office">Medorna</MenuItem>
+                  <MenuItem value="IGO Office">Igo</MenuItem>
+                  <MenuItem value="Amazon Office">Amazon</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
+                <Typography sx={{ textAlign: 'left', color: '#124BF2' }}>Password*</Typography>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={handlePasswordChange}
+                  sx={{ width: '100%', border: '1px solid #124bf2', borderRadius: '10px' }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+
+                  error={!!passwordError}
+                  helperText={passwordError}
+                />
+                {passwordError && <FormHelperText sx={{ color: 'red' }}>{passwordError}</FormHelperText>}
+              </FormControl>
+              <Button variant="text" onClick={handleSubmit} sx={{
+                '&:hover': {
+                  backgroundColor: 'green', // Change the color on hover
+                }, backgroundColor: '#124bf2', color: '#ffffff', padding: '5px 45px', textTransform: 'capitalize', borderRadius: '50px', fontSize: '20px'
+              }}>
+                Sign Up
+              </Button>
+            </Box>
+          </Box>
         </Grid>
       </Grid>
 
     </Box>
-    </>
+  </>
   );
 }
 

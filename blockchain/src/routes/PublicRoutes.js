@@ -1,9 +1,10 @@
 import React from 'react'
 import Signin from '../pages/Signin'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Productcustomer from '../pages/Productcustomer'
 import Signup from '../pages/Signup'
 import SigninVerify from '../pages/SigninVerify'
+import Forgot from '../pages/Forgot'
 
 
 
@@ -14,7 +15,8 @@ function PublicRoutes() {
     <Route path='productpage/:id' element={<Productcustomer />} />
     <Route path='/signup' element={<Signup/>}/>
     <Route path='signin/:id' element={<SigninVerify/>}/>
-   </Routes>
+    <Route path='/forgot' element={<Forgot />}/>
+    </Routes>
   )
 }
 

@@ -117,6 +117,18 @@ export default function Send() {
       .then((res) => {
         console.log("res", res)
         setOpenSnackbar(true)
+        setProductname('');
+        setBatchnumber('');
+        setCountryorigin('');
+        setDescription('');
+        setSku('');
+        setInventory('');
+        setPrice('');
+        setSaleprice('');
+        setTag('');
+        setBrandname('');
+        setCategories('');
+        setImages([]);
         
       })
       .catch((error) => {

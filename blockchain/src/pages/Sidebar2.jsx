@@ -1,4 +1,3 @@
-
 import { Menu } from '@mui/material'
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -22,6 +21,7 @@ import { useSelector } from 'react-redux';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import AllUserList from '../pages/AllUserList'
 import PrivateRoutes from '../routes/PrivateRoutes'
+import axios from 'axios';
 const drawerWidth = 240;
 function Sidebar() {
   let role = JSON.parse(localStorage.getItem('bcUserData'))
@@ -31,7 +31,7 @@ function Sidebar() {
         <ContentSidebar />
       </Box>
       <Box sx={{ flex: '1 1 90%' }}>
-       <PrivateRoutes/>
+        <PrivateRoutes />
       </Box>
     </Box>
   )
@@ -45,7 +45,8 @@ function ContentSidebar(props) {
   const role = userData ? JSON.parse(userData) : { role: '' }
   const navigate = useNavigate()
   const data = useSelector((store) => store.auth.siginAuth);
-  const [logOut, setlogOut] = React.useState('')
+  const [logOut, setlogOut] = React.useState('');
+  const token = localStorage.getItem('bcToken');
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -62,9 +63,22 @@ function ContentSidebar(props) {
     }
   };
   const handleLogout = () => {
-    localStorage.removeItem('bcToken');
-    localStorage.removeItem('bcUserData');
-    navigate('/',{replace:true})
+    axios({
+      method: "POST",
+      url: 'http://localhost:9096/logout',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((res) => {
+      console.log('logout', res)
+      localStorage.removeItem('bcToken');
+      localStorage.removeItem('bcUserData');
+      navigate('/', { replace: true});
+    })
+      .catch((error) => {
+
+      })
+
   };
   const handleLinkClick = (link) => {
     setClickedLink(link);
@@ -174,7 +188,7 @@ function ContentSidebar(props) {
             </IconButton>
             <Divider />
             {role.role == 'Medorna Office' && (
-            <AllUserList />
+              <AllUserList />
             )}
             <Box class="main-admin-menu" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <FormControl sx={{ backgroundColor: '#124BF2', borderRadius: '10px', color: '#ffffff', border: 'none', width: 'auto' }}>

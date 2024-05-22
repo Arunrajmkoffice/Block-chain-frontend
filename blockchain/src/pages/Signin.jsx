@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { siginAuth } from '../redux/auth/action';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Button, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
 import b2 from '../images/b2.png';
@@ -63,6 +61,7 @@ function Signin() {
               role: res.data.role,
               userId: res.data.userId,
               vendorId: res.data.vendorId,
+              refreshToken:res.data.refreshToken,
             };
             localStorage.setItem('bcUserData', JSON.stringify(userData));
           }
@@ -76,11 +75,12 @@ function Signin() {
   }
 
 
-  useEffect(() => {
+  useEffect(() => { //private router navigate without reloading
+   
     if (responseData && Object.keys(responseData).length > 0) {
-      navigate('*',{replace:true});
+      navigate('/');
     }
-  }, [responseData]);
+  }, [responseData, navigate]);
 
 
   return (

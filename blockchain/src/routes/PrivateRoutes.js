@@ -16,9 +16,11 @@ import Send from '../pages/Send'
 import Viewproduct from '../pages/Viewproduct'
 import Loader from '../pages/Loader'
 import Test from '../pages/Test'
+import RefreshToken from '../pages/RefreshToken'
 const drawerWidth = 240;
 function PrivateRoutes() {
-  let role = JSON.parse(localStorage.getItem('bcUserData'))
+  let role = JSON.parse(localStorage.getItem('bcUserData'));
+  const login= window.localStorage.getItem('islogin')
   return (
     <Box>
         <Routes>
@@ -34,21 +36,19 @@ function PrivateRoutes() {
                   <Route path='/alluserlist' element={<AllUserList />} />
                   <Route path='/' element={<QRScanner />} />
                   <Route path='/ai' element={<Ai />} />
-                  <Route path="*" element={<Navigate to="/" />}
-                    />
                 </>
               )}
             </>
           )}
           <Route path='/productpage/:id' element={<Productpage />} />
           <Route path='/' element={<QRScanner />} />
-          <Route path="*" element={<Navigate to="/" />}/>
           <Route path='/edit' element={<Editproduct />} />
           <Route path='/sidebar' element={<Sidebar2 />} />
           <Route path='/send' element={<Send/>}/>
           <Route path='/viewproduct/:id' element={<Viewproduct />}/>
           <Route path='/loader' element={<Loader />}/>
           <Route path='/test' element={<Test/>}/>
+          <Route path='/refresh' element={<RefreshToken/>}/>
         </Routes>
     </Box>
   )

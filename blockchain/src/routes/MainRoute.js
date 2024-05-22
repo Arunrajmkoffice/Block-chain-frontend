@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PublicRoutes from './PublicRoutes'
 import Sidebar from '../pages/Sidebar2';
 
@@ -9,7 +9,7 @@ function MainRoute() {
     <>
       { token ? <Sidebar/>:
       <PublicRoutes/> 
-      }    
+      }   
     </>
   )
 }

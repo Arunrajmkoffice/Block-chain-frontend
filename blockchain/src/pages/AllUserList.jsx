@@ -20,10 +20,7 @@ function AllUserList() {
       .catch((err) => { })
   }, [])
   const handleSelect = (event) => {
-
-
     // setSelectedVendor(event.target.value)
-
     let updatedData = {
       "role": userData.role,
       "userId": userData.userId,

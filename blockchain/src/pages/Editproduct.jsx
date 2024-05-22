@@ -68,34 +68,36 @@ function Editproduct({ selectedVendorId }) {
 
   console.log('vendorid----------------', vendorId)
   console.log("data", productData)
+const getData=()=>{
+  axios({
+    method: "GET",
+    url: `http://localhost:9096/product`,
+    params: {
+      vendorId: vendorId,
+      limit: 20,
+      page: 1,
+      sortBy: 'createdDate',
+      sortOrder: "desc",
+      role: role.role,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then((res) => {
+      setProductData(res.data.products)
+      setLoading(false)
+      console.log("data", res.data)
+    })
+    .catch((err) => {
 
+    })
+
+
+}
   useEffect(() => {
     setLoading(true);
-    axios({
-      method: "GET",
-      url: `http://localhost:9096/product`,
-      params: {
-        vendorId: vendorId,
-        limit: 20,
-        page: 1,
-        sortBy: 'createdDate',
-        sortOrder: "desc",
-        role: role.role,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((res) => {
-        setProductData(res.data.products)
-        setLoading(false)
-        console.log("data", res.data)
-      })
-      .catch((err) => {
-
-      })
-
-
+    getData();
   }, [dataFetched, token, vendorId]);
   const uniqueBrands = Array.from(new Set(productData.map(product => product.brand)));
 
@@ -119,6 +121,7 @@ const handleDelete = (productId) => {
   .then((res) => {
     setLoading(false);
     setShowConfirmation(false);
+    getData();
     console.log('Product deleted successfully', res);
   }).catch((err) => {
     console.error('Error deleting product:', err);
@@ -138,7 +141,6 @@ const handleDelete = (productId) => {
 
   return (
     <>
-
       {/* desktop view code start here */}
       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', padding: { sx: '5% 0%', xs: '8% 0%', lg: '6% 0%' }, margin: { sx: '0% 0% 0% 10%', xs: '0% 0% 0% 0%' } }}>
